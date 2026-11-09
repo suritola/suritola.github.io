@@ -14,7 +14,7 @@ body { word-break: keep-all; }
 }
 
 /* 히어로: 게임 로고(워드마크)가 h1 위에 선다; 어두운 지층 위라 밝은 판 */
-.hero__wordmark { display: block; width: min(100%, 440px); height: auto; margin-bottom: var(--s-5); }
+.hero__wordmark { display: block; width: min(100%, 500px); height: auto; margin-bottom: var(--s-5); }
 @media (max-width: 1023px) { .hero__wordmark { width: min(100%, 300px); margin-bottom: var(--s-4); } }
 
 /* 하루의 흐름·Soul Saver 카드 묶음: 3:2 캡처 패널(카드 위) */
@@ -130,3 +130,96 @@ body main > .hero > .wrap { height: auto; }
   html.rv-on .rv { opacity: 0; translate: 0 24px; transition: opacity 600ms var(--ease), translate 700ms var(--ease); transition-delay: calc(var(--i, 0) * 90ms); }
   html.rv-on .rv.is-in { opacity: 1; translate: 0 0; }
 }
+
+/* ================================================================ 7차 2라운드: 대형 게임사 홈의 문법 ================ */
+
+/* 머리: 첫 화면 위에서는 투명(흰 글자), 스크롤하면 바탕색으로(home.js가 .is-top을 켜고 끈다). 데스크톱만 — 폰은 사진이 머리 아래 띠라 바탕 위에 선다 */
+.nav { transition: background-color 320ms var(--ease), border-color 320ms var(--ease), color 320ms var(--ease); }
+@media (min-width: 1024px) {
+  .nav.is-top { background: transparent; border-bottom-color: transparent; color: #fff; --ink: #fff; --muted: rgb(255 255 255 / .8); --line: rgb(255 255 255 / .28); --line-strong: rgb(255 255 255 / .6);
+    --mg-ink: #fff; --mg-muted: rgb(255 255 255 / .8); --mg-line: rgb(255 255 255 / .35); --mg-bg: #17181c; --mg-surface: rgb(255 255 255 / .12); }
+  .nav.is-top .nav__logo, .nav.is-top .nav__link { color: #fff; }
+  .nav.is-top .nav__logo { text-shadow: 0 1px 8px rgb(0 0 0 / .35); }
+  .nav.is-top .auth-btn:hover { border-color: #fff; background: rgb(255 255 255 / .12); }
+  .nav.is-top .nav__menu { color: var(--p-ink); --ink: var(--p-ink); --muted: var(--p-muted); --line: color-mix(in oklab, var(--p-ink) 11%, transparent); }
+  .nav.is-top .nav__menu .nav__link { color: var(--p-ink); }
+  /* 머리 뒤의 사진 위쪽을 살짝 가라앉혀 흰 글자가 읽히게 */
+  .hero--photo::before { background: linear-gradient(180deg, rgb(20 16 30 / .55) 0%, rgb(20 16 30 / 0) 22%), linear-gradient(100deg, rgb(20 16 30 / .34) 0%, rgb(20 16 30 / .14) 46%, transparent 70%); }
+}
+
+/* 히어로: 한 줄 제목(h1은 리드 크기와 제목 크기 사이), 주 단추 하나와 글 링크, 아래로 힌트 */
+.hero--photo h1 { font-size: clamp(26px, 1.5vw + 16px, 38px); line-height: 1.2; max-width: none; letter-spacing: var(--display-tracking); }
+.hero__text > h1 + .hero__lead { margin-top: var(--s-4); }
+.hero .hero__lead { max-width: 46ch; }
+.hero__link { color: #fff; }
+@media (max-width: 1023px) { .hero__link { color: var(--p-ink); } }
+.hero--photo .btn-row { align-items: center; gap: var(--s-5); }
+.hero__scroll { position: absolute; left: 50%; bottom: 18px; translate: -50% 0; z-index: 2; display: none; width: 40px; height: 40px; border-radius: 50%; place-items: center; color: rgb(255 255 255 / .75); }
+.hero__scroll:hover { color: #fff; }
+@media (min-width: 1024px) and (min-height: 700px) { .hero__scroll { display: grid; } }
+@media (prefers-reduced-motion: no-preference) { html:not([data-motion="off"]) .hero__scroll svg { animation: mg-nudge 2.2s var(--ease) infinite; } }
+@keyframes mg-nudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+/* 사진은 사방 14px 크게 두어 포인터 시차(±10px)에도 가장자리가 비지 않는다 */
+@media (min-width: 1024px) {
+  .hero--photo > .hero__bg { inset: -14px; width: calc(100% + 28px); height: calc(100% + 28px); translate: calc(var(--mx, 0) * 10px) calc(var(--my, 0) * 8px); transition: translate 600ms var(--ease); will-change: transform, translate; }
+}
+@media (min-width: 1024px) and (max-height: 760px) { .hero__wordmark { width: min(100%, 380px); } .hero--photo h1 { font-size: clamp(24px, 1.4vw + 14px, 30px); } }
+
+/* 포스터 카드: 세로로 긴 그림, 아래쪽 어두운 그늘 위에 꼬리표·제목·한 줄; 호버하면 그림이 1.04 커지고 설명 한 줄이 올라온다 */
+.poster { position: relative; display: block; overflow: clip; border-radius: var(--r-lg); background: #1b1b1b; color: #fff; aspect-ratio: 10 / 11; isolation: isolate; }
+@media (max-width: 639px) { .poster { aspect-ratio: 4 / 5; } }
+.poster__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; z-index: 0; transition: transform 700ms var(--ease); }
+.poster::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgb(10 9 16 / 0) 38%, rgb(10 9 16 / .55) 68%, rgb(10 9 16 / .9) 100%); }
+.poster__body { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: clamp(20px, 2.4vw, 32px); display: grid; gap: var(--s-2); }
+.poster__body h3 { font: var(--display-weight) var(--t-h3)/1.15 var(--font-display); letter-spacing: var(--display-tracking); color: #fff; }
+.poster__tag { display: inline-flex; align-items: center; justify-self: start; gap: var(--s-2); height: 26px; padding: 0 var(--s-3); border-radius: var(--r-sm); font-size: var(--t-label); font-weight: 500; letter-spacing: .01em; background: rgb(255 255 255 / .16); color: #fff; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.poster__tag--live { background: #FFC63A; color: #17181c; }
+.poster__sub { color: rgb(255 255 255 / .82); font-size: var(--t-small); }
+.poster__more { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 420ms var(--ease), opacity 320ms var(--ease); }
+.poster__more > p { overflow: hidden; color: rgb(255 255 255 / .9); font-size: var(--t-small); line-height: 1.5; max-width: 44ch; }
+.poster__plat { display: inline-flex; align-items: center; gap: var(--s-2); margin-top: var(--s-2); color: rgb(255 255 255 / .78); font-size: var(--t-label); }
+@media (hover: hover) and (pointer: fine) {
+  html:not([data-motion="off"]) .poster:hover .poster__img { transform: scale(1.04); }
+  .poster:hover .poster__more, .poster:focus-visible .poster__more { grid-template-rows: 1fr; opacity: 1; }
+}
+@media (hover: none) { .poster__more { grid-template-rows: 1fr; opacity: 1; } }
+.poster:focus-visible { outline: 2px solid var(--action); outline-offset: 3px; }
+
+/* Soul Saver 워드마크(제목 글자 대신) */
+.ss__wordmark { display: block; width: min(100%, 300px); height: auto; margin-bottom: var(--s-2); image-rendering: pixelated; }
+
+/* 소식: 대표 카드 1 + 줄 카드 2 */
+.news-grid { align-items: start; }
+.news-feat { display: grid; gap: var(--s-4); color: inherit; }
+.news-feat__media { position: relative; overflow: clip; aspect-ratio: 16 / 9; border-radius: var(--r-lg); background: var(--surface); }
+.news-feat__media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 600ms var(--ease); }
+.news-feat__body { display: grid; gap: var(--s-2); }
+.news-feat__body h3 { font: var(--display-weight) var(--t-h3)/1.2 var(--font-display); letter-spacing: var(--display-tracking); }
+.news-feat__body > p:last-child, .news-row > div > p:last-child { color: var(--muted); max-width: 56ch; }
+.news__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); font-size: var(--t-label); color: var(--muted); }
+.news__meta time { font-variant-numeric: tabular-nums; }
+.news__tag { display: inline-flex; align-items: center; height: 22px; padding: 0 var(--s-2); border-radius: var(--r-sm); background: color-mix(in oklab, var(--action) 12%, transparent); color: var(--action); font-weight: 500; letter-spacing: .01em; }
+.news__tag--ss { background: color-mix(in oklab, #6d3be0 14%, transparent); color: #5b2fc9; }
+.news-side { display: grid; gap: var(--s-5); align-content: start; }
+.news-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-4); color: inherit; padding-bottom: var(--s-5); border-bottom: 1px solid var(--line); }
+.news-row:last-child { border-bottom: 0; padding-bottom: 0; }
+.news-row > div { display: grid; gap: var(--s-2); align-content: start; }
+.news-row h3 { font: 500 var(--t-card)/1.3 var(--font-text); letter-spacing: -0.01em; }
+.news-row__media { position: relative; overflow: clip; aspect-ratio: 16 / 9; border-radius: var(--r-md); background: var(--surface); }
+.news-row__media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 600ms var(--ease); }
+@media (min-width: 640px) { .news-row { grid-template-columns: 200px minmax(0, 1fr); } .news-row__media { aspect-ratio: 4 / 3; } }
+@media (hover: hover) and (pointer: fine) {
+  html:not([data-motion="off"]) :is(.news-feat, .news-row):hover :is(.news-feat__media, .news-row__media) > img { transform: scale(1.03); }
+  html:not([data-motion="off"]) :is(.news-feat, .news-row):hover h3 { color: var(--action); transition: color var(--dur) var(--ease); }
+}
+
+/* 푸터: 어두운 바탕, 로고 락업·링크 열·소셜·언어·법적 고지 */
+.footer--dark.ground-inverse { --p-inv-bg: #17181c; --p-inv-surface: #242428; --p-inv-ink: #f6f5f2; --p-inv-muted: #a0a0a3; --p-inv-action: #7c99ff; padding-block: var(--s-9) var(--s-6); }
+.footer--dark .footer__lede { font-size: var(--t-lead); max-width: 28ch; }
+.footer--dark .socials a { border-radius: var(--r-sm); }
+.footer--dark .socials a:hover { background: var(--surface); }
+.footer--dark .footer__col ul a { color: var(--muted); }
+.footer--dark .footer__col ul a:hover { color: var(--ink); }
+.footer__lang { margin-top: var(--s-5); --mg-line: rgb(255 255 255 / .22); --mg-ink: #f6f5f2; --mg-bg: #17181c; --mg-muted: #a0a0a3; --mg-action: #7c99ff; }
+.footer--dark .footer__legal { color: var(--muted); }
+@media (max-width: 639px) { .footer--dark.ground-inverse { padding-top: var(--s-8); } }

@@ -1,4 +1,19 @@
-# 민공방 게임즈 홈 — 디자인 결정 메모 (6차, 2026-11-09 밤)
+# 민공방 게임즈 홈 — 디자인 결정 메모 (7차, 2026-11-09 밤)
+
+## 7차: 6차 위에서 다듬기 + 애니메이션 + 대형 게임사 문법 (사용자: "되돌리진 말고 거기서 그대로 더 다듬어봐", "애니메이션도 좀 넣고", "맨 밑 엄청 큰 글자 별로", "누가 봐도 대기업 게임사같게")
+kit(assets/)은 그대로 두고 `css/home.css`·`js/home.js`·`index.html`만 바꿨다. 참고는 scratchpad/ref2의 Blizzard·Nexon 1440 캡처(원리만).
+- **겹침 버그**: kit의 `main > .hero{height:100svh}` 때문에 1366×768·1536×674에서 사실 줄(.hero__facts, absolute bottom)이 단추 위로 올라탔다 → 히어로를 `height:auto; min-height:100svh; display:grid`로, 사실 줄은 `.wrap` 격자의 둘째 줄(static). 키 낮은 데스크톱(max-height 760)은 워드마크 380·h1 한 단계 작게.
+- **한 화면 한 섹션 상자 해제**: `body main > .section:not(.hero){height:auto; padding-block:clamp(80px,8vw,112px)}`. 1440에서 카드 구역 아래 40%가 비던 것이 사라짐. 어두운 띠(#soulsaver)는 88~128px. 앵커는 `scroll-margin-top: var(--nav)`.
+- **거대 글자 제거**(사용자): footer-statement의 close-word 「민공방 게임즈」와 #letters의 giant-type-pass 모멘트, #studio의 liquid-type 모멘트를 뺐다(모멘트 0, modulepreload·enter.js의 mo-js 줄 삭제). #letters는 편지 스크린샷(s3) + 짧은 글 두 단락의 분할 구역, 끝은 연락 띠(#contact: h2+리드 | 메일·GitHub 단추) + 어두운 푸터.
+- **대형 게임사 문법**(2라운드): 머리는 첫 화면 위에서 투명·흰 글자, 40px 넘기면 바탕색(`.nav.is-top`, 데스크톱만; 메가메뉴는 페이지 잉크로 되돌림). 히어로는 게임 워드마크 500px + 한 줄 h1(장르+출시) + 리드 한 문장 + 주 단추 1개와 글 링크 + 사실 4개 + 아래로 힌트(700px 이상 높이에서만). 「만드는 게임」은 세로 포스터 카드 2장(10:11, 폰 4:5; 아래 그늘 위에 꼬리표·제목·한 줄·플랫폼 아이콘, 호버 시 그림 1.04 + 설명 한 줄이 grid-template-rows 0fr→1fr로 올라옴, 터치에서는 항상 펼침). Soul Saver 구역은 글 제목 대신 게임 로고(ss_logo.webp, h2는 sr-only) + 숫자 띠(14·4·4, kit data-m-count 카운트업). 소식은 대표 카드 1(span-7) + 줄 카드 2(200px 썸네일 | 글), 꼬리표(Deepfold 코발트·Soul Saver 보라)+날짜. 푸터는 `.footer--dark.ground-inverse`(#17181c): 로고 락업·한 줄·소셜(GitHub·메일·Steam)·링크 3열(게임·공방·약관)·언어 토글·법적 고지.
+- **애니메이션**(모두 `prefers-reduced-motion: no-preference` 안, 헤드리스 캡처는 `?live` 없으면 최종 상태): 히어로 진입은 kit(data-enter) 그대로; 키 아트 켄 번스 1.00→1.05/22초(진입 settle 뒤 1.2초부터, transform) + 포인터 시차 ±10px(`translate`, 사진을 사방 14px 크게 두어 가장자리 안 빔); 스크롤 등장 `.rv`(IntersectionObserver, 24px 아래서 600ms, 형제 순서 90ms stagger, 앵커로 건너뛴 것은 바로 보임); 구역 입자 — Deepfold 구역(#deepfold·#letters)은 종이 먼지가 7px/s로 떠오름(radial-gradient 3층 타일, 240·280·336의 최소공배수 1680px 이동으로 이음새 없음), Soul Saver 구역은 도트 별 두 층 깜빡임(opacity만); 보일 때만 재생(in-view). 호버: 그림 1.03~1.04(kit)·타일 2px 들림·소식 제목 코발트. 메뉴 현재 위치는 화면 가운데 구역 → `.nav__link[aria-current=page]`(kit 밑줄).
+- **키 아트의 흐릿한 마름모**: 이미지 자체에 박힌 게임 UI 광맥 표지였다(CSS 장식 아님). sharp로 옆 지층을 타원 마스크로 복사해 덮음 — keyart_1920(+480/720/1280), keyart_1280(+480/720), keyart_16x9.jpg(OG), df_wide(+3), df_tall(+2), keyart_close(+3). 스크립트는 scratchpad/sharptool/patch*.mjs(저장소 밖).
+- **사실 정정**: #deepfold 영문의 "about three hours"(확인 안 된 숫자) 삭제. 새 문구는 모두 data-en 병기.
+- **검사**: 가로 넘침 0(375·768·1366·1440·1920), 콘솔 오류·CSP 위반 0(홈·board·profile·privacy·terms), CLS 0.0008(스크롤 전 구간), EN 전환 뒤 한글 잔류 0, 폰 메뉴·메가메뉴·포커스 링 확인. web-interface-guidelines 대조: 애니메이션은 transform/opacity(+포스터 설명의 grid-template-rows 전환 1곳), 이미지 width/height·lazy·fetchpriority, 아이콘 단추 aria-label, 제목 위계 h1→h2→h3, scroll-margin-top. 미처리: 장식 입자 루프(5초 초과 자동 재생)에 멈춤 단추는 두지 않음 — 모션 줄이기에서 정지, 대비 매우 약함.
+- **캡처**: scratchpad/shots10/ (before_*, v6_before_*, round1~5_*).
+
+---
+# (6차 메모, 참고용 — 거대 타이포 2곳·footer-statement·한 화면 한 섹션은 7차에서 바뀜)
 
 앞선 다섯 시안("개밤티", "별론데", "클로드스러운 어두운 색", "AI 같은 문구", "둥글둥글", "템플릿 같다")을 버리고
 `design-taste-frontend`(tasteskill 2.5.1) 스킬의 시스템 위에 처음부터 다시 짰다. 이 문서는 그 결정의 근거다.
