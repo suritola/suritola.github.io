@@ -1,4 +1,5 @@
-/* 게시판: 해시 라우팅 (#cat=free&p=2 · #post=12 · #new · #edit=12 · #admin). 사용자 글은 전부 textContent 로만 넣는다. */
+/* 게시판: 해시 라우팅 (#cat=free&p=2 · #post=12 · #new · #edit=12 · #admin).
+   사용자 글: 옛 글(fmt text)과 댓글은 textContent, 서식 글(fmt html)은 DOMPurify 로 정화한 노드를 그대로 붙인다(문자열로 다시 잇지 않음). */
 (function(){
   var t = MG.t, h = MG.h, say = MG.say, view = document.getElementById('view');
   if (window.top !== window.self) { view.hidden = true; try { window.top.location.href = location.href; } catch(e){} return; } // no framing (clickjacking on delete buttons)
@@ -15,6 +16,50 @@
     check:'<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>',
     copy:'<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>'
   };
+  /* ---------- rich text: sanitize (DOMPurify) ---------- */
+  // localhost?demo: Supabase 없이 에디터·변환된 스팀 공지를 그려 보는 로컬 전용 화면(배포 주소에서는 꺼짐)
+  var DEMO = new URLSearchParams(location.search).has('demo') && /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+  var IMG_OK = /^https:\/\/((clan|shared)\.akamai\.steamstatic\.com\/|fiteqlskauepyiscjepl\.supabase\.co\/storage\/v1\/object\/public\/board\/)/;
+  var FONTS = [['', '기본', 'Default'], ['ff-serif', '명조', 'Serif'], ['ff-display', '제목체', 'Display'], ['ff-mono', '고정폭', 'Mono']];
+  var SIZES = [['fs-s', '작게', 'Small'], ['', '보통', 'Normal'], ['fs-l', '크게', 'Large'], ['fs-xl', '아주 크게', 'Huge']];
+  var COLORS = [['c-red', '빨강', 'Red'], ['c-orange', '주황', 'Orange'], ['c-gold', '금색', 'Gold'], ['c-green', '초록', 'Green'], ['c-blue', '파랑', 'Blue'], ['c-purple', '보라', 'Purple'], ['c-pink', '분홍', 'Pink'], ['c-gray', '회색', 'Gray']];
+  var CLS = [].concat(FONTS, SIZES, COLORS).map(function(x){ return x[0]; }).filter(Boolean);
+  var PURIFY = {
+    ALLOWED_TAGS: ['p', 'br', 'b', 'strong', 'i', 'em', 'u', 's', 'h2', 'h3', 'ul', 'ol', 'li', 'blockquote', 'a', 'img', 'span'],
+    ALLOWED_ATTR: ['href', 'src', 'alt', 'width', 'height', 'class'],
+    ALLOW_DATA_ATTR: false, ALLOW_ARIA_ATTR: false, ALLOWED_URI_REGEXP: /^https:\/\//i, RETURN_DOM_FRAGMENT: true
+  };
+  var hooked = false;
+  function purify(html){
+    var P = window.DOMPurify;
+    if (!P || !P.isSupported) return null;
+    if (!hooked) { hooked = true; P.addHook('afterSanitizeAttributes', function(n){
+      if (n.nodeType !== 1) return;
+      if (n.hasAttribute('class')) {
+        var keep = /^(SPAN|P)$/.test(n.tagName) ? n.getAttribute('class').split(/\s+/).filter(function(c){ return CLS.indexOf(c) >= 0; }).join(' ') : '';
+        if (keep) n.setAttribute('class', keep); else n.removeAttribute('class');
+      }
+      ['width', 'height'].forEach(function(a){ var v = n.getAttribute(a); if (v !== null && !/^\d{1,4}$/.test(v)) n.removeAttribute(a); });
+      if (n.tagName === 'A') {
+        if (!/^https:\/\//i.test(n.getAttribute('href') || '')) n.removeAttribute('href');
+        n.setAttribute('rel', 'nofollow ugc noopener noreferrer'); n.setAttribute('target', '_blank');
+      }
+      if (n.tagName === 'IMG') {
+        if (!IMG_OK.test(n.getAttribute('src') || '')) { if (n.parentNode) n.parentNode.removeChild(n); return; }
+        n.setAttribute('loading', 'lazy'); n.setAttribute('decoding', 'async'); n.setAttribute('referrerpolicy', 'no-referrer');
+      }
+    }); }
+    return P.sanitize(html, PURIFY);
+  }
+  function bodyEl(post){
+    if (post.fmt !== 'html') return h('div', {class:'body'}, post.body);
+    var frag = purify(post.body);
+    // DOMPurify 를 못 불러오면 서식 없이 글자만(DOMParser 문서는 스크립트·이미지를 실행하지 않는다)
+    if (!frag) return h('div', {class:'body'}, new DOMParser().parseFromString(post.body, 'text/html').body.textContent);
+    var d = h('div', {class:'body rich'}); d.appendChild(frag); return d;
+  }
+  window.MGBoard = {purify: purify}; // 정화 자체 시험용
+
   function params(){ return new URLSearchParams(location.hash.slice(1)); }
   function go(obj){ location.hash = new URLSearchParams(obj).toString(); }
   function cname(c){ return CATS[c] ? t(CATS[c][0], CATS[c][1]) : c; }
@@ -42,6 +87,7 @@
   function render(){
     var p = params();
     view.textContent = '';
+    if (DEMO) return renderDemo(p);
     if (!MG.configured()) {
       view.appendChild(tabs('all'));
       view.appendChild(h('div', {class:'card', style:'margin-top:18px'}, h('p', {class:'notice'}, [h('b', {}, t('게시판 준비 중입니다.', 'The board is being prepared.')), ' ', t('회원 기능 설정이 끝나면 글을 읽고 쓸 수 있어요.', 'Reading and posting open as soon as the member service is set up.')])));
@@ -109,7 +155,7 @@
         art.appendChild(h('div', {class:'meta'}, [tag(post.category), gameTag(post.game), h('time', {datetime:post.created_at}, MG.fmtDate(post.created_at, true)), post.updated_at ? h('span', {}, t('(수정됨)', '(edited)')) : null]));
         art.appendChild(h('h1', {}, post.title));
         art.appendChild(h('div', {class:'meta'}, authorEl(map[post.author_id])));
-        art.appendChild(h('div', {class:'body'}, post.body));
+        art.appendChild(bodyEl(post));
         var mine = uid() === post.author_id, tools = h('div', {class:'tools'});
         if (mine) tools.appendChild(ghost(I.pen, t('수정', 'Edit'), function(){ go({edit:post.id}); }));
         if (mine || MG.isAdmin()) tools.appendChild(ghost(I.trash, t('삭제', 'Delete'), function(){
@@ -186,7 +232,7 @@
 
   /* ---------- editor (new / edit) ---------- */
   function renderEditor(id){
-    if (!uid()) { view.appendChild(h('div', {class:'card row'}, [h('span', {class:'lead'}, t('글을 쓰려면 로그인해 주세요.', 'Please log in to write a post.')), h('button', {class:'btn btn--sm', type:'button', onclick:function(){ MG.openAuth('login'); }}, t('로그인 / 가입', 'Log in / Sign up'))])); return; }
+    if (!uid() && !DEMO) { view.appendChild(h('div', {class:'card row'}, [h('span', {class:'lead'}, t('글을 쓰려면 로그인해 주세요.', 'Please log in to write a post.')), h('button', {class:'btn btn--sm', type:'button', onclick:function(){ MG.openAuth('login'); }}, t('로그인 / 가입', 'Log in / Sign up'))])); return; }
     var box = h('div', {class:'card'}); view.appendChild(box);
     if (id) { box.appendChild(loading()); MG.sb.from('posts').select('*').eq('id', id).maybeSingle().then(function(r){ box.textContent = ''; if (!r.data || (r.data.author_id !== uid() && !MG.isAdmin())) return box.appendChild(h('p', {class:'empty'}, t('수정할 수 없는 글입니다.', 'You cannot edit this post.'))); form(r.data); }); }
     else form(null);
@@ -201,26 +247,199 @@
         h('div', {class:'field'}, [h('label', {for:'eGame'}, t('관련 게임', 'Related game')), game, h('p', {class:'err', id:'eGame-err'})])
       ]));
       f.appendChild(h('div', {class:'field'}, [h('label', {for:'eTitle'}, t('제목', 'Title')), h('input', {class:'input', id:'eTitle', name:'title', type:'text', required:true, maxlength:100, value: post ? post.title : ''}), h('p', {class:'err', id:'eTitle-err', 'aria-live':'polite'})]));
-      var body = h('textarea', {class:'input', id:'eBody', name:'body', required:true, maxlength:5000}); if (post) body.value = post.body;
-      f.appendChild(h('div', {class:'field'}, [h('label', {for:'eBody'}, t('내용', 'Body')), body, h('p', {class:'err', id:'eBody-err', 'aria-live':'polite'}), h('span', {class:'hint'}, t('글자만 쓸 수 있어요 (5,000자까지). 줄 바꿈은 그대로 보입니다.', 'Plain text only (up to 5,000 characters). Line breaks are kept.'))]));
+      var limit = MG.isAdmin() ? 60000 : 20000, rte = richEditor(post);
+      f.appendChild(h('div', {class:'field'}, [h('span', {class:'label', id:'eBodyLbl'}, t('내용', 'Body')), rte.el, h('p', {class:'err', id:'eBody-err', 'aria-live':'polite'}), h('span', {class:'hint'}, t('사진은 png·jpg·webp, 긴 변 1920px로 줄여 올라가요(하루 30장). 링크는 3개까지.', 'Photos (png/jpg/webp) are resized to 1920px on the long side, 30 a day. Up to 3 links.'))]));
       f.appendChild(h('div', {class:'row row--between'}, [
         h('a', {class:'btn btn--sm btn--light', href: post ? '#post=' + post.id : '#'}, t('취소', 'Cancel')),
         h('button', {class:'btn btn--sm', type:'submit'}, post ? t('저장', 'Save') : t('올리기', 'Publish'))
       ]));
       f.addEventListener('submit', function(e){
-        e.preventDefault(); if (!MG.validate(f)) return;
+        e.preventDefault();
+        var ok = MG.validate(f), html = rte.html(), msg = '';
+        if (html === null) msg = t('서식 도구를 불러오지 못했습니다. 새로 고침해 주세요.', 'The editor failed to load. Please reload.');
+        else if (!html) msg = t('필수 항목입니다.', 'Required.');
+        else if (html.length > limit) msg = t('서식을 포함해 ' + limit.toLocaleString() + '자까지 쓸 수 있습니다. (지금 ' + html.length.toLocaleString() + '자)', 'Up to ' + limit.toLocaleString() + ' characters including formatting (now ' + html.length.toLocaleString() + ').');
+        MG.setErr(rte.area, msg);
+        if (msg) { if (ok) rte.area.focus(); return; }
+        if (!ok) return;
+        var row = {category:f.category.value, game:f.game.value || null, title:f.elements.title.value.trim(), body:html, fmt:'html'}; // form.title is the HTML attribute, not the input
+        if (DEMO) { var old = box.querySelector('.post'); if (old) old.remove(); box.appendChild(demoPost(row)); return; }
         var b = f.querySelector('[type=submit]'); b.disabled = true;
-        var row = {category:f.category.value, game:f.game.value || null, title:f.elements.title.value.trim(), body:f.body.value.trim()}; // form.title is the HTML attribute, not the input
         var qb = post ? MG.sb.from('posts').update(row).eq('id', post.id).select('id').single() : MG.sb.from('posts').insert(Object.assign({author_id:uid()}, row)).select('id').single();
         qb.then(function(r){
           b.disabled = false;
-          if (r.error) return MG.setErr(f.body, MG.errMsg(r.error));
+          if (r.error) return MG.setErr(rte.area, /^body_limit:/.test(r.error.message || '') ? r.error.message.replace(/^body_limit:\s*/, '') : MG.errMsg(r.error));
           say(post ? t('저장했습니다.', 'Saved.') : t('글을 올렸습니다.', 'Posted.'));
           go({post:r.data.id});
         });
       });
       box.appendChild(f); f.elements.title.focus();
     }
+  }
+
+  /* ---------- rich editor: contenteditable + toolbar ---------- */
+  var savedRange = null, curArea = null;
+  document.addEventListener('selectionchange', function(){
+    var s = getSelection();
+    if (curArea && s.rangeCount && curArea.contains(s.getRangeAt(0).commonAncestorContainer)) savedRange = s.getRangeAt(0).cloneRange();
+  });
+  function richEditor(post){
+    var area = h('div', {class:'input rte-area', id:'eBody', contenteditable:'true', role:'textbox', 'aria-multiline':'true', 'aria-labelledby':'eBodyLbl'});
+    curArea = area; savedRange = null;
+    if (post && post.fmt === 'html') { var fr = purify(post.body); if (fr) area.appendChild(fr); }
+    else if (post) post.body.split('\n').forEach(function(line){ area.appendChild(h('p', {}, line || h('br'))); }); // 옛 글자 글은 줄마다 문단으로
+    if (!area.firstChild) area.appendChild(h('p', {}, h('br'))); // 첫 줄도 문단 안에서 시작
+    function restore(){ area.focus(); if (savedRange) { var s = getSelection(); s.removeAllRanges(); s.addRange(savedRange); } }
+    function cmd(name, arg){ restore(); document.execCommand(name, false, arg || null); }
+    // 글꼴·크기·색: execCommand 의 style/font 대신 정해 둔 class 를 단 span 으로 감싼다. 선택 안의 같은 종류 class 는 지운다.
+    function wrap(prefixes, cls){
+      restore();
+      var s = getSelection(); if (!s.rangeCount) return;
+      var r = s.getRangeAt(0);
+      if (r.collapsed || !area.contains(r.commonAncestorContainer)) return say(t('글자를 먼저 선택해 주세요.', 'Select some text first.'));
+      var frag = r.extractContents();
+      frag.querySelectorAll('span').forEach(function(sp){
+        var keep = (sp.getAttribute('class') || '').split(/\s+/).filter(function(c){ return c && !prefixes.some(function(p){ return c.indexOf(p) === 0; }); });
+        if (keep.length) sp.setAttribute('class', keep.join(' ')); else sp.replaceWith.apply(sp, [].slice.call(sp.childNodes));
+      });
+      if (cls) { // 문단을 넘는 선택도 되도록 글자 조각마다 감싼다
+        var w = document.createTreeWalker(frag, NodeFilter.SHOW_TEXT), texts = [];
+        while (w.nextNode()) if (w.currentNode.nodeValue) texts.push(w.currentNode);
+        texts.forEach(function(tn){ var sp = h('span', {class:cls}); tn.replaceWith(sp); sp.appendChild(tn); });
+      }
+      var first = frag.firstChild, last = frag.lastChild;
+      r.insertNode(frag);
+      if (first && last) { r = document.createRange(); r.setStartBefore(first); r.setEndAfter(last); s.removeAllRanges(); s.addRange(r); savedRange = r.cloneRange(); }
+    }
+    function btn(label, title, fn, cls){ return h('button', {type:'button', class:'rte-btn' + (cls ? ' ' + cls : ''), title:title, 'aria-label':title, onmousedown:function(e){ e.preventDefault(); }, onclick:fn, html:label}); }
+    function pick(list, prefix, title){
+      var sel = h('select', {class:'rte-sel', 'aria-label':title, title:title}, [h('option', {value:'-'}, title)].concat(list.map(function(x){ return h('option', {value:x[0]}, t(x[1], x[2])); })));
+      sel.addEventListener('change', function(){ var v = sel.value; sel.value = '-'; if (v !== '-') wrap([prefix], v); });
+      return sel;
+    }
+    var file = h('input', {type:'file', accept:'image/png,image/jpeg,image/webp', hidden:true});
+    file.addEventListener('change', function(){ if (file.files[0]) upload(file.files[0]); file.value = ''; });
+    function upload(f){
+      if (DEMO || !uid()) return say(t('데모에서는 사진을 올리지 않습니다.', 'Uploads are off in the demo.'));
+      if (!/^image\/(png|jpeg|webp)$/.test(f.type)) return say(t('png·jpg·webp 사진만 올릴 수 있어요.', 'Only png, jpg or webp images.'));
+      if (f.size > 25e6) return say(t('사진이 너무 큽니다(25MB까지).', 'Image too large (25MB max).'));
+      say(t('사진을 올리는 중…', 'Uploading…'));
+      // canvas 로 다시 인코딩: EXIF(위치 등)를 버리고 긴 변 1920px 로 줄인다
+      var cw, ch;
+      createImageBitmap(f, {imageOrientation:'from-image'}).then(function(bmp){
+        var k = Math.min(1, 1920 / Math.max(bmp.width, bmp.height)); cw = Math.round(bmp.width * k); ch = Math.round(bmp.height * k);
+        var cv = h('canvas', {width:cw, height:ch}); cv.getContext('2d').drawImage(bmp, 0, 0, cw, ch); bmp.close();
+        function enc(type, q){ return new Promise(function(res){ cv.toBlob(res, type, q); }); }
+        return enc('image/webp', .85)
+          .then(function(b){ return b && b.type === 'image/webp' ? b : enc('image/jpeg', .85); })
+          .then(function(b){ if (!b) throw new Error('encode'); return b.size > 2e6 ? enc(b.type, .6) : b; });
+      }).then(function(b){
+        if (b.size > 2e6) throw new Error('size');
+        var path = uid() + '/' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8) + (b.type === 'image/webp' ? '.webp' : '.jpg');
+        return MG.sb.storage.from('board').upload(path, b, {contentType:b.type, upsert:false, cacheControl:'31536000'}).then(function(r){
+          if (r.error) throw r.error;
+          var img = h('img', {src:MG.sb.storage.from('board').getPublicUrl(path).data.publicUrl, alt:'', width:cw, height:ch});
+          restore();
+          var s = getSelection(), rg = s.rangeCount && area.contains(s.getRangeAt(0).commonAncestorContainer) ? s.getRangeAt(0) : null;
+          if (rg) { rg.deleteContents(); rg.insertNode(img); rg.setStartAfter(img); rg.collapse(true); s.removeAllRanges(); s.addRange(rg); } else area.appendChild(img);
+          say(t('사진을 넣었습니다.', 'Image added.'));
+        });
+      }).catch(function(e){
+        var m = (e && e.message) || '';
+        say(m === 'size' ? t('사진을 2MB 아래로 줄이지 못했습니다.', 'Could not get the image under 2MB.')
+          : m === 'encode' ? t('이 사진은 읽을 수 없습니다.', 'This image could not be read.')
+          : /row-level|policy/i.test(m) ? t('사진은 하루 30장까지 올릴 수 있어요.', 'Up to 30 images a day.') : MG.errMsg(e));
+      });
+    }
+    function link(){
+      var had = savedRange && !savedRange.collapsed;
+      var u = prompt(t('링크 주소 (https://로 시작)', 'Link URL (starting with https://)'), 'https://');
+      if (u === null) return;
+      u = u.trim();
+      if (!/^https:\/\/[^\s"<>]+$/i.test(u)) return say(t('https:// 로 시작하는 주소만 넣을 수 있어요.', 'Only https:// links are allowed.'));
+      if (had) return cmd('createLink', u);
+      restore(); // 선택이 없으면 주소 글자를 넣고 그것을 링크로
+      var a = h('a', {href:u}, u), s = getSelection(), rg = s.rangeCount ? s.getRangeAt(0) : null;
+      if (rg && area.contains(rg.commonAncestorContainer)) { rg.insertNode(a); rg.setStartAfter(a); rg.collapse(true); s.removeAllRanges(); s.addRange(rg); } else area.appendChild(a);
+    }
+    var I2 = function(d){ return '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="' + d + '"/></svg>'; };
+    var bar = h('div', {class:'rte-bar', role:'toolbar', 'aria-label':t('서식', 'Formatting'), 'aria-controls':'eBody'}, [
+      h('div', {class:'rte-group'}, [
+        btn('<b>B</b>', t('굵게', 'Bold'), function(){ cmd('bold'); }),
+        btn('<i>I</i>', t('기울임', 'Italic'), function(){ cmd('italic'); }),
+        btn('<u>U</u>', t('밑줄', 'Underline'), function(){ cmd('underline'); }),
+        btn('<s>S</s>', t('취소선', 'Strikethrough'), function(){ cmd('strikeThrough'); })
+      ]),
+      h('div', {class:'rte-group'}, [
+        btn('H2', t('큰 제목', 'Heading'), function(){ cmd('formatBlock', 'h2'); }),
+        btn('H3', t('작은 제목', 'Subheading'), function(){ cmd('formatBlock', 'h3'); }),
+        btn('¶', t('본문', 'Paragraph'), function(){ cmd('formatBlock', 'p'); }),
+        btn(I2('M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01'), t('목록', 'Bulleted list'), function(){ cmd('insertUnorderedList'); }),
+        btn(I2('M10 6h10M10 12h10M10 18h10M4 5h1v4M4 15h2l-2 3h2'), t('번호 목록', 'Numbered list'), function(){ cmd('insertOrderedList'); }),
+        btn(I2('M7 7h4v4c0 3-2 5-4 6M15 7h4v4c0 3-2 5-4 6'), t('인용', 'Quote'), function(){ cmd('formatBlock', 'blockquote'); })
+      ]),
+      h('div', {class:'rte-group'}, [
+        btn(I2('M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1'), t('링크', 'Link'), link),
+        btn('<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 8"/></svg>', t('사진', 'Image'), function(){ file.click(); }),
+        btn(I2('M5 5h12M11 5 8 19M15 15l5 5M20 15l-5 5'), t('서식 지우기', 'Clear formatting'), function(){ cmd('removeFormat'); wrap(['ff-', 'fs-', 'c-'], null); }),
+        file
+      ]),
+      h('div', {class:'rte-group'}, [pick(FONTS, 'ff-', t('글꼴', 'Font')), pick(SIZES, 'fs-', t('크기', 'Size'))]),
+      h('div', {class:'rte-group rte-colors'}, COLORS.map(function(c){ return btn('', t(c[1], c[2]), function(){ wrap(['c-'], c[0]); }, 'rte-sw ' + c[0]); })
+        .concat(btn('', t('기본 색', 'Default color'), function(){ wrap(['c-'], null); }, 'rte-sw sw-none')))
+    ]);
+    area.addEventListener('focus', function(){ curArea = area; try { document.execCommand('defaultParagraphSeparator', false, 'p'); } catch(e){} });
+    area.addEventListener('paste', function(e){ // 붙여 넣기는 글자만(남의 HTML·style 을 들이지 않음), 사진 파일은 올리기로
+      var cd = e.clipboardData; if (!cd) return;
+      e.preventDefault();
+      var img = [].slice.call(cd.files || []).filter(function(x){ return /^image\//.test(x.type); })[0];
+      if (img) return upload(img);
+      document.execCommand('insertText', false, cd.getData('text/plain'));
+    });
+    area.addEventListener('drop', function(e){
+      e.preventDefault();
+      var img = e.dataTransfer && [].slice.call(e.dataTransfer.files || []).filter(function(x){ return /^image\//.test(x.type); })[0];
+      if (img) upload(img);
+    });
+    return {
+      el: h('div', {class:'rte'}, [bar, area]), area: area,
+      // 저장할 HTML: 브라우저가 만든 div·strike 등을 허용 태그로 바꾼 뒤 정화. 비었으면 '', 정화기가 없으면 null
+      html: function(){
+        var c = area.cloneNode(true), MAP = {DIV:'p', STRIKE:'s', H1:'h2', H4:'h3', H5:'h3', H6:'h3'};
+        c.querySelectorAll('div,strike,h1,h4,h5,h6').forEach(function(el){
+          var n = document.createElement(MAP[el.tagName]);
+          while (el.firstChild) n.appendChild(el.firstChild);
+          el.replaceWith(n);
+        });
+        // 목록·인용을 p 안에 만드는 브라우저가 있어 그런 p 는 벗긴다
+        c.querySelectorAll('p').forEach(function(p){ if (p.querySelector('ul,ol,blockquote,h2,h3,p')) p.replaceWith.apply(p, [].slice.call(p.childNodes)); });
+        var fr = purify(c.innerHTML); if (!fr) return null;
+        var out = document.createElement('div'); out.appendChild(fr);
+        if (!out.textContent.trim() && !out.querySelector('img')) return '';
+        return out.innerHTML.trim();
+      }
+    };
+  }
+
+  /* ---------- local demo (localhost?demo only) ---------- */
+  function demoPost(row){
+    var art = h('article', {class:'card post'});
+    art.appendChild(h('div', {class:'meta'}, [tag(row.category), gameTag(row.game), h('time', {datetime:row.created_at || null}, row.created_at ? MG.fmtDate(row.created_at, true) : t('미리보기', 'Preview'))]));
+    art.appendChild(h('h1', {}, row.title));
+    art.appendChild(h('div', {class:'meta'}, authorEl({nickname:'박민근', role:'admin'})));
+    art.appendChild(bodyEl(row));
+    return art;
+  }
+  function renderDemo(p){
+    view.appendChild(h('p', {class:'notice'}, 'DEMO — localhost 전용. 저장·업로드 없음.'));
+    if (!p.has('notice')) return renderEditor(null);
+    var box = h('div', {class:'stack'}, loading()); view.appendChild(box);
+    fetch('tools/steam_notices.json').then(function(r){ return r.json(); }).then(function(list){
+      box.textContent = '';
+      var n = list[Number(p.get('notice'))] || list[0];
+      box.appendChild(h('nav', {class:'tabs'}, list.map(function(x, i){ return h('a', {href:'?demo#notice=' + i, 'aria-current': x === n ? 'true' : null}, String(i)); })));
+      box.appendChild(demoPost({category:'notice', game:'soulsaver', title:n.title, body:n.body, fmt:'html', created_at:new Date(n.posttime * 1000).toISOString()}));
+    });
   }
 
   /* ---------- admin: reports + newsletter list ---------- */

@@ -13,7 +13,7 @@
 --  구조
 --    profiles      회원 프로필(닉네임·역할·소식 메일 동의). 이메일·비밀번호는 auth.users 에만 있다.
 --    public_profiles  다른 회원에게 보여도 되는 4개 열(id, nickname, role, created_at)만 담은 뷰.
---    posts / comments / reports / badges / user_badges
+--    posts / comments / reports / badges / user_badges, 사진 버킷 storage 'board'
 --  보안
 --    모든 테이블 RLS 켬. 관리자 판정은 public.is_admin() (security definer, search_path 고정).
 --    profiles 는 본인·관리자만 읽고, 본인은 nickname·newsletter_opt_in 두 열만 고칠 수 있다(열 단위 grant). role 은 SQL Editor 에서만 바꾼다.
@@ -172,7 +172,8 @@ create table if not exists public.posts (
   category   text not null check (category in ('notice', 'free', 'bug')),
   game       text check (game in ('soulsaver', 'deepfold')),
   title      text not null check (char_length(title) between 1 and 100),
-  body       text not null check (char_length(body) between 1 and 5000),
+  body       text not null check (char_length(body) between 1 and 60000),
+  fmt        text not null default 'text' check (fmt in ('text', 'html')),  -- text: 옛 글(글자 그대로) / html: 서식 글(화면에서 DOMPurify 로 정화)
   created_at timestamptz not null default now(),
   updated_at timestamptz
 );
@@ -219,6 +220,80 @@ drop trigger if exists posts_before_update on public.posts;
 create trigger posts_before_update
   before update on public.posts
   for each row execute function public.posts_before_update();
+
+-- 예전에 5,000자 check 로 만든 DB 도 이 파일을 다시 실행하면 맞춰진다.
+-- ---------- 3-1. 서식 글 길이 제한 (일반 회원 20,000자·링크 3개, 운영자 예외) -------------------------------------------------------
+alter table public.posts add column if not exists fmt text not null default 'text';
+alter table public.posts drop constraint if exists posts_fmt_check;
+alter table public.posts add constraint posts_fmt_check check (fmt in ('text', 'html'));
+alter table public.posts drop constraint if exists posts_body_check;
+alter table public.posts add constraint posts_body_check check (char_length(body) between 1 and 60000);
+
+-- 운영자 판정은 글쓴이 기준(넣을 때 RLS 가 author_id = auth.uid() 를 강제하므로 남을 사칭할 수 없다).
+create or replace function public.posts_body_limit()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if exists (select 1 from public.profiles where id = new.author_id and role = 'admin') then
+    return new;
+  end if;
+  if char_length(new.body) > 20000 then
+    raise exception 'body_limit: 본문은 서식을 포함해 20,000자까지 쓸 수 있습니다. / Posts are limited to 20,000 characters including formatting.'
+      using errcode = 'P0001';
+  end if;
+  if new.fmt = 'html' and (char_length(new.body) - char_length(replace(lower(new.body), '<a ', ''))) / 3 > 3 then
+    raise exception 'body_limit: 링크는 한 글에 3개까지 넣을 수 있습니다. / Up to 3 links per post.'
+      using errcode = 'P0001';
+  end if;
+  return new;
+end;
+$$;
+drop trigger if exists posts_body_limit on public.posts;
+create trigger posts_body_limit before insert or update on public.posts
+  for each row execute function public.posts_body_limit();
+
+-- ---------- 3-2. 사진 버킷 board (png·jpeg·webp, 2MB, 본인 폴더, 하루 30장) ------------------------------------------------------------------
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('board', 'board', true, 2097152, array['image/png', 'image/jpeg', 'image/webp'])
+on conflict (id) do update
+  set public = excluded.public, file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
+
+-- 오늘(24시간) 내가 올린 사진 수. 경로 첫 폴더가 uid 라 그것으로 센다.
+create or replace function public.board_uploads_today()
+returns int
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select count(*)::int from storage.objects
+  where bucket_id = 'board' and name like auth.uid()::text || '/%' and created_at > now() - interval '1 day';
+$$;
+revoke execute on function public.board_uploads_today() from public, anon;
+grant execute on function public.board_uploads_today() to authenticated;
+
+drop policy if exists board_img_insert on storage.objects;
+create policy board_img_insert on storage.objects
+  for insert to authenticated
+  with check (
+    bucket_id = 'board'
+    and (storage.foldername(name))[1] = auth.uid()::text
+    and name ~ '^[0-9a-f-]{36}/[A-Za-z0-9_-]{1,64}\.(webp|jpg|png)$'
+    and public.board_uploads_today() < 30
+  );
+-- 공개 URL 은 정책 없이 읽힌다. API 목록 조회(select)는 본인 폴더·운영자만(지우기에 필요).
+drop policy if exists board_img_select on storage.objects;
+create policy board_img_select on storage.objects
+  for select to authenticated
+  using (bucket_id = 'board' and ((storage.foldername(name))[1] = auth.uid()::text or public.is_admin()));
+drop policy if exists board_img_delete on storage.objects;
+create policy board_img_delete on storage.objects
+  for delete to authenticated
+  using (bucket_id = 'board' and ((storage.foldername(name))[1] = auth.uid()::text or public.is_admin()));
+-- update 정책은 만들지 않는다(덮어쓰기 금지).
 
 -- ---------- 4. 댓글 -----------------------------------------------------------------
 create table if not exists public.comments (
@@ -468,4 +543,5 @@ revoke truncate, references, trigger on all tables in schema public from anon, a
 --   public.stamp_insert(), public.clean_nickname(text), public.nickname_reserved(text);
 -- drop view if exists public.public_profiles;
 -- drop table if exists public.user_badges, public.badges, public.reports, public.comments, public.posts, public.profiles;
+-- drop function if exists public.posts_body_limit(), public.board_uploads_today();
 -- drop function if exists public.is_admin();
