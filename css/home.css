@@ -35,10 +35,6 @@ body { word-break: keep-all; }
 /* 푸터 법적 줄의 상표 문구 */
 .footer__legal .legal-note { flex-basis: 100%; }
 
-/* 한글 이름은 글자가 넓다: 닫는 큰 이름과 공방 제목의 크기를 글자 수(6·11자)에 맞춘다 */
-.close__word { font-size: clamp(44px, 11.5vw, 176px); }
-#studio .mo-lt__type { font-size: clamp(40px, 6.5vw, 96px); }
-
 /* 폰 히어로: 사진을 조금 낮춰 글·단추가 첫 화면 안에 끝나게 */
 @media (max-width: 1023px) { .hero--photo { --photo: min(38svh, 56vw); } }
 @media (max-width: 639px) { .hero__wordmark { width: min(100%, 220px); } }
@@ -56,7 +52,81 @@ body { word-break: keep-all; }
 }
 
 /* 폰: 한글은 전각이라 44px h1이 한 줄에 7자뿐이다. 32px이면 32자(kit의 스트레스 길이)가 3줄에 든다; h2(30px)보다 크다 */
-@media (max-width: 639px) { .hero--photo h1 { font-size: 32px; } .mo-gt__type { font-size: clamp(56px, 24vw, 110px); } }
+@media (max-width: 639px) { .hero--photo h1 { font-size: 32px; } }
 
 /* 날짜·가격은 줄 중간에서 끊지 않는다 */
 time, .tile__price { white-space: nowrap; }
+
+/* ================================================================ 7차 (2026-11-09): 다듬기와 애니메이션 ================ */
+
+/* 구역 높이: kit의 '한 화면 한 섹션' 상자(height: 100svh)를 풀고 내용만큼만. 위아래 여백은 80~112px 리듬 */
+body main > .section:not(.hero) { height: auto; min-height: 0; padding-block: clamp(80px, 8vw, 112px); }
+body main > .section:not(.hero) > .wrap { height: auto; flex: none; }
+body main > .section.ground-inverse { padding-block: clamp(88px, 9vw, 128px); }   /* 어두운 띠는 숨 쉴 자리를 조금 더 */
+body main > .section--contact { padding-block: clamp(56px, 6vw, 80px); border-top: 1px solid var(--line); }
+.section--contact .section-head--split { align-items: center; }
+.section--contact .btn-row { flex: none; }
+/* 분할 구역(글 | 사진)은 사진 높이에 글을 가운데 맞춘다 */
+#deepfold .grid--top, #letters .grid--top, #soulsaver .grid--top { align-items: center; }
+/* 앵커로 올 때 고정 머리(72px) 아래에 제목이 선다 */
+main > .section { scroll-margin-top: var(--nav); }
+
+/* 히어로: 100svh 고정이 아니라 '최소 한 화면'. 키가 낮은 창(1366×768, 1536×674)에서는 내용만큼 자라고,
+   사실 줄은 절대 위치 대신 격자의 둘째 줄에 선다 → 단추와 겹치지 않는다 */
+body main > .hero { height: auto; min-height: 100vh; min-height: 100svh; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); overflow: clip; }
+body main > .hero > .wrap { height: auto; }
+.hero--photo[data-calm="left"] > .wrap .hero__facts { position: static; margin: 0; }
+/* 키 낮은 데스크톱: 워드마크와 제목을 한 단계 줄여 첫 화면에 더 많이 들어오게 */
+@media (min-width: 1024px) and (max-height: 760px) {
+  .hero__wordmark { width: min(100%, 340px); margin-bottom: var(--s-4); }
+  .hero--photo h1 { font-size: clamp(40px, 4vw, 56px); }
+  .hero__text > * + * { margin-top: var(--s-4); }
+}
+/* 히어로 사진 위의 글이 더 잘 읽히게: 왼쪽 아래로 갈수록 아주 옅은 먹색 */
+.hero--photo::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(100deg, rgb(20 16 30 / .34) 0%, rgb(20 16 30 / .14) 46%, transparent 70%); }
+@media (max-width: 1023px) { .hero--photo::before { display: none; } }
+
+/* Soul Saver 숫자 띠(카운트업은 kit motion.js의 data-m-count) */
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-4) var(--gutter); margin: 0; padding-top: var(--s-5); border-top: 1px solid var(--line); }
+.facts > div { display: grid; gap: var(--s-1); }
+.facts dd { margin: 0; font: var(--display-weight) var(--t-stat)/1 var(--font-display); letter-spacing: var(--display-tracking); font-variant-numeric: tabular-nums; }
+.facts dt { font-size: var(--t-small); color: var(--muted); }
+
+/* 타일·사진 틀 호버: 그림은 kit가 1.03 키운다; 여기서는 틀이 2px 뜨고 그늘이 생긴다 */
+@media (hover: hover) and (pointer: fine) {
+  html:not([data-motion="off"]) :is(.tile__media, .frame--photo) { transition: translate var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
+  html:not([data-motion="off"]) a.tile:hover .tile__media { translate: 0 -2px; box-shadow: 0 16px 32px -16px rgb(23 24 28 / .28); }
+}
+
+/* 구역 입자: Deepfold 구역은 종이 먼지가 아주 천천히 떠오르고, Soul Saver 구역은 도트 별이 깜빡인다.
+   그림 한 장을 translate·opacity로만 움직인다(합성만, 리페인트 없음). 보일 때만(in-view), 모션 줄이기에서는 정지 */
+[data-ambient]::before, [data-ambient="stars"]::after { content: ""; position: absolute; left: 0; right: 0; top: 0; z-index: 0; pointer-events: none; }
+[data-ambient="dust"]::before { bottom: -1680px; opacity: .3;   /* 타일 높이의 최소공배수(240·280·336·420 → 1680)만큼 올라가면 처음 그림: 이음새 없음 */
+  background-image: radial-gradient(circle, rgb(150 110 60 / .4) 1px, transparent 1.9px), radial-gradient(circle, rgb(150 110 60 / .3) .8px, transparent 1.6px),
+                    radial-gradient(circle, rgb(150 110 60 / .24) .7px, transparent 1.4px);
+  background-size: 311px 240px, 223px 280px, 457px 336px; background-position: 37px 61px, 149px 23px, 251px 197px; }
+[data-ambient="stars"]::before, [data-ambient="stars"]::after { bottom: 0; opacity: .42;
+  background-image: radial-gradient(circle, rgb(235 228 255 / .95) 1px, transparent 1.6px), radial-gradient(circle, rgb(130 220 255 / .8) .8px, transparent 1.4px), radial-gradient(circle, rgb(235 228 255 / .7) .7px, transparent 1.3px);
+  background-size: 263px 211px, 347px 293px, 419px 181px; background-position: 23px 41px, 157px 113px, 71px 229px; }
+[data-ambient="stars"]::after { background-position: 131px 151px, 43px 239px, 283px 67px; background-size: 229px 251px, 383px 331px, 197px 401px; opacity: .22; }
+@media (prefers-reduced-motion: no-preference) {
+  html:not([data-motion="off"]) [data-ambient="dust"]::before { animation: mg-dust 240s linear infinite; }   /* 7px/s */
+  html:not([data-motion="off"]) [data-ambient="stars"]::before { animation: mg-twinkle 4.2s ease-in-out infinite alternate; }
+  html:not([data-motion="off"]) [data-ambient="stars"]::after { animation: mg-twinkle 5.4s ease-in-out -2.1s infinite alternate-reverse; }
+  [data-ambient]:not(.in-view)::before, [data-ambient]:not(.in-view)::after { animation-play-state: paused; }
+}
+@keyframes mg-dust { to { translate: 0 -1680px; } }   /* 240·280·336의 최소공배수 */
+@keyframes mg-twinkle { from { opacity: .15; } to { opacity: .5; } }
+
+/* 켄 번스: 키 아트가 22초에 걸쳐 1.00→1.05. kit의 진입(1.05→1 settle, 1.1초)이 끝난 뒤 시작. 데스크톱만(폰에서는 사진이 띠라 새어 나간다) */
+@media (prefers-reduced-motion: no-preference) and (min-width: 1024px) {
+  html:not([data-motion="off"]) .hero--photo > .hero__bg { animation: mg-kb 22s var(--ease) 1.2s forwards; }
+}
+@keyframes mg-kb { from { transform: scale(1); } to { transform: scale(1.05); } }
+
+/* 스크롤 등장: home.js가 .rv를 붙이고 보이면 .is-in. JS가 없거나 모션 줄이기면 .rv-on이 없어 그대로 보인다 */
+@media (prefers-reduced-motion: no-preference) {
+  html.rv-on .rv { opacity: 0; translate: 0 24px; transition: opacity 600ms var(--ease), translate 700ms var(--ease); transition-delay: calc(var(--i, 0) * 90ms); }
+  html.rv-on .rv.is-in { opacity: 1; translate: 0 0; }
+}

@@ -53,14 +53,10 @@
 }
 </style>
 <link rel="stylesheet" href="css/auth.css?v=1">
-<link rel="stylesheet" href="css/home.css?v=1">
-<!-- the hero's entrance and the moments' guard (motion.md, moments.md): the CSP allows no inline script, so js/enter.js holds the two kit lines -->
-<script src="js/enter.js?v=1"></script>
+<link rel="stylesheet" href="css/home.css?v=2">
+<!-- the hero's entrance mark (motion.md): the CSP allows no inline script, so js/enter.js holds the kit line -->
+<script src="js/enter.js?v=2"></script>
 <script src="assets/backgrounds/backgrounds.js"></script>
-<link rel="modulepreload" href="assets/moments/moments.js">
-<link rel="modulepreload" href="assets/moments/lib.js">
-<link rel="modulepreload" href="assets/moments/giant-type-pass/moment.js">
-<link rel="modulepreload" href="assets/moments/liquid-type/moment.js">
 </head>
 <body>
 <!-- type: software (site-kind gaming) — a one-person studio with one game on Steam and one coming
@@ -72,8 +68,8 @@
               content and drops its phone min-height, which breaks the one-section-per-screen box (seen in round 1: the split
               centred at 1440, #deepfold 140px tall at 390), so the page stays on its flat tokens; the WebGL grain-gradient the
               effect deal offered is dropped too, for the user's integrated-graphics PC. Effect: none.
-     moments: giant-type-pass (#letters, statement), liquid-type (#studio, the h2)
-     screens at 1440x900: hero 1 · games 1 · deepfold 1 · how 1 · letters 1 · soulsaver 1 · ss-play 1 · news 1 · studio 1 · closing 1 (how, ss-play, news: 2 on a phone) -->
+     moments: none (7차: 거대 타이포 2곳을 사용자 지시로 뺌)
+     7차(2026-11-09): 한 화면 한 섹션 상자를 풀고 구역 높이는 내용만큼(css/home.css), 히어로는 min-height로 자람, 스크롤 등장·켄 번스·구역 입자·카운트업은 js/home.js + home.css -->
 
 <header class="nav nav--centre">
   <div class="wrap nav__bar">
@@ -176,13 +172,13 @@
   </section>
 
   <!-- DEEPFOLD: the world, text left, the tunnel close-up right (3:2) on the field ground (the page's effect) -->
-  <section class="section" id="deepfold" aria-labelledby="df-h">
+  <section class="section" id="deepfold" data-ambient="dust" aria-labelledby="df-h">
     <div class="wrap">
       <div class="grid grid--top">
         <div class="span-5 stack-4">
           <h2 id="df-h">Deepfold: One Day Deep</h2>
           <p class="t-lead" data-en="Autumn 2035, the old mining town of Noeuljae. You inherit a closed mining company, one plot of land and a time drill asleep under the shed. The drill sends only objects into the past and brings only stone back up.">2035년 가을, 폐광촌 노을재. 문 닫은 광업사와 땅 한 필지, 창고 아래 잠든 타임 드릴을 물려받습니다. 드릴은 물건만 과거로 보내고, 돌만 끌어올립니다.</p>
-          <p data-en="Plant ore in the land of the past, fast-forward millions of years, then dig the present with the arrow keys. Three parts, about three hours; parts 2 and 3 come as free updates.">과거의 땅에 광맥을 심고 수백만 년을 빨리 감은 뒤, 지금의 땅을 방향키로 팝니다. 3부작이고 2·3부는 무료 업데이트로 나옵니다.</p>
+          <p data-en="Plant ore in the land of the past, fast-forward millions of years, then dig the present with the arrow keys. Three parts; parts 2 and 3 come as free updates.">과거의 땅에 광맥을 심고 수백만 년을 빨리 감은 뒤, 지금의 땅을 방향키로 팝니다. 3부작이고 2·3부는 무료 업데이트로 나옵니다.</p>
           <p><a class="link" href="#how" data-en="See a day in the game">하루에 하는 일 보기</a></p>
         </div>
         <div class="frame frame--photo frame--split span-7 start-6">
@@ -218,24 +214,34 @@
     </div>
   </section>
 
-  <!-- LETTERS: the statement moment (giant-type-pass), the lantern-lit tunnel showing through the words -->
-  <section class="section" id="letters" data-moment="giant-type-pass" data-moment-opts='{"image": "/img/s4.webp", "travel": 50, "focusY": 55}' aria-labelledby="letters-h">
+  <!-- LETTERS: the letter screenshot beside a short text (7차: the giant-type statement was dropped at the user's ask) -->
+  <section class="section" id="letters" data-ambient="dust" aria-labelledby="letters-h">
     <div class="wrap">
-      <h2 class="mo-gt__type" id="letters-h"><span data-en="Twelve">편지</span><br><span data-en="letters">열두 통</span></h2>
-      <div class="mo-gt__row">
-        <p data-en="Every layer you dig through brings up one of Grandma's letters. When all twelve are read, the day is over.">한 겹 파 내려갈 때마다 할머니의 편지가 한 통 올라옵니다. 열두 통을 다 읽으면 하루가 끝납니다.</p>
+      <div class="grid grid--top">
+        <div class="frame frame--photo frame--split span-7">
+          <img class="frame__img" src="img/s3.webp" srcset="img/s3-480.webp 480w, img/s3-720.webp 720w, img/s3.webp 1280w" sizes="(max-width: 1023px) 100vw, 58vw" width="1280" height="720" alt="한 겹 아래에서 올라온 할머니의 첫 편지" data-en-alt="Grandma's first letter, brought up from one layer down" loading="lazy" data-source="client" data-subject="Deepfold letter screenshot">
+        </div>
+        <div class="span-5 stack-4">
+          <h2 id="letters-h" data-en="Twelve letters">편지 열두 통</h2>
+          <p class="t-lead" data-en="Every layer you dig through brings up one of Grandma's letters. Each one is written so it reads true whether twenty years have passed or a single day.">한 겹 파 내려갈 때마다 할머니의 편지가 한 통 올라옵니다. 스무 해로 읽어도, 하루로 읽어도 사실인 문장으로 썼습니다.</p>
+          <p data-en="The demo at Steam Next Fest holds the first letters, from the prologue through Chapter 3. When all twelve are read, the day is over.">넥스트 페스트 체험판에는 프롤로그부터 3장까지, 첫 편지들이 들어 있습니다. 열두 통을 다 읽으면 하루가 끝납니다.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- SOUL SAVER: the dark band in the game's own navy, one screen: the game, its buy buttons, a capture -->
-  <section class="section ground-inverse" id="soulsaver" aria-labelledby="ss-h">
+  <section class="section ground-inverse" id="soulsaver" data-ambient="stars" aria-labelledby="ss-h">
     <div class="wrap">
         <div class="grid grid--top">
           <div class="span-5 stack-4">
             <h2 id="ss-h">Soul Saver</h2>
             <p class="t-lead" data-en="A pixel-art roguelite shooter with no auto-aim: you point every shot at the horde yourself. Out on Steam since October 13, 2026, for ₩1,700, with a free demo.">자동 조준이 없는 도트 로그라이트 슈터. 몰려드는 적을 마우스로 직접 겨눠 쏩니다. 2026년 10월 13일 Steam 출시, ₩1,700, 무료 체험판이 있습니다.</p>
-            <p data-en="Korean, English, Japanese and Simplified Chinese.">한국어, 영어, 일본어, 중국어 간체를 지원합니다.</p>
+            <dl class="facts">
+              <div><dd data-m-count>14</dd><dt data-en="Playable characters">플레이 가능한 캐릭터</dt></div>
+              <div><dd data-m-count>4</dd><dt data-en="Worlds">세계</dt></div>
+              <div><dd data-m-count>4</dd><dt data-en="Languages">언어</dt></div>
+            </dl>
             <div class="btn-row">
               <a class="btn btn--primary" href="https://store.steampowered.com/app/5328770/" target="_blank" rel="noopener" data-en="Buy on Steam">Steam에서 구매</a>
             </div>
@@ -307,8 +313,8 @@
   <!-- STUDIO: the statement with liquid-type on its h2, the schedule beside it -->
   <section class="section" id="studio" aria-labelledby="studio-h">
     <div class="wrap">
-      <div class="section-head" data-moment="liquid-type" data-moment-opts='{"strength": 0.8}'>
-        <h2 class="mo-lt__type" id="studio-h" data-en="A game workshop of one">혼자 만드는 게임 공방</h2>
+      <div class="section-head">
+        <h2 id="studio-h" data-en="A game workshop of one">혼자 만드는 게임 공방</h2>
       </div>
       <div class="grid grid--top">
         <div class="span-5 stack-4">
@@ -332,35 +338,37 @@
       </div>
     </div>
   </section>
-</main>
-
-<!-- CLOSING (close-word on footer-statement's lit ground): the main action once more, the name across the wrap, the links -->
-<footer class="footer closing footer--statement" id="contact" aria-labelledby="close-h">
-  <div class="wrap">
-    <div class="closing__cta close--word">
+  <!-- CONTACT: a short band, the mail and the code (7차: the close-word slab was dropped at the user's ask) -->
+  <section class="section section--contact" id="contact" aria-labelledby="contact-h">
+    <div class="wrap">
       <div class="section-head--split">
         <div>
-          <h2 id="close-h" data-en="The demo comes in February 2027">체험판은 2027년 2월에 나옵니다</h2>
+          <h2 id="contact-h" data-en="Contact">연락</h2>
           <p class="t-lead" data-en="Press, collaboration and bug reports come in by email. Replies usually take a day or two.">보도, 협업, 버그 제보는 메일로 받습니다. 답장은 보통 하루 이틀 걸립니다.</p>
         </div>
-        <a class="btn btn--primary" href="#news" data-en="See the demo schedule">체험판 일정 보기</a>
-      </div>
-      <p class="close__word" aria-hidden="true">민공방 게임즈</p>
-    </div>
-    <div class="closing__links">
-      <div class="grid">
-        <div class="span-4 stack-4">
-          <a class="nav__logo" href="#top"><svg class="mark" viewBox="0 0 40 40" width="28" height="28" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#2F5BFF"/><path d="M20 6l11 7.5v13L20 34 9 26.5v-13z" fill="none" stroke="#FFC63A" stroke-width="3.2" stroke-linejoin="round"/><circle cx="20" cy="20" r="4.4" fill="#FFC63A"/></svg><span data-en="MinGongbang Games">민공방 게임즈</span></a>
-          <p class="footer__lede" data-en="A one-person game studio in Korea.">한국의 1인 게임 개발사.</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="mailto:mingeunb0@gmail.com">mingeunb0@gmail.com</a>
+          <a class="btn btn--secondary" href="https://github.com/suritola" target="_blank" rel="noopener">GitHub</a>
         </div>
-        <div class="span-2 start-7 footer__col"><h3 data-en="Games">게임</h3><ul><li><a href="#deepfold">Deepfold: One Day Deep</a></li><li><a href="#soulsaver">Soul Saver</a></li><li><a href="https://store.steampowered.com/app/5328770/" target="_blank" rel="noopener" data-en="Soul Saver on Steam">Soul Saver Steam 상점</a></li></ul></div>
-        <div class="span-2 footer__col"><h3 data-en="Studio">공방</h3><ul><li><a href="#news" data-en="News">소식</a></li><li><a href="board.html" data-en="Board">게시판</a></li><li><a href="#studio" data-en="About">공방 소개</a></li></ul></div>
-        <div class="span-2 footer__col"><h3 data-en="Contact">연락</h3><ul><li><a href="mailto:mingeunb0@gmail.com">mingeunb0@gmail.com</a></li><li><a href="https://github.com/suritola" target="_blank" rel="noopener">GitHub</a></li></ul></div>
       </div>
-      <div class="footer__legal">
-        <span>&copy; 2026 <span data-en="MinGongbang Games">민공방 게임즈</span> &nbsp; <a href="privacy.html" data-en="Privacy">개인정보처리방침</a> &nbsp; <a href="terms.html" data-en="Terms">이용약관</a></span>
-        <span class="legal-note" data-en="Steam and the Steam logo are trademarks of Valve Corporation.">Steam 및 Steam 로고는 Valve Corporation의 상표입니다.</span>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="grid">
+      <div class="span-4 stack-4">
+        <a class="nav__logo" href="#top"><svg class="mark" viewBox="0 0 40 40" width="28" height="28" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#2F5BFF"/><path d="M20 6l11 7.5v13L20 34 9 26.5v-13z" fill="none" stroke="#FFC63A" stroke-width="3.2" stroke-linejoin="round"/><circle cx="20" cy="20" r="4.4" fill="#FFC63A"/></svg><span data-en="MinGongbang Games">민공방 게임즈</span></a>
+        <p class="footer__lede" data-en="A one-person game studio in Korea.">한국의 1인 게임 개발사.</p>
       </div>
+      <div class="span-2 start-7 footer__col"><h3 data-en="Games">게임</h3><ul><li><a href="#deepfold">Deepfold: One Day Deep</a></li><li><a href="#soulsaver">Soul Saver</a></li><li><a href="https://store.steampowered.com/app/5328770/" target="_blank" rel="noopener" data-en="Soul Saver on Steam">Soul Saver Steam 상점</a></li></ul></div>
+      <div class="span-2 footer__col"><h3 data-en="Studio">공방</h3><ul><li><a href="#news" data-en="News">소식</a></li><li><a href="board.html" data-en="Board">게시판</a></li><li><a href="#studio" data-en="About">공방 소개</a></li></ul></div>
+      <div class="span-2 footer__col"><h3 data-en="Contact">연락</h3><ul><li><a href="mailto:mingeunb0@gmail.com">mingeunb0@gmail.com</a></li><li><a href="https://github.com/suritola" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+    </div>
+    <div class="footer__legal">
+      <span>&copy; 2026 <span data-en="MinGongbang Games">민공방 게임즈</span> &nbsp; <a href="privacy.html" data-en="Privacy">개인정보처리방침</a> &nbsp; <a href="terms.html" data-en="Terms">이용약관</a></span>
+      <span class="legal-note" data-en="Steam and the Steam logo are trademarks of Valve Corporation.">Steam 및 Steam 로고는 Valve Corporation의 상표입니다.</span>
     </div>
   </div>
 </footer>
@@ -370,5 +378,6 @@
 <script type="module" src="assets/layout/layout.js"></script>
 <script src="js/config.js?v=2"></script>
 <script src="js/site.js?v=4" defer></script>
+<script src="js/home.js?v=1" defer></script>
 </body>
 </html>
