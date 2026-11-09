@@ -1,515 +1,374 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" data-type="software" data-radius="sharp" data-ground="sand" data-buttons="solid" data-motion>
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://fiteqlskauepyiscjepl.supabase.co https://clan.akamai.steamstatic.com https://shared.akamai.steamstatic.com; connect-src 'self' https://fiteqlskauepyiscjepl.supabase.co wss://fiteqlskauepyiscjepl.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: https://*.googleusercontent.com https://fiteqlskauepyiscjepl.supabase.co https://clan.akamai.steamstatic.com https://shared.akamai.steamstatic.com; connect-src 'self' https://fiteqlskauepyiscjepl.supabase.co wss://fiteqlskauepyiscjepl.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>민공방 게임즈 · MinGongbang Games</title>
-<meta name="description" content="박민근이 혼자 운영하는 게임 개발사 민공방 게임즈. Soul Saver(Steam 판매 중) · Deepfold: One Day Deep(2027 출시 예정)">
-<meta name="theme-color" content="#FFF8EE">
+<title>민공방 게임즈: Deepfold와 Soul Saver를 만드는 1인 게임 개발사</title>
+<meta name="description" content="박민근이 혼자 운영하는 게임 개발사. Soul Saver는 Steam에 나와 있고, 종이 공작 광산 게임 Deepfold: One Day Deep은 2027년에 나옵니다.">
+<meta name="theme-color" content="#f6f5f2">
 <link rel="canonical" href="https://suritola.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="MinGongbang Games">
-<meta property="og:title" content="민공방 게임즈 · MinGongbang Games">
-<meta property="og:description" content="Soul Saver · Deepfold: One Day Deep. 박민근이 혼자 운영하는 게임 개발사.">
+<meta property="og:title" content="민공방 게임즈: Deepfold와 Soul Saver를 만드는 1인 게임 개발사">
+<meta property="og:description" content="Soul Saver는 Steam 판매 중, Deepfold: One Day Deep은 2027년 출시 예정. 박민근이 혼자 운영하는 게임 개발사.">
 <meta property="og:url" content="https://suritola.github.io/">
 <meta property="og:image" content="https://suritola.github.io/img/keyart_16x9.jpg">
 <meta property="og:image:width" content="2560">
 <meta property="og:image:height" content="1440">
 <meta property="og:locale" content="ko_KR">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="민공방 게임즈 · MinGongbang Games">
-<meta name="twitter:description" content="Soul Saver · Deepfold: One Day Deep. 박민근이 혼자 운영하는 게임 개발사.">
+<meta name="twitter:title" content="민공방 게임즈: Deepfold와 Soul Saver를 만드는 1인 게임 개발사">
+<meta name="twitter:description" content="Soul Saver는 Steam 판매 중, Deepfold: One Day Deep은 2027년 출시 예정.">
 <meta name="twitter:image" content="https://suritola.github.io/img/keyart_16x9.jpg">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232F5BFF'/%3E%3Cpath d='M16 5l9 6v10l-9 6-9-6V11z' fill='none' stroke='%23FFC63A' stroke-width='2.6'/%3E%3Ccircle cx='16' cy='16' r='3.4' fill='%23FFC63A'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232F5BFF'/%3E%3Cpath d='M16 5l9 6v10l-9 6-9-6V11z' fill='none' stroke='%23FFC63A' stroke-width='2.6'/%3E%3Ccircle cx='16' cy='16' r='3.4' fill='%23FFC63A'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<meta name="site-kind" content="gaming">
+<meta name="page-type" content="software">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="img/keyart_16x9.jpg" media="(min-width:768px)">
-<link rel="preload" as="image" href="img/keyart_tall.jpg" media="(max-width:767px)">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700&family=Rubik:wght@700;900&display=swap">
-<link rel="stylesheet" href="css/site.css?v=5">
+<link rel="preload" as="image" href="img/keyart_1920.webp" media="(min-width:1024px)">
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400..700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/ui/cards.css">
+<link rel="stylesheet" href="assets/motion/motion.css">
+<link rel="stylesheet" href="assets/backgrounds/backgrounds.css">
+<link rel="stylesheet" href="assets/layout/layout.css">
+<link rel="stylesheet" href="assets/icons/icon.css">
+<!-- :root as start.mjs brand printed it (the studio's own cobalt from its mark; radius sharp for the user's 4-6px ask) -->
 <style>
-/* ---------- home only ---------- */
-html{scroll-padding-top:72px}
-.section{position:relative;padding:clamp(72px,9vw,120px) 0}
-.sec-head{display:grid;gap:14px;margin-bottom:clamp(32px,4vw,48px)}
-.sec-head .lead{max-width:62ch}
-.status{font-weight:700;font-size:.95rem;color:var(--ink-2);display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center}
-.status .dot{width:8px;height:8px;border-radius:50%;background:var(--brand);flex:none}
-h2.h{font-size:clamp(2rem,3.6vw,3rem);line-height:1.1}
-h3.h{font-size:clamp(1.35rem,2vw,1.7rem);margin-bottom:18px}
-.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-h1,h2,h3{text-wrap:balance}
-
-/* ---------- hero ---------- */
-.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;background:#2B2140;color:#fff;isolation:isolate}
-.hero picture,.hero>picture img{position:absolute;inset:0;width:100%;height:100%}
-.hero img.art{object-fit:cover;object-position:50% 40%}
-.hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(31,26,51,.15) 0%,rgba(31,26,51,0) 30%,rgba(31,26,51,.55) 68%,rgba(31,26,51,.92) 100%)}
-.hero .wrap{position:relative;z-index:2;width:100%;padding-top:calc(96px + env(safe-area-inset-top));padding-bottom:clamp(40px,6vh,72px)}
-.hero-text{display:grid;gap:18px;justify-items:start;max-width:640px}
-.hero-text>*{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
-.hero-text>:nth-child(2){animation-delay:.08s}.hero-text>:nth-child(3){animation-delay:.16s}.hero-text>:nth-child(4){animation-delay:.24s}.hero-text>:nth-child(5){animation-delay:.32s}
-@keyframes rise{from{opacity:0;translate:0 18px}to{opacity:1;translate:0 0}}
-.hero .status{color:rgba(255,255,255,.88)}
-.hero .status .dot{background:var(--sun)}
-.hero .logo{width:min(100%,400px);height:auto;filter:drop-shadow(0 6px 18px rgba(31,26,51,.55))}
-.hero h1{font-family:var(--font-body);font-weight:700;font-size:clamp(1.35rem,1.2vw + 1rem,1.85rem);line-height:1.35;color:#fff;text-shadow:0 1px 12px rgba(31,26,51,.6)}
-.hero .lead{color:rgba(255,255,255,.9);text-shadow:0 1px 10px rgba(31,26,51,.6);max-width:56ch}
-.hero .btn--outline{color:#fff}
-@media(max-width:767px){.hero .logo{width:min(78%,320px)}}
-
-/* ---------- games ---------- */
-.games{background:var(--paper)}
-.game-grid{display:grid;gap:20px}
-.game{display:grid;gap:14px;text-decoration:none;color:var(--ink)}
-.game .art{position:relative;aspect-ratio:4/3;border-radius:var(--r);overflow:hidden;background:#2B2140;box-shadow:var(--shadow)}
-.game .art img{width:100%;height:100%;object-fit:cover;object-position:50% 0;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
-.game .art img.mid{object-position:50% 28%}
-.game:hover .art img{transform:scale(1.03)}
-.game .art .flag{position:absolute;left:14px;top:14px;padding:.35rem .7rem;border-radius:3px;background:rgba(31,26,51,.78);color:#fff;font-weight:700;font-size:.82rem;backdrop-filter:blur(6px)}
-.game .art .flag.live{background:var(--sun);color:var(--ink)}
-.game .meta{display:grid;gap:2px}
-.game .meta b{font-family:var(--font-display);font-weight:900;font-size:1.35rem;letter-spacing:-.01em}
-.game .meta span{color:var(--ink-2);font-weight:500}
-.game:hover .meta b{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
-.game:focus-visible{outline:3px solid var(--brand);outline-offset:6px;border-radius:var(--r)}
-@media(min-width:768px){.game-grid{grid-template-columns:1fr 1fr;gap:28px}.game .art{aspect-ratio:16/11}}
-
-/* ---------- Deepfold ---------- */
-.df{background:linear-gradient(180deg,var(--df-cream) 0%,var(--df-peach) 100%);--ink-2:#5A4448;overflow:hidden}
-.df::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.4;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .38 0 0 0 0 .22 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-.df .wrap{position:relative;z-index:1}
-.df .status .dot{background:var(--df-brick)}
-.df-top{display:grid;gap:28px;align-items:center}
-.df-top .frame{border-radius:var(--r);overflow:hidden;box-shadow:0 24px 50px rgba(120,60,20,.28);aspect-ratio:16/10}
-.df-top .frame img{width:100%;height:100%;object-fit:cover}
-@media(min-width:1024px){.df-top{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:48px}}
-.steps{list-style:none;margin:clamp(48px,6vw,80px) 0 0;padding:0;display:grid;gap:18px;counter-reset:step}
-.step{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:0 2px 0 rgba(31,26,51,.05),0 16px 36px rgba(120,60,20,.16);display:grid}
-.step img{aspect-ratio:16/9;object-fit:cover;width:100%}
-.step .body{padding:18px 20px 22px;display:grid;gap:6px}
-.step .body b{font-size:1.15rem;display:flex;gap:10px;align-items:baseline}
-.step .body b::before{counter-increment:step;content:counter(step,decimal-leading-zero);font-family:var(--font-display);font-weight:900;color:var(--df-brick);font-size:.95rem}
-.step .body p{color:var(--ink-2);font-size:.98rem}
-@media(min-width:768px){.steps{grid-template-columns:repeat(3,1fr);gap:22px}}
-.facts{list-style:none;margin:clamp(40px,5vw,64px) 0 0;padding:22px 0 0;border-top:2px solid rgba(126,43,14,.25);display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.facts li{display:grid;gap:2px}
-.facts b{font-family:var(--font-display);font-weight:900;font-size:clamp(1.6rem,2.6vw,2.2rem);line-height:1;color:var(--df-brick)}
-.facts span{font-weight:700}
-.facts small{display:block;color:var(--ink-2);font-weight:500;font-size:.9rem}
-.ss .facts{border-top-color:rgba(189,179,230,.3)}
-.ss .facts b{color:var(--ss-cyan)}
-
-/* ---------- screenshots ---------- */
-.shots{margin-top:clamp(48px,6vw,80px)}
-.shot-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.shot{display:block;width:100%;border:0;padding:0;background:#2B2140;border-radius:4px;overflow:hidden;cursor:zoom-in;box-shadow:0 10px 24px rgba(31,26,51,.16)}
-.shot img{display:block;aspect-ratio:16/9;object-fit:cover;width:100%;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
-.shot:hover img{transform:scale(1.03)}
-.shot:focus-visible{outline:3px solid var(--sun);outline-offset:4px}
-@media(min-width:768px){.shot-grid{grid-template-columns:repeat(3,1fr);gap:18px}}
-
-/* ---------- Soul Saver ---------- */
-.ss{background:var(--ss-bg);color:var(--ss-text);--ink:var(--ss-text);--ink-2:var(--ss-muted)}
-.ss::before{content:"";position:absolute;inset:0;background:url("img/ss_bg.jpg") center/900px repeat;opacity:.18;mix-blend-mode:screen;pointer-events:none}
-.ss .wrap{position:relative;z-index:1}
-.ss :focus-visible{outline-color:var(--ss-cyan)}
-.ss .status{color:var(--ss-muted)}
-.ss .status .dot{background:var(--ss-cyan)}
-.ss-top{display:grid;gap:28px;align-items:center}
-.ss-logo{width:min(100%,380px);height:auto;image-rendering:pixelated;filter:drop-shadow(0 8px 0 rgba(0,0,0,.35))}
-.ss .lead{color:var(--ss-muted)}
-.ss-hero{border-radius:var(--r);overflow:hidden;box-shadow:0 0 0 2px #2A1B5E,0 30px 60px rgba(0,0,0,.5)}
-.ss-hero img{width:100%;aspect-ratio:21/9;object-fit:cover;display:block}
-@media(min-width:1024px){.ss-top{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:48px}}
-.feats{list-style:none;margin:clamp(48px,6vw,80px) 0 0;padding:0;display:grid;gap:16px}
-.feat{background:rgba(255,255,255,.05);border:1px solid rgba(189,179,230,.18);border-radius:var(--r);padding:22px 22px 24px;display:grid;gap:8px}
-.feat b{font-size:1.15rem;color:#fff}
-.feat p{color:var(--ss-muted);font-size:.98rem}
-@media(min-width:768px){.feats{grid-template-columns:repeat(3,1fr);gap:20px}}
-.ss .shot{box-shadow:0 0 0 1px rgba(189,179,230,.2),0 14px 30px rgba(0,0,0,.45)}
-.ss .btn--outline{color:#fff}
-.price{font-family:var(--font-display);font-weight:900;color:var(--sun);margin-left:2px}
-
-/* ---------- News ---------- */
-.news{background:var(--paper)}
-.news-list{list-style:none;margin:0;padding:0;display:grid;gap:18px}
-.news-card{display:grid;gap:14px;text-decoration:none;color:var(--ink);background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:0 2px 0 rgba(31,26,51,.05),0 12px 28px rgba(31,26,51,.1)}
-.news-card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
-.news-card:hover img{transform:scale(1.03)}
-.news-card .pic{overflow:hidden}
-.news-card .body{padding:0 20px 22px;display:grid;gap:8px}
-.news-card .meta{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:.85rem;font-weight:700;color:var(--ink-2)}
-.news-card .tag{padding:.15rem .55rem;border-radius:2px;color:#fff;background:var(--acc,var(--brand));font-family:var(--font-display);font-weight:900;font-size:.72rem;letter-spacing:.03em}
-.news-card[data-acc=df]{--acc:var(--df-brick)}.news-card[data-acc=ss]{--acc:var(--ss-violet-deep)}
-.news-card h3{font-size:1.15rem;line-height:1.4}
-.news-card:hover h3{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
-.news-card p{color:var(--ink-2);font-size:.95rem}
-@media(min-width:768px){.news-list{grid-template-columns:repeat(3,1fr);gap:24px}}
-
-/* ---------- Studio ---------- */
-.studio{background:#fff}
-.studio-grid{display:grid;gap:36px}
-.studio-text{display:grid;gap:16px}
-.studio-text .lead{color:var(--ink-2)}
-.who{display:grid;gap:4px;padding:18px 20px;border-radius:var(--r);background:var(--paper);justify-self:start}
-.who b{font-size:1.05rem}
-.who span{color:var(--ink-2);font-size:.95rem}
-.road{list-style:none;margin:0;padding:0;display:grid;gap:0}
-.road li{display:grid;grid-template-columns:96px 1fr;gap:16px;padding:16px 0;border-top:1px solid var(--line)}
-.road li:last-child{border-bottom:1px solid var(--line)}
-.road time{font-family:var(--font-display);font-weight:900;color:var(--brand-deep);font-variant-numeric:tabular-nums}
-.road li.done time{color:#0E9F6E}
-.road b{display:block}
-.road span{color:var(--ink-2);font-size:.95rem}
-@media(min-width:1024px){.studio-grid{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:64px;align-items:start}}
-
-/* ---------- Contact ---------- */
-.contact{background:linear-gradient(135deg,var(--brand) 0%,#2A4FE0 60%,var(--brand-deep) 100%);color:#fff}
-.contact h2,.contact .lead{color:#fff}
-.mail{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:8px}
-.mail-box{display:inline-flex;align-items:center;gap:12px;background:#fff;color:var(--ink);border-radius:5px;padding:0 18px;min-height:54px;font-family:var(--font-display);font-weight:700;font-size:clamp(1rem,2.4vw,1.2rem);box-shadow:0 6px 0 #C9D3FF;overflow-wrap:anywhere}
-.copied{min-height:24px;font-weight:700;color:var(--sun)}
-.contact .btn--light{box-shadow:0 6px 0 #C9D3FF,0 14px 26px rgba(0,0,0,.15)}
-.contact .btn--light:active{box-shadow:0 2px 0 #C9D3FF}
-.contact .btn:focus-visible{outline-color:var(--sun)}
-
-/* ---------- lightbox ---------- */
-.lb{border:0;padding:0;background:transparent;max-width:none;max-height:none;width:100vw;height:100dvh;inset:0;margin:0;color:#fff}
-.lb::backdrop{background:rgba(19,12,44,.92)}
-.lb-in{position:relative;width:100%;height:100%;display:grid;grid-template-rows:1fr auto;padding:calc(16px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom))}
-.lb-in img{max-width:100%;max-height:100%;width:auto;height:auto;margin:auto;border-radius:4px;box-shadow:0 30px 80px rgba(0,0,0,.6);object-fit:contain;min-height:0}
-.lb-stage{display:grid;place-items:center;min-height:0;overflow:hidden}
-.lb-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:12px}
-.lb-bar figcaption{font-weight:700;color:#fff}
-.lb-bar .count{font-family:var(--font-display);font-weight:900;color:var(--sun);font-variant-numeric:tabular-nums;white-space:nowrap}
-.lb button{width:48px;height:48px;border:0;border-radius:4px;background:rgba(255,255,255,.14);color:#fff;display:inline-flex;align-items:center;justify-content:center;transition:background var(--t-fast),transform var(--t-fast)}
-.lb button:hover{background:rgba(255,255,255,.26)}
-.lb button:active{transform:scale(.94)}
-.lb button:focus-visible{outline-color:var(--sun)}
-.lb .i{width:26px;height:26px}
-.lb-close{position:absolute;right:16px;top:calc(16px + env(safe-area-inset-top))}
-.lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%)}
-.lb-prev{left:12px}.lb-next{right:12px}
-.lb-prev:active,.lb-next:active{transform:translateY(-50%) scale(.94)}
-.lb figure{margin:0;display:contents}
+:root {
+  --p-bg: #f6f5f2; --p-surface: #e9e8e6; --p-ink: #17181c; --p-muted: #636365;
+  --p-accent: #2f5bff; --p-accent-ink: #f6f5f2; --p-action: #2f5bff; --p-action-ink: #f6f5f2;
+  --p-inv-bg: #17181c; --p-inv-surface: #242428; --p-inv-ink: #f6f5f2; --p-inv-muted: #989899;
+  --p-inv-accent: #2f5bff; --p-inv-accent-ink: #f6f5f2; --p-inv-action: #2f5bff; --p-inv-action-ink: #f6f5f2;
+  --font-display: "Urbanist", system-ui, sans-serif;
+  --font-text: "Urbanist", system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --display-weight: 500;
+  --display-tracking: -0.03em;
+  --display-tracking-xl: -0.04em;
+}
 </style>
+<link rel="stylesheet" href="css/auth.css?v=1">
+<link rel="stylesheet" href="css/home.css?v=1">
+<!-- the hero's entrance and the moments' guard (motion.md, moments.md): the CSP allows no inline script, so js/enter.js holds the two kit lines -->
+<script src="js/enter.js?v=1"></script>
+<script src="assets/backgrounds/backgrounds.js"></script>
+<link rel="modulepreload" href="assets/moments/moments.js">
+<link rel="modulepreload" href="assets/moments/lib.js">
+<link rel="modulepreload" href="assets/moments/giant-type-pass/moment.js">
+<link rel="modulepreload" href="assets/moments/liquid-type/moment.js">
 </head>
 <body>
-<a class="skip" href="#main" data-en="Skip to content">본문으로 건너뛰기</a>
+<!-- type: software (site-kind gaming) — a one-person studio with one game on Steam and one coming
+     deal: hero photo (film was dealt first and dealt again: the studio has no trailer yet), nav nav-centre, close close-word,
+           footer footer-statement (sand), rhythm dark-band (#soulsaver, its own navy), buttons solid (pill was dealt;
+           the user asked for 4-6px corners, so solid + radius sharp), mark: the studio's own logo,
+           palette: start.mjs brand from the logo's cobalt, type urbanist (+ Pretendard for Hangul)
+     grounds: none kept. pick.mjs dealt #games bg-dots and #deepfold bg-field, but backgrounds.css centres a ground section's
+              content and drops its phone min-height, which breaks the one-section-per-screen box (seen in round 1: the split
+              centred at 1440, #deepfold 140px tall at 390), so the page stays on its flat tokens; the WebGL grain-gradient the
+              effect deal offered is dropped too, for the user's integrated-graphics PC. Effect: none.
+     moments: giant-type-pass (#letters, statement), liquid-type (#studio, the h2)
+     screens at 1440x900: hero 1 · games 1 · deepfold 1 · how 1 · letters 1 · soulsaver 1 · ss-play 1 · news 1 · studio 1 · closing 1 (how, ss-play, news: 2 on a phone) -->
 
-<header class="header header--solid" id="header">
-  <div class="wrap">
-    <a class="brand" href="#top" aria-label="민공방 게임즈 홈" data-en-label="MinGongbang Games home">
-      <svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#2F5BFF"/><path d="M20 6l11 7.5v13L20 34 9 26.5v-13z" fill="none" stroke="#FFC63A" stroke-width="3.2" stroke-linejoin="round"/><circle cx="20" cy="20" r="4.4" fill="#FFC63A"/></svg>
-      <span><span data-en="MinGongbang Games">민공방 게임즈</span><small>MINGONGBANG GAMES</small></span>
-    </a>
-    <nav class="nav" aria-label="주요 메뉴" data-en-label="Main menu">
-      <a href="#deepfold">Deepfold</a>
-      <a href="#soulsaver">Soul Saver</a>
-      <a href="#news" data-en="News">소식</a>
-      <a href="board.html" data-en="Board">게시판</a>
-      <a href="#studio" data-en="Studio">공방</a>
-      <a href="#contact" data-en="Contact">연락</a>
+<header class="nav nav--centre">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top" data-en="Skip to content">본문으로 건너뛰기</a>
+    <a class="nav__logo" href="#top"><svg class="mark" viewBox="0 0 40 40" width="28" height="28" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#2F5BFF"/><path d="M20 6l11 7.5v13L20 34 9 26.5v-13z" fill="none" stroke="#FFC63A" stroke-width="3.2" stroke-linejoin="round"/><circle cx="20" cy="20" r="4.4" fill="#FFC63A"/></svg><span data-en="MinGongbang Games">민공방 게임즈</span></a>
+    <nav class="nav__links" aria-label="주요 메뉴" data-en-label="Main menu">
+      <div class="nav__item">
+        <a class="nav__link" href="#games"><span data-en="Games">게임</span> <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav__menu">
+          <div class="wrap grid">
+            <div class="menu-col span-3">
+              <p class="t-label">Deepfold: One Day Deep</p>
+              <a href="#deepfold"><span data-en="About the game">게임 소개</span><span data-en="Paper mining game, out in 2027">종이 광산 게임, 2027년 출시</span></a>
+              <a href="#how"><span data-en="A day in the game">하루에 하는 일</span><span data-en="Plant, fast-forward, dig">심고, 빨리 감고, 판다</span></a>
+              <a href="#letters"><span data-en="The letters">편지</span><span data-en="One letter from every layer">한 겹마다 한 통</span></a>
+            </div>
+            <div class="menu-col span-3">
+              <p class="t-label">Soul Saver</p>
+              <a href="#soulsaver"><span data-en="About the game">게임 소개</span><span data-en="Pixel roguelite, out on Steam">도트 로그라이트, Steam 판매 중</span></a>
+              <a href="https://store.steampowered.com/app/5328770/" target="_blank" rel="noopener"><span data-en="Steam store">Steam 상점</span><span data-en="₩1,700, free demo">₩1,700, 무료 체험판</span></a>
+            </div>
+            <a class="menu-card span-3" href="#deepfold">
+              <div class="panel"><img class="frame__img" src="img/keyart_1280.webp" srcset="img/keyart_1280-480.webp 480w, img/keyart_1280-720.webp 720w, img/keyart_1280.webp 1280w" sizes="(max-width: 1023px) 0px, 25vw" alt="노을 진 폐광촌 노을재와 권양탑" data-en-alt="The old mining town of Noeuljae at sunset, with its headframe" loading="lazy" width="1280" height="720"></div>
+              <span class="t-card">Deepfold: One Day Deep</span>
+              <span class="t-small muted" data-en="Coming to Steam in 2027">2027년 Steam 출시 예정</span>
+            </a>
+            <a class="menu-card span-3" href="#soulsaver">
+              <div class="panel"><img class="frame__img" src="img/ss_wide.webp" srcset="img/ss_wide-480.webp 480w, img/ss_wide-720.webp 720w, img/ss_wide-1280.webp 1280w, img/ss_wide.webp 2000w" sizes="(max-width: 1023px) 0px, 25vw" alt="Soul Saver의 열네 캐릭터가 해골과 슬라임 무리에 맞선다" data-en-alt="Soul Saver's fourteen characters face a horde of skeletons and slimes" loading="lazy" width="2000" height="646"></div>
+              <span class="t-card">Soul Saver</span>
+              <span class="t-small muted" data-en="Out on Steam, ₩1,700">Steam 판매 중, ₩1,700</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="nav__item"><a class="nav__link" href="#news" data-en="News">소식</a></div>
+      <div class="nav__item"><a class="nav__link" href="board.html" data-en="Board">게시판</a></div>
+      <div class="nav__item"><a class="nav__link" href="#studio" data-en="Studio">공방</a></div>
     </nav>
-    <div class="lang" role="group" aria-label="언어" data-en-label="Language">
-      <button type="button" data-lang="ko" aria-pressed="true" lang="ko">KO</button>
-      <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
+    <div class="nav__actions">
+      <div class="lang" role="group" aria-label="언어" data-en-label="Language">
+        <button type="button" data-lang="ko" aria-pressed="true" lang="ko">KO</button>
+        <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
+      </div>
+      <div class="auth" id="auth"></div>
+      <a class="btn btn--primary" href="#news" data-en="See the demo schedule">체험판 일정 보기</a>
     </div>
-    <div class="auth" id="auth"></div>
-    <button class="menu-btn" type="button" id="menuBtn" aria-label="메뉴 열기" data-en-label="Open menu" aria-haspopup="dialog" aria-controls="menu"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="메뉴" data-en-label="Menu">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
   </div>
 </header>
 
-<dialog class="menu" id="menu" aria-label="메뉴" data-en-label="Menu">
-  <div class="menu-in">
-    <div class="menu-top">
-      <span class="brand"><svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#fff"/><path d="M20 6l11 7.5v13L20 34 9 26.5v-13z" fill="none" stroke="#2F5BFF" stroke-width="3.2" stroke-linejoin="round"/><circle cx="20" cy="20" r="4.4" fill="#2F5BFF"/></svg><span><span data-en="MinGongbang Games">민공방 게임즈</span><small>MINGONGBANG GAMES</small></span></span>
-      <button class="menu-close" type="button" id="menuClose" aria-label="메뉴 닫기" data-en-label="Close menu"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-    </div>
-    <ul class="menu-links">
-      <li><a href="#deepfold">Deepfold <small data-en="Coming 2027">2027 출시 예정</small></a></li>
-      <li><a href="#soulsaver">Soul Saver <small data-en="Out on Steam">Steam 판매 중</small></a></li>
-      <li><a href="#news"><span data-en="News">소식</span></a></li>
-      <li><a href="board.html"><span data-en="Board">게시판</span> <small data-en="Notices · Free talk · Bugs">공지 · 자유 · 버그·건의</small></a></li>
-      <li><a href="#studio"><span data-en="Studio">공방</span></a></li>
-      <li><a href="#contact"><span data-en="Contact">연락</span></a></li>
-    </ul>
-    <div class="lang" role="group" aria-label="언어" data-en-label="Language">
-      <button type="button" data-lang="ko" aria-pressed="true" lang="ko">KO</button>
-      <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
-    </div>
-  </div>
-</dialog>
-
-<main id="main">
-<!-- ===== HERO: Deepfold key art, full bleed ===== -->
-<section class="hero" id="top" aria-label="Deepfold: One Day Deep">
-  <picture>
-    <source media="(max-width:767px)" srcset="img/keyart_tall.jpg">
-    <img class="art" src="img/keyart_16x9.jpg" width="2560" height="1440" alt="노을 진 폐광촌 노을재. 권양탑 아래 갱도에서 종이 인형 광부 둘이 등불을 켜고 일한다" data-en-alt="The old mining town of Noeuljae at sunset. Two papercraft miners work by lantern light in the tunnel beneath the headframe" fetchpriority="high" decoding="async">
-  </picture>
-  <div class="wrap">
-    <div class="hero-text">
-      <p class="status"><span class="dot" aria-hidden="true"></span><span data-en="Coming to Steam in 2027">2027년 Steam 출시 예정</span><span aria-hidden="true">·</span><span data-en="Next Fest demo, Feb 22, 2027">넥스트 페스트 체험판 2027. 2. 22</span></p>
-      <img class="logo" src="img/df_logo.png" width="900" height="506" alt="Deepfold: One Day Deep" decoding="async">
-      <h1 data-en="A papercraft mining game. You dig down through the closed mine your grandmother left behind.">종이 공작으로 만든 광산 게임. 할머니가 남긴 폐광을 파 내려갑니다.</h1>
-      <p class="lead" data-en="Plant ore in the land of the past, fast-forward millions of years, then dig the present one tile at a time. A letter comes up with every layer.">과거의 땅에 광맥을 심고, 수백만 년을 빨리 감고, 지금의 땅을 한 칸씩 팝니다. 한 겹 아래마다 편지가 한 통 올라옵니다.</p>
-      <div class="actions">
-        <a class="btn btn--df" href="#deepfold"><span data-en="See the game">게임 소개 보기</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a class="btn btn--outline" href="#news"><span data-en="Demo schedule">체험판 일정</span></a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== GAMES ===== -->
-<section class="section games" id="games" aria-labelledby="gamesTitle">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2 class="h" id="gamesTitle" data-en="Games">만드는 게임</h2>
-      <p class="lead" data-en="One is out on Steam. The other is in development.">하나는 Steam에 나와 있고, 하나는 만드는 중입니다.</p>
-    </div>
-    <div class="game-grid">
-      <a class="game" href="#deepfold">
-        <span class="art"><img class="mid" src="img/keyart_tall.jpg" width="1200" height="1437" alt="Deepfold: 권양탑이 선 폐광촌과 그 아래 갱도" data-en-alt="Deepfold: the headframe over the closed mine and the tunnels beneath" loading="lazy" decoding="async"><span class="flag" data-en="Coming 2027">2027 출시 예정</span></span>
-        <span class="meta"><b>Deepfold: One Day Deep</b><span data-en="Papercraft mining game · Story · PC (Steam)">종이 공작 광산 게임 · 이야기 · PC(Steam)</span></span>
-      </a>
-      <a class="game" href="#soulsaver">
-        <span class="art"><img src="img/ss_tall.jpg" width="748" height="896" alt="Soul Saver: 총잡이가 방어막에 둘러싸인 보스를 조준한다" data-en-alt="Soul Saver: the gunner takes aim at a boss wrapped in its barrier" loading="lazy" decoding="async"><span class="flag live" data-en="Out on Steam · ₩1,700">Steam 판매 중 · ₩1,700</span></span>
-        <span class="meta"><b>Soul Saver</b><span data-en="Pixel-art roguelite shooter · PC (Steam)">도트 로그라이트 슈터 · PC(Steam)</span></span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ===== DEEPFOLD ===== -->
-<section class="section df" id="deepfold" aria-labelledby="dfTitle">
-  <div class="wrap">
-    <div class="df-top">
-      <div class="sec-head" style="margin:0">
-        <p class="status"><span class="dot" aria-hidden="true"></span><span data-en="In development · Steam, 2027">개발 중 · 2027 Steam</span></p>
-        <h2 class="h" id="dfTitle">Deepfold: One Day Deep</h2>
-        <p class="lead" data-en="Autumn 2035, the old mining town of Noeuljae. You inherit a closed mining company, one plot of land, and a time drill asleep under the shed. The drill sends only objects into the past and brings only stone back up.">2035년 가을, 폐광촌 노을재. 문 닫은 광업사와 땅 한 필지, 창고 아래 잠든 타임 드릴을 물려받습니다. 드릴은 물건만 과거로 보내고, 돌만 끌어올립니다.</p>
-        <div class="actions">
-          <a class="btn btn--df" href="#news"><span data-en="Demo schedule">체험판 일정 보기</span></a>
-          <span class="status" data-en="Steam wishlist opens with the store page">위시리스트는 상점 페이지가 열리면 받습니다</span>
+<main id="top">
+  <!-- HERO (photo, dealt): Deepfold's key art over the whole first screen, the words on its calm left,
+       the strata. The game's wordmark over an h1 naming the genre (copy.md rule 1), the date in the lead. -->
+  <section class="hero hero--photo" data-enter data-calm="left" data-box="none" data-tone="dark" aria-labelledby="hero-h">
+    <img class="hero__bg" src="img/keyart_1920.webp" srcset="img/keyart_1920-480.webp 480w, img/keyart_1920-720.webp 720w, img/keyart_1920-1280.webp 1280w, img/keyart_1920.webp 1920w" sizes="100vw" width="1920" height="1080" alt="노을 진 폐광촌 노을재. 권양탑 아래 갱도에서 종이 인형 광부 둘이 등불을 켜고 일한다" data-en-alt="The old mining town of Noeuljae at sunset. Two papercraft miners work by lantern light in the tunnel beneath the headframe" style="--ly-pos: 62% 50%; --ly-pos-phone: 50% 30%" fetchpriority="high" data-source="client" data-subject="Deepfold key art">
+    <div class="wrap"><div class="hero-text">
+      <div class="hero__text">
+        <picture>
+          <source media="(max-width: 1023px)" srcset="img/df_logo_dark-480.webp 480w, img/df_logo_dark.webp 1100w" sizes="220px">
+          <img class="hero__wordmark" src="img/df_logo_light.webp" srcset="img/df_logo_light-480.webp 480w, img/df_logo_light-720.webp 720w, img/df_logo_light.webp 1100w" sizes="(max-width: 639px) 220px, 440px" width="1100" height="370" alt="Deepfold: One Day Deep" fetchpriority="high">
+        </picture>
+        <h1 id="hero-h" data-en="A papercraft mining game">종이로 만든 광산 게임</h1>
+        <p class="hero__lead" data-en="Autumn 2035. You inherit the closed mine your grandmother left and dig down one tile at a time; a letter comes up with every layer. Coming to Steam in 2027.">2035년 가을, 할머니가 남긴 폐광을 물려받아 한 칸씩 파 내려갑니다. 한 겹 아래마다 편지가 한 통 올라옵니다. 2027년 Steam 출시 예정.</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="#news" data-en="See the demo schedule">체험판 일정 보기</a>
+          <a class="btn btn--secondary" href="#deepfold" data-en="About the game">게임 소개 보기</a>
         </div>
       </div>
-      <div class="frame">
-        <img src="img/keyart_close.jpg" width="2560" height="1440" alt="갱도 안에서 노란 안전모를 쓴 종이 인형 광부가 곡괭이를 들고 있고, 옆에 작은 암모나이트가 있다" data-en-alt="Inside the tunnel, a papercraft miner in a yellow helmet holds a pickaxe; a small ammonite sits nearby" loading="lazy" decoding="async">
+      <dl class="hero__facts">
+        <div><dt data-en="Demo">체험판</dt><dd data-en="Feb 22, 2027, Steam Next Fest">2027. 2. 22, 넥스트 페스트</dd></div>
+        <div><dt data-en="Letters">편지</dt><dd data-en="Twelve, one per layer">열두 통, 한 겹에 한 통</dd></div>
+        <div><dt data-en="Parts">구성</dt><dd data-en="Three parts; 2 and 3 are free updates">3부작, 2·3부는 무료 업데이트</dd></div>
+        <div><dt data-en="Languages">언어</dt><dd data-en="20, subtitles and voice">20개, 자막과 더빙</dd></div>
+      </dl>
+    </div></div>
+  </section>
+
+  <!-- GAMES: the two games as open tiles on the dotted ground, 6+6 -->
+  <section class="section" id="games" aria-labelledby="games-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="games-h" data-en="Two games">만드는 게임 두 개</h2>
+        <p data-en="One is out on Steam. The other comes in 2027.">하나는 Steam에 나와 있고, 하나는 2027년에 나옵니다.</p>
+      </div>
+      <div class="grid">
+        <a class="tile tile--wide span-6" href="#deepfold">
+          <div class="tile__media"><img src="img/df_wide.webp" srcset="img/df_wide-480.webp 480w, img/df_wide-720.webp 720w, img/df_wide-1280.webp 1280w, img/df_wide.webp 2000w" sizes="(max-width: 639px) 100vw, 50vw" width="2000" height="646" alt="Deepfold: 권양탑이 선 노을재와 그 아래 갱도" data-en-alt="Deepfold: the headframe over Noeuljae and the tunnels beneath" loading="lazy"></div>
+          <div class="tile__head"><h3>Deepfold: One Day Deep</h3><span class="tile__price" data-en="2027">2027년 출시</span></div>
+          <p data-en="Papercraft mining game with a story · PC (Steam)">종이 공작 광산 게임, 이야기 중심 · PC(Steam)</p>
+        </a>
+        <a class="tile tile--wide span-6" href="#soulsaver">
+          <div class="tile__media"><img src="img/ss_wide.webp" srcset="img/ss_wide-480.webp 480w, img/ss_wide-720.webp 720w, img/ss_wide-1280.webp 1280w, img/ss_wide.webp 2000w" sizes="(max-width: 639px) 100vw, 50vw" width="2000" height="646" alt="Soul Saver: 총잡이와 동료들이 리치 왕의 군대와 맞선다" data-en-alt="Soul Saver: the gunner and company face the Lich King's army" loading="lazy"></div>
+          <div class="tile__head"><h3>Soul Saver</h3><span class="tile__price">₩1,700</span></div>
+          <p data-en="Pixel-art roguelite shooter · PC (Steam), free demo">도트 로그라이트 슈터 · PC(Steam), 무료 체험판</p>
+        </a>
       </div>
     </div>
+  </section>
 
-    <ol class="steps">
-      <li class="step">
-        <img src="img/s2.jpg" width="1920" height="1080" alt="연대표를 과거로 내려 드러난 옛 땅 위에 광맥 카드를 놓는 화면" data-en-alt="Laying an ore card on the land of a past age, revealed by scrolling the timeline down" loading="lazy" decoding="async">
-        <div class="body"><b data-en="Plant ore in the past">과거에 광맥을 심는다</b><p data-en="Scroll the timeline down to an old age and lay an ore card on that land.">연대표를 내려 옛 땅을 드러내고, 그 위에 광맥 카드를 놓습니다.</p></div>
-      </li>
-      <li class="step">
-        <img src="img/s7.jpg" width="1920" height="1080" alt="'300만 년 전' 표지와 함께 빨리 감기로 지층이 쌓이는 화면" data-en-alt="Fast-forward: strata pile up under a '3 million years ago' title card" loading="lazy" decoding="async">
-        <div class="body"><b data-en="Fast-forward millions of years">수백만 년을 빨리 감는다</b><p data-en="Strata pile up in seconds, and what you planted becomes a seam.">몇 초 만에 지층이 쌓이고, 심은 것이 광맥이 됩니다.</p></div>
-      </li>
-      <li class="step">
-        <img src="img/s4.jpg" width="1920" height="1080" alt="지하 60m, 등불을 켜고 갱도를 파 내려가는 화면" data-en-alt="Sixty meters down, carving the tunnel by lantern light" loading="lazy" decoding="async">
-        <div class="body"><b data-en="Dig the present">지금의 땅을 판다</b><p data-en="Carve down one tile at a time with the arrow keys. Every layer brings up a letter.">방향키로 한 칸씩 파 내려갑니다. 한 겹마다 편지가 올라옵니다.</p></div>
-      </li>
-    </ol>
-
-    <ul class="facts">
-      <li><b>3</b><span data-en="Parts">부작</span><small data-en="Parts 2 and 3 are free updates">2·3부는 무료 업데이트</small></li>
-      <li><b>12</b><span data-en="Letters">통의 편지</span><small data-en="One for every layer">한 겹에 한 통</small></li>
-      <li><b>20</b><span data-en="Languages">개 언어</span><small data-en="Subtitles and voice-over">자막과 더빙</small></li>
-    </ul>
-
-    <div class="shots" data-gal="df">
-      <h3 class="h" data-en="Screenshots">스크린샷</h3>
-      <ul class="shot-grid">
-        <li><button class="shot" type="button"><img src="img/s1.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="2035년 가을, 노을재의 지표와 권양탑" data-en-alt="Autumn 2035: the surface of Noeuljae and its headframe"></button></li>
-        <li><button class="shot" type="button"><img src="img/s2.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="과거 시대의 땅에 광맥 카드를 놓는 장면" data-en-alt="Planting an ore card on the land of a past age"></button></li>
-        <li><button class="shot" type="button"><img src="img/s7.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="빨리 감기: 수백만 년이 몇 초에 흐른다" data-en-alt="Fast-forward: millions of years pass in seconds"></button></li>
-        <li><button class="shot" type="button"><img src="img/s3.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="한 겹 아래에서 올라온 할머니의 첫 편지" data-en-alt="Grandma's first letter, brought up from one layer down"></button></li>
-        <li><button class="shot" type="button"><img src="img/s5.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="깃발을 꽂으면 은퇴한 광부들이 파고, 컨베이어가 광석을 올린다" data-en-alt="Plant a flag and retired miners dig; the conveyor carries the ore up"></button></li>
-        <li><button class="shot" type="button"><img src="img/s6.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="더 깊은 갱도, 더 촘촘한 지층" data-en-alt="Deeper tunnels, denser strata"></button></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ===== SOUL SAVER ===== -->
-<section class="section ss on-dark" id="soulsaver" aria-labelledby="ssTitle">
-  <div class="wrap">
-    <div class="ss-top">
-      <div class="sec-head" style="margin:0">
-        <p class="status"><span class="dot" aria-hidden="true"></span><span data-en="Out on Steam since Oct 13, 2026">2026. 10. 13 Steam 출시</span><span aria-hidden="true">·</span><span data-en="Free demo">무료 체험판</span></p>
-        <h2 class="sr" id="ssTitle">Soul Saver</h2>
-        <img class="ss-logo" src="img/ss_logo.png" width="900" height="506" alt="" aria-hidden="true" loading="lazy" decoding="async">
-        <p class="lead" data-en="A pixel-art roguelite with no auto-aim: you point every shot yourself. Four worlds, from the meadow to the Soul Abyss, then Endless mode and daily challenges.">자동 조준이 없는 도트 로그라이트. 몰려드는 적을 마우스로 직접 겨눠 쏩니다. 초원에서 영혼의 심연까지 네 개의 세계를 지나면 무한 모드와 일일 도전이 기다립니다.</p>
-        <div class="actions">
-          <a class="btn btn--ss" href="https://store.steampowered.com/app/5328770/" target="_blank" rel="noopener"><span data-en="Buy on Steam">Steam에서 구매</span><span class="price">₩1,700</span></a>
-          <a class="btn btn--outline" href="https://store.steampowered.com/app/5369030/" target="_blank" rel="noopener"><span data-en="Get the free demo">무료 체험판 받기</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg></a>
+  <!-- DEEPFOLD: the world, text left, the tunnel close-up right (3:2) on the field ground (the page's effect) -->
+  <section class="section" id="deepfold" aria-labelledby="df-h">
+    <div class="wrap">
+      <div class="grid grid--top">
+        <div class="span-5 stack-4">
+          <h2 id="df-h">Deepfold: One Day Deep</h2>
+          <p class="t-lead" data-en="Autumn 2035, the old mining town of Noeuljae. You inherit a closed mining company, one plot of land and a time drill asleep under the shed. The drill sends only objects into the past and brings only stone back up.">2035년 가을, 폐광촌 노을재. 문 닫은 광업사와 땅 한 필지, 창고 아래 잠든 타임 드릴을 물려받습니다. 드릴은 물건만 과거로 보내고, 돌만 끌어올립니다.</p>
+          <p data-en="Plant ore in the land of the past, fast-forward millions of years, then dig the present with the arrow keys. Three parts, about three hours; parts 2 and 3 come as free updates.">과거의 땅에 광맥을 심고 수백만 년을 빨리 감은 뒤, 지금의 땅을 방향키로 팝니다. 3부작이고 2·3부는 무료 업데이트로 나옵니다.</p>
+          <p><a class="link" href="#how" data-en="See a day in the game">하루에 하는 일 보기</a></p>
+        </div>
+        <div class="frame frame--photo frame--split span-7 start-6">
+          <img class="frame__img" src="img/keyart_close.webp" srcset="img/keyart_close-480.webp 480w, img/keyart_close-720.webp 720w, img/keyart_close-1280.webp 1280w, img/keyart_close.webp 1480w" sizes="(max-width: 1023px) 100vw, 58vw" width="1480" height="832" alt="갱도 안에서 노란 안전모를 쓴 종이 인형 광부가 곡괭이를 들고 있고, 옆에 작은 암모나이트가 있다" data-en-alt="Inside the tunnel, a papercraft miner in a yellow helmet holds a pickaxe; a small ammonite sits nearby" loading="lazy" data-source="client" data-subject="Deepfold tunnel close-up">
         </div>
       </div>
-      <div class="ss-hero">
-        <img src="img/ss_hero.jpg" width="2560" height="827" alt="지하 묘역에서 다섯 캐릭터가 해골·슬라임·리치 왕 무리와 맞선다" data-en-alt="Five characters face a horde of skeletons, slimes and the Lich King in the catacombs" loading="lazy" decoding="async">
+    </div>
+  </section>
+
+  <!-- HOW: what you do, three open cards, one verb each, with its capture -->
+  <section class="section" id="how" aria-labelledby="how-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="how-h" data-en="Three things you do in a day">하루에 하는 세 가지 일</h2>
+      </div>
+      <div class="grid">
+        <article class="card card--open span-4">
+          <div class="panel panel--top"><img class="frame__img" src="img/s2.webp" srcset="img/s2-480.webp 480w, img/s2-720.webp 720w, img/s2.webp 1280w" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw" width="1280" height="720" alt="연대표를 과거로 내려 드러난 옛 땅 위에 광맥 카드를 놓는 화면" data-en-alt="Laying an ore card on the land of a past age" loading="lazy"></div>
+          <h3 data-en="Plant ore in the past">과거에 광맥을 심는다</h3>
+          <p data-en="Scroll the timeline down to an old age and lay an ore card on that land.">연대표를 내려 옛 땅을 드러내고, 그 위에 광맥 카드를 놓습니다.</p>
+        </article>
+        <article class="card card--open span-4">
+          <div class="panel panel--top"><img class="frame__img" src="img/s7.webp" srcset="img/s7-480.webp 480w, img/s7-720.webp 720w, img/s7.webp 1280w" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw" width="1280" height="720" alt="'300만 년 전' 표지와 함께 빨리 감기로 지층이 쌓이는 화면" data-en-alt="Fast-forward: strata pile up under a '3 million years ago' title card" loading="lazy"></div>
+          <h3 data-en="Fast-forward millions of years">수백만 년을 빨리 감는다</h3>
+          <p data-en="Strata pile up in seconds, and what you planted becomes a seam.">몇 초 만에 지층이 쌓이고, 심은 것이 광맥이 됩니다.</p>
+        </article>
+        <article class="card card--open span-4">
+          <div class="panel panel--top"><img class="frame__img" src="img/s5.webp" srcset="img/s5-480.webp 480w, img/s5-720.webp 720w, img/s5.webp 1280w" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw" width="1280" height="720" alt="깃발을 꽂자 은퇴한 광부들이 파고, 컨베이어가 광석을 올린다" data-en-alt="Plant a flag and retired miners dig; the conveyor carries the ore up" loading="lazy"></div>
+          <h3 data-en="Dig the present">지금의 땅을 판다</h3>
+          <p data-en="Carve down one tile at a time with the arrow keys. Plant a flag and retired miners dig for you.">방향키로 한 칸씩 파 내려갑니다. 깃발을 꽂으면 은퇴한 광부들이 대신 팝니다.</p>
+        </article>
       </div>
     </div>
+  </section>
 
-    <ul class="feats">
-      <li class="feat"><b data-en="You aim and reload yourself">직접 조준하고 직접 장전한다</b><p data-en="Each shot goes where the mouse points, and an empty magazine means a reload. The bow rewards a well-timed release.">마우스가 가리키는 곳으로 한 발씩 나가고, 탄창이 비면 장전합니다. 활은 타이밍을 맞추면 더 세게 나갑니다.</p></li>
-      <li class="feat"><b data-en="Bosses inside a barrier">결계 속의 보스</b><p data-en="A boss remembers how you fight and leaves only small openings. Beat it and your weapon evolves, through level-up cards and the soul tree.">보스는 내 싸움 방식을 기억하고 빈틈을 조금만 내줍니다. 쓰러뜨리면 레벨업 카드와 영혼 트리로 무기가 진화합니다.</p></li>
-      <li class="feat"><b data-en="Four worlds, then Endless">네 개의 세계, 그다음 무한 모드</b><p data-en="Meadow, catacombs, burning hell, Soul Abyss. After them: Endless mode, daily challenges and challenge modes.">초원, 지하 묘역, 불타는 지옥, 영혼의 심연. 그 뒤에 무한 모드, 일일 도전, 도전 모드가 있습니다.</p></li>
-    </ul>
-
-    <ul class="facts">
-      <li><b>14</b><span data-en="Playable characters">플레이 가능한 캐릭터</span></li>
-      <li><b>4</b><span data-en="Worlds">개의 세계</span></li>
-      <li><b>4</b><span data-en="Languages">개 언어</span><small>한국어 · English · 日本語 · 简体中文</small></li>
-    </ul>
-
-    <div class="shots" data-gal="ss">
-      <h3 class="h" data-en="Screenshots">스크린샷</h3>
-      <ul class="shot-grid">
-        <li><button class="shot" type="button"><img src="img/ss_shot1.jpg" width="1600" height="900" loading="lazy" decoding="async" alt="총잡이가 방어막에 둘러싸인 보스를 조준한다" data-en-alt="The gunner takes aim at a boss wrapped in its barrier"></button></li>
-        <li><button class="shot" type="button"><img src="img/ss_shot2.jpg" width="1600" height="900" loading="lazy" decoding="async" alt="지하 묘역: 검사가 리치 왕과 맞선다" data-en-alt="Catacombs: the swordsman against the Lich King"></button></li>
-        <li><button class="shot" type="button"><img src="img/ss_shot3.jpg" width="1600" height="900" loading="lazy" decoding="async" alt="불타는 지옥: 궁수가 지옥의 군주와 맞선다" data-en-alt="Burning hell: the archer against the Hell Lord"></button></li>
-        <li><button class="shot" type="button"><img src="img/ss_shot4.jpg" width="1600" height="900" loading="lazy" decoding="async" alt="무기 진화 선택 화면" data-en-alt="Weapon evolution choice"></button></li>
-        <li><button class="shot" type="button"><img src="img/ss_shot5.jpg" width="1600" height="900" loading="lazy" decoding="async" alt="초원과 갈라지는 킹 슬라임" data-en-alt="The meadow and the splitting King Slime"></button></li>
-        <li><button class="shot" type="button"><img src="img/ss_shot6.jpg" width="1600" height="900" loading="lazy" decoding="async" alt="영혼 트리에서 특수 능력을 고르는 화면" data-en-alt="Choosing a special ability in the soul tree"></button></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ===== NEWS ===== -->
-<section class="section news" id="news" aria-labelledby="newsTitle">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2 class="h" id="newsTitle" data-en="News">소식</h2>
-      <p class="lead" data-en="Launches, demos and store pages. Longer notes go on the board.">출시, 체험판, 상점 페이지 소식입니다. 긴 글은 게시판에 씁니다.</p>
-    </div>
-    <ul class="news-list">
-      <li><a class="news-card" data-acc="df" href="#deepfold">
-        <div class="pic"><img src="img/s3.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt=""></div>
-        <div class="body">
-          <div class="meta"><span class="tag">DEEPFOLD</span><time datetime="2027-02-22">2027. 2. 22</time><span data-en="Planned">예정</span></div>
-          <h3 data-en="Deepfold demo at Steam Next Fest">Steam 넥스트 페스트에서 Deepfold 체험판 공개</h3>
-          <p data-en="Prologue through Chapter 3. The first of Grandma's letters are in it.">프롤로그부터 3장까지. 할머니의 첫 편지들이 들어 있습니다.</p>
-        </div>
-      </a></li>
-      <li><a class="news-card" data-acc="df" href="#deepfold">
-        <div class="pic"><img src="img/s1.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt=""></div>
-        <div class="body">
-          <div class="meta"><span class="tag">DEEPFOLD</span><time datetime="2026-11">2026. 11</time><span data-en="In preparation">준비 중</span></div>
-          <h3 data-en="Deepfold Steam page in preparation">Deepfold Steam 상점 페이지 준비 중</h3>
-          <p data-en="Once it opens, you can wishlist the game and get the launch notice.">열리면 위시리스트에 담아 출시 알림을 받을 수 있습니다.</p>
-        </div>
-      </a></li>
-      <li><a class="news-card" data-acc="ss" href="https://store.steampowered.com/app/5328770/" target="_blank" rel="noopener">
-        <div class="pic"><img src="img/ss_shot1.jpg" width="1600" height="900" loading="lazy" decoding="async" alt=""></div>
-        <div class="body">
-          <div class="meta"><span class="tag">SOUL SAVER</span><time datetime="2026-10-13">2026. 10. 13</time><span data-en="Released">출시</span></div>
-          <h3 data-en="Soul Saver is out on Steam">Soul Saver Steam 출시</h3>
-          <p data-en="The first game from the workshop. ₩1,700, with a free demo.">공방의 첫 게임입니다. ₩1,700, 무료 체험판이 있습니다.</p>
-        </div>
-      </a></li>
-    </ul>
-  </div>
-</section>
-
-<!-- ===== STUDIO ===== -->
-<section class="section studio" id="studio" aria-labelledby="studioTitle">
-  <div class="wrap">
-    <div class="studio-grid">
-      <div class="studio-text">
-        <h2 class="h" id="studioTitle" data-en="About the workshop">공방 소개</h2>
-        <p class="lead" data-en="MinGongbang Games is a game studio run by one person, Park Min-geun. Design, art, sound and code are all his. The first game, Soul Saver, came out on Steam in October 2026; Deepfold is being made now.">민공방 게임즈는 박민근 한 사람이 운영하는 게임 개발사입니다. 기획, 그림, 소리, 코드를 혼자 맡습니다. 2026년 10월에 첫 게임 Soul Saver를 Steam에 냈고, 지금은 Deepfold를 만들고 있습니다.</p>
-        <p class="lead" data-en="The games are short and finished, with controls that feel good and rules you pick up by playing, without reading a manual.">짧고 끝이 있는 게임, 손에 익는 조작, 설명서를 읽지 않아도 해 보면 알게 되는 규칙을 목표로 만듭니다.</p>
-        <div class="who"><b>박민근 · Park Min-geun</b><span data-en="Founder · design, art, sound, code (Unity · C#)">대표 · 기획 · 그림 · 소리 · 코드(Unity · C#)</span></div>
-      </div>
-      <div>
-        <h3 class="h" data-en="Schedule">일정</h3>
-        <ol class="road">
-          <li class="done"><time datetime="2026-10">2026. 10</time><div><b data-en="Soul Saver out on Steam">Soul Saver Steam 출시</b><span data-en="First game">첫 게임</span></div></li>
-          <li><time datetime="2026-11">2026. 11</time><div><b data-en="Deepfold Steam page">Deepfold 상점 페이지</b><span data-en="In preparation">준비 중</span></div></li>
-          <li><time datetime="2027-02">2027. 2</time><div><b data-en="Steam Next Fest demo">Steam 넥스트 페스트 체험판</b><span data-en="Prologue through Chapter 3">프롤로그 ~ 3장</span></div></li>
-          <li><time datetime="2027">2027</time><div><b>Deepfold: One Day Deep</b><span data-en="Release">출시</span></div></li>
-        </ol>
+  <!-- LETTERS: the statement moment (giant-type-pass), the lantern-lit tunnel showing through the words -->
+  <section class="section" id="letters" data-moment="giant-type-pass" data-moment-opts='{"image": "/img/s4.webp", "travel": 50, "focusY": 55}' aria-labelledby="letters-h">
+    <div class="wrap">
+      <h2 class="mo-gt__type" id="letters-h"><span data-en="Twelve">편지</span><br><span data-en="letters">열두 통</span></h2>
+      <div class="mo-gt__row">
+        <p data-en="Every layer you dig through brings up one of Grandma's letters. When all twelve are read, the day is over.">한 겹 파 내려갈 때마다 할머니의 편지가 한 통 올라옵니다. 열두 통을 다 읽으면 하루가 끝납니다.</p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ===== CONTACT ===== -->
-<section class="section contact" id="contact" aria-labelledby="contactTitle">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2 class="h" id="contactTitle" data-en="Contact">연락</h2>
-      <p class="lead" data-en="Press, collaboration and bug reports all come in by email. Replies usually take a day or two.">보도, 협업, 버그 제보는 메일로 받습니다. 답장은 보통 하루 이틀 걸립니다.</p>
+  <!-- SOUL SAVER: the dark band in the game's own navy, one screen: the game, its buy buttons, a capture -->
+  <section class="section ground-inverse" id="soulsaver" aria-labelledby="ss-h">
+    <div class="wrap">
+        <div class="grid grid--top">
+          <div class="span-5 stack-4">
+            <h2 id="ss-h">Soul Saver</h2>
+            <p class="t-lead" data-en="A pixel-art roguelite shooter with no auto-aim: you point every shot at the horde yourself. Out on Steam since October 13, 2026, for ₩1,700, with a free demo.">자동 조준이 없는 도트 로그라이트 슈터. 몰려드는 적을 마우스로 직접 겨눠 쏩니다. 2026년 10월 13일 Steam 출시, ₩1,700, 무료 체험판이 있습니다.</p>
+            <p data-en="Korean, English, Japanese and Simplified Chinese.">한국어, 영어, 일본어, 중국어 간체를 지원합니다.</p>
+            <div class="btn-row">
+              <a class="btn btn--primary" href="https://store.steampowered.com/app/5328770/" target="_blank" rel="noopener" data-en="Buy on Steam">Steam에서 구매</a>
+            </div>
+            <p><a class="link" href="https://store.steampowered.com/app/5369030/" target="_blank" rel="noopener" data-en="Get the free demo on Steam">Steam에서 무료 체험판 받기</a></p>
+          </div>
+          <div class="frame frame--photo frame--split span-7 start-6">
+            <img class="frame__img" src="img/ss_shot1.webp" srcset="img/ss_shot1-480.webp 480w, img/ss_shot1-720.webp 720w, img/ss_shot1.webp 1280w" sizes="(max-width: 1023px) 100vw, 58vw" width="1280" height="720" alt="총잡이가 결계에 둘러싸인 보스를 조준한다" data-en-alt="The gunner takes aim at a boss wrapped in its barrier" loading="lazy" data-source="client" data-subject="Soul Saver screenshot">
+          </div>
+        </div>
     </div>
-    <div class="mail">
-      <span class="mail-box"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span id="mailText">mingeunb0@gmail.com</span></span>
-      <button class="btn btn--sun" type="button" id="copyBtn"><span data-en="Copy address">주소 복사</span></button>
-      <a class="btn btn--light" href="mailto:mingeunb0@gmail.com"><span data-en="Open in mail app">메일 앱으로 열기</span></a>
-      <a class="btn btn--outline" href="https://github.com/suritola" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="fill:currentColor;stroke:none"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2.17c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>GitHub</a>
-      <span class="copied" id="copied" role="status" aria-live="polite"></span>
+  </section>
+
+  <!-- SOUL SAVER, WHAT YOU DO: three open cards with their captures, on the page ground -->
+  <section class="section" id="ss-play" aria-labelledby="ssplay-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="ssplay-h" data-en="What a Soul Saver run is">Soul Saver의 한 판</h2>
+      </div>
+      <div class="grid">
+        <article class="card card--open span-4">
+          <div class="panel panel--top"><img class="frame__img" src="img/ss_shot3.webp" srcset="img/ss_shot3-480.webp 480w, img/ss_shot3-720.webp 720w, img/ss_shot3.webp 1280w" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw" width="1280" height="720" alt="불타는 지옥에서 궁수가 지옥의 군주와 맞선다" data-en-alt="Burning hell: the archer against the Hell Lord" loading="lazy"></div>
+          <h3 data-en="Aim and reload yourself">직접 조준하고 직접 장전한다</h3>
+          <p data-en="Each shot goes where the mouse points, and an empty magazine means a reload.">마우스가 가리키는 곳으로 한 발씩 나가고, 탄창이 비면 장전합니다.</p>
+        </article>
+        <article class="card card--open span-4">
+          <div class="panel panel--top"><img class="frame__img" src="img/ss_shot2.webp" srcset="img/ss_shot2-480.webp 480w, img/ss_shot2-720.webp 720w, img/ss_shot2.webp 1280w" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw" width="1280" height="720" alt="지하 묘역에서 검사가 리치 왕과 맞선다" data-en-alt="Catacombs: the swordsman against the Lich King" loading="lazy"></div>
+          <h3 data-en="Beat the boss inside its barrier">결계 속 보스를 쓰러뜨린다</h3>
+          <p data-en="A boss remembers how you fight. Beat it and your weapon evolves through level-up cards and the soul tree.">보스는 내 싸움 방식을 기억합니다. 이기면 레벨업 카드와 영혼 트리로 무기가 진화합니다.</p>
+        </article>
+        <article class="card card--open span-4">
+          <div class="panel panel--top"><img class="frame__img" src="img/ss_shot5.webp" srcset="img/ss_shot5-480.webp 480w, img/ss_shot5-720.webp 720w, img/ss_shot5.webp 1280w" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw" width="1280" height="720" alt="초원에서 갈라지는 킹 슬라임" data-en-alt="The meadow and the splitting King Slime" loading="lazy"></div>
+          <h3 data-en="Cross four worlds with 14 characters">열네 캐릭터로 네 세계를 지난다</h3>
+          <p data-en="Meadow, catacombs, burning hell, Soul Abyss. Then Endless mode, daily challenges and challenge modes.">초원, 지하 묘역, 불타는 지옥, 영혼의 심연. 그다음 무한 모드, 일일 도전, 도전 모드.</p>
+        </article>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- NEWS: three open tiles, the newest first -->
+  <section class="section" id="news" aria-labelledby="news-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="news-h" data-en="News and dates">소식과 일정</h2>
+        <p data-en="Launches, demos and store pages. Longer notes go on the board.">출시, 체험판, 상점 페이지 소식입니다. 긴 글은 게시판에 씁니다.</p>
+      </div>
+      <div class="grid">
+        <a class="tile span-4" href="board.html">
+          <div class="tile__media"><img src="img/s3.webp" srcset="img/s3-480.webp 480w, img/s3-720.webp 720w, img/s3.webp 1280w" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw" width="1280" height="720" alt="한 겹 아래에서 올라온 할머니의 첫 편지" data-en-alt="Grandma's first letter, brought up from one layer down" loading="lazy"></div>
+          <p class="tile__date"><time datetime="2027-02-22">2027. 2. 22</time> · <span data-en="Planned">예정</span></p>
+          <div class="tile__head"><h3 data-en="Deepfold demo at Steam Next Fest">넥스트 페스트에서 Deepfold 체험판 공개</h3></div>
+          <p data-en="Prologue through Chapter 3, with the first of Grandma's letters.">프롤로그부터 3장까지, 할머니의 첫 편지들이 들어 있습니다.</p>
+        </a>
+        <a class="tile span-4" href="board.html">
+          <div class="tile__media"><img src="img/s1.webp" srcset="img/s1-480.webp 480w, img/s1-720.webp 720w, img/s1.webp 1280w" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw" width="1280" height="720" alt="2035년 가을, 노을재의 지표와 권양탑" data-en-alt="Autumn 2035: the surface of Noeuljae and its headframe" loading="lazy"></div>
+          <p class="tile__date"><time datetime="2026-11">2026. 11</time> · <span data-en="In preparation">준비 중</span></p>
+          <div class="tile__head"><h3 data-en="Deepfold Steam page in preparation">Deepfold Steam 상점 페이지 준비 중</h3></div>
+          <p data-en="Once it opens you can wishlist the game and get the launch notice.">열리면 위시리스트에 담아 출시 알림을 받을 수 있습니다.</p>
+        </a>
+        <a class="tile span-4" href="https://store.steampowered.com/app/5328770/" target="_blank" rel="noopener">
+          <div class="tile__media"><img src="img/ss_shot4.webp" srcset="img/ss_shot4-480.webp 480w, img/ss_shot4-720.webp 720w, img/ss_shot4.webp 1280w" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw" width="1280" height="720" alt="Soul Saver의 무기 진화 선택 화면" data-en-alt="Soul Saver: the weapon evolution choice" loading="lazy"></div>
+          <p class="tile__date"><time datetime="2026-10-13">2026. 10. 13</time> · <span data-en="Released">출시</span></p>
+          <div class="tile__head"><h3 data-en="Soul Saver is out on Steam">Soul Saver Steam 출시</h3></div>
+          <p data-en="The studio's first game. ₩1,700, with a free demo.">공방의 첫 게임입니다. ₩1,700, 무료 체험판이 있습니다.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STUDIO: the statement with liquid-type on its h2, the schedule beside it -->
+  <section class="section" id="studio" aria-labelledby="studio-h">
+    <div class="wrap">
+      <div class="section-head" data-moment="liquid-type" data-moment-opts='{"strength": 0.8}'>
+        <h2 class="mo-lt__type" id="studio-h" data-en="A game workshop of one">혼자 만드는 게임 공방</h2>
+      </div>
+      <div class="grid grid--top">
+        <div class="span-5 stack-4">
+          <p class="t-lead" data-en="MinGongbang Games is run by one person, Park Min-geun: design, art, sound and code. The first game, Soul Saver, came out on Steam in October 2026; Deepfold is being made now.">민공방 게임즈는 박민근 한 사람이 운영합니다. 기획, 그림, 소리, 코드를 혼자 맡습니다. 2026년 10월에 첫 게임 Soul Saver를 Steam에 냈고, 지금은 Deepfold를 만들고 있습니다.</p>
+          <p data-en="Short games with an ending, controls that sit well in the hand, and rules you learn by playing, without a manual.">짧고 끝이 있는 게임, 손에 익는 조작, 설명서 없이 해 보면 알게 되는 규칙을 목표로 만듭니다.</p>
+          <ul class="rows rows--spec">
+            <li><span class="rows__name" data-en="Founder">대표</span><span class="rows__value" data-en="Park Min-geun">박민근</span></li>
+            <li><span class="rows__name" data-en="Tools">도구</span><span class="rows__value">Unity · C#</span></li>
+            <li><span class="rows__name" data-en="Platform">플랫폼</span><span class="rows__value">PC(Steam)</span></li>
+          </ul>
+        </div>
+        <div class="span-7 start-6 stack-4">
+          <h3 data-en="Schedule">일정</h3>
+          <ul class="rows">
+            <li><span class="rows__name" data-en="Soul Saver out on Steam">Soul Saver Steam 출시</span><span class="rows__value"><time datetime="2026-10-13">2026. 10</time></span></li>
+            <li><span class="rows__name" data-en="Deepfold Steam page">Deepfold Steam 상점 페이지</span><span class="rows__value"><time datetime="2026-11">2026. 11</time></span></li>
+            <li><span class="rows__name" data-en="Steam Next Fest demo, prologue to Chapter 3">넥스트 페스트 체험판, 프롤로그~3장</span><span class="rows__value"><time datetime="2027-02-22">2027. 2</time></span></li>
+            <li><span class="rows__name" data-en="Deepfold: One Day Deep release">Deepfold: One Day Deep 출시</span><span class="rows__value"><time datetime="2027">2027</time></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
-<footer class="footer">
+<!-- CLOSING (close-word on footer-statement's lit ground): the main action once more, the name across the wrap, the links -->
+<footer class="footer closing footer--statement" id="contact" aria-labelledby="close-h">
   <div class="wrap">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <span class="brand"><svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#2F5BFF"/><path d="M20 6l11 7.5v13L20 34 9 26.5v-13z" fill="none" stroke="#FFC63A" stroke-width="3.2" stroke-linejoin="round"/><circle cx="20" cy="20" r="4.4" fill="#FFC63A"/></svg><span><span data-en="MinGongbang Games">민공방 게임즈</span><small>MINGONGBANG GAMES</small></span></span>
-        <p data-en="A one-person game studio. Soul Saver · Deepfold: One Day Deep">1인 게임 개발사. Soul Saver · Deepfold: One Day Deep</p>
+    <div class="closing__cta close--word">
+      <div class="section-head--split">
+        <div>
+          <h2 id="close-h" data-en="The demo comes in February 2027">체험판은 2027년 2월에 나옵니다</h2>
+          <p class="t-lead" data-en="Press, collaboration and bug reports come in by email. Replies usually take a day or two.">보도, 협업, 버그 제보는 메일로 받습니다. 답장은 보통 하루 이틀 걸립니다.</p>
+        </div>
+        <a class="btn btn--primary" href="#news" data-en="See the demo schedule">체험판 일정 보기</a>
       </div>
-      <div class="foot-col">
-        <h4 data-en="Games">게임</h4>
-        <ul>
-          <li><a href="#deepfold">Deepfold: One Day Deep</a></li>
-          <li><a href="#soulsaver">Soul Saver</a></li>
-          <li><a href="#news" data-en="News">소식</a></li>
-          <li><a href="board.html" data-en="Board">게시판</a></li>
-          <li><a href="#studio" data-en="Studio">공방</a></li>
-        </ul>
-      </div>
-      <div class="foot-col">
-        <h4 data-en="Links">링크</h4>
-        <ul>
-          <li><a href="https://store.steampowered.com/app/5328770/" target="_blank" rel="noopener">Steam — Soul Saver <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg></a></li>
-          <li><a href="https://store.steampowered.com/app/5369030/" target="_blank" rel="noopener"><span data-en="Steam — Soul Saver Demo">Steam — Soul Saver 체험판</span> <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg></a></li>
-          <li><a href="https://github.com/suritola" target="_blank" rel="noopener">GitHub <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg></a></li>
-          <li><a href="mailto:mingeunb0@gmail.com">mingeunb0@gmail.com</a></li>
-        </ul>
-      </div>
+      <p class="close__word" aria-hidden="true">민공방 게임즈</p>
     </div>
-    <div class="foot-bottom">
-      <span>© 2026 MinGongbang Games.</span>
-      <span class="foot-legal"><a href="privacy.html" data-en="Privacy Policy">개인정보처리방침</a><a href="terms.html" data-en="Terms of Service">이용약관</a></span>
-      <span data-en="Steam and the Steam logo are trademarks of Valve Corporation.">Steam 및 Steam 로고는 Valve Corporation의 상표입니다.</span>
+    <div class="closing__links">
+      <div class="grid">
+        <div class="span-4 stack-4">
+          <a class="nav__logo" href="#top"><svg class="mark" viewBox="0 0 40 40" width="28" height="28" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#2F5BFF"/><path d="M20 6l11 7.5v13L20 34 9 26.5v-13z" fill="none" stroke="#FFC63A" stroke-width="3.2" stroke-linejoin="round"/><circle cx="20" cy="20" r="4.4" fill="#FFC63A"/></svg><span data-en="MinGongbang Games">민공방 게임즈</span></a>
+          <p class="footer__lede" data-en="A one-person game studio in Korea.">한국의 1인 게임 개발사.</p>
+        </div>
+        <div class="span-2 start-7 footer__col"><h3 data-en="Games">게임</h3><ul><li><a href="#deepfold">Deepfold: One Day Deep</a></li><li><a href="#soulsaver">Soul Saver</a></li><li><a href="https://store.steampowered.com/app/5328770/" target="_blank" rel="noopener" data-en="Soul Saver on Steam">Soul Saver Steam 상점</a></li></ul></div>
+        <div class="span-2 footer__col"><h3 data-en="Studio">공방</h3><ul><li><a href="#news" data-en="News">소식</a></li><li><a href="board.html" data-en="Board">게시판</a></li><li><a href="#studio" data-en="About">공방 소개</a></li></ul></div>
+        <div class="span-2 footer__col"><h3 data-en="Contact">연락</h3><ul><li><a href="mailto:mingeunb0@gmail.com">mingeunb0@gmail.com</a></li><li><a href="https://github.com/suritola" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+      </div>
+      <div class="footer__legal">
+        <span>&copy; 2026 <span data-en="MinGongbang Games">민공방 게임즈</span> &nbsp; <a href="privacy.html" data-en="Privacy">개인정보처리방침</a> &nbsp; <a href="terms.html" data-en="Terms">이용약관</a></span>
+        <span class="legal-note" data-en="Steam and the Steam logo are trademarks of Valve Corporation.">Steam 및 Steam 로고는 Valve Corporation의 상표입니다.</span>
+      </div>
     </div>
   </div>
 </footer>
 
-<dialog class="lb" id="lb" aria-label="스크린샷 크게 보기" data-en-label="Screenshot viewer">
-  <div class="lb-in">
-    <figure>
-      <div class="lb-stage"><img id="lbImg" src="" alt="" width="1920" height="1080"></div>
-      <div class="lb-bar"><figcaption id="lbCap"></figcaption><span class="count" id="lbCount"></span></div>
-    </figure>
-    <button class="lb-close" type="button" id="lbClose" aria-label="닫기" data-en-label="Close"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-    <button class="lb-prev" type="button" id="lbPrev" aria-label="이전" data-en-label="Previous"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button>
-    <button class="lb-next" type="button" id="lbNext" aria-label="다음" data-en-label="Next"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>
-  </div>
-</dialog>
-
+<script type="module" src="assets/system.js"></script>
+<script type="module" src="assets/motion/motion.js"></script>
+<script type="module" src="assets/layout/layout.js"></script>
 <script src="js/config.js?v=2"></script>
-<script src="js/site.js?v=3" defer></script>
-<script src="js/home.js?v=3" defer></script>
+<script src="js/site.js?v=4" defer></script>
 </body>
 </html>

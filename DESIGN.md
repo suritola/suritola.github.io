@@ -1,52 +1,55 @@
-# 민공방 게임즈 홈 — 디자인 결정 메모 (4차, 2026-11-09 밤)
+# 민공방 게임즈 홈 — 디자인 결정 메모 (6차, 2026-11-09 밤)
 
-## 4차: 게임사 홈 문법으로 다시 짬 (사용자 평 "개밤티·별론데·AI 같다" 반영)
-참고: Supercell(supercell.com)·Blizzard(blizzard.com) 홈을 agent-browser로 1440에서 캡처해 **원리만** 가져왔다(코드·문구·그림은 안 씀).
-- 공통 원리: 첫 화면은 **게임 하나의 키 아트 풀블리드** + 로고 + 한 줄 설명 + 버튼 1~2개. 그 아래 **게임 포스터 격자**(표지·제목·장르·상태). 섹션 제목은 명사 한두 단어("FEATURED GAMES"식), 글은 짧고 그림이 화면의 70%. 장식(기울인 종이·테이프·떠다니는 조각·반짝임·카운트업·스크롤마다 등장 애니메이션)은 없다. 푸터는 어둡고 촘촘한 법적 줄.
-- 적용: 히어로를 Deepfold 키 아트 100svh 풀블리드로, 한 번만 올라오는 CSS 진입 애니메이션(GSAP 제거). "만드는 게임" 2장 포스터 격자 신설. Deepfold(종이 크림→살구) · Soul Saver(남색) 작품별 색 섹션은 유지하되 곧은 카드·격자만. 스크린샷은 스냅 캐러셀 대신 3열 격자 + 라이트박스. 소식은 그림 위·글 아래 카드 3장. 공방은 글 + 일정 표. 색·글꼴은 3차 그대로(크림 바탕, 코발트·해노랑, Black Han Sans/Rubik/Noto Sans KR; Press Start 2P는 더 안 씀).
-- 문구: 대구·표어 금지. 제목은 명사("만드는 게임", "소식", "공방 소개", "연락"), 카드 제목은 동사+목적어("과거에 광맥을 심는다"), 1인 개발자의 담백한 말투. `design-taste-frontend/scripts/copy-lint.mjs --kind gaming` 0 FAIL(WARN 1: 숫자 띠 — 작품 사실이라 유지).
-- 보안(보안 점검 반영): 모든 HTML에 CSP·referrer 메타, supabase-js에 SRI, 홈 인라인 스크립트를 `js/home.js`로 분리(CSP로 인라인 금지), site.js errMsg는 알 수 없는 서버 오류를 일반 문구로 바꾸고 원문은 console.warn(단 `rate_limit:`·닉네임 예약어 문구는 그대로).
-- 검사: 375·768·1440 가로 스크롤 0(`?debug`), 로그인 모달·모바일 메뉴·라이트박스 동작, 5개 페이지 콘솔 CSP/SRI 위반 0. 캡처용 `?static`은 애니메이션을 끄고 모든 그림을 eager로 바꾼다.
+앞선 다섯 시안("개밤티", "별론데", "클로드스러운 어두운 색", "AI 같은 문구", "둥글둥글", "템플릿 같다")을 버리고
+`design-taste-frontend`(tasteskill 2.5.1) 스킬의 시스템 위에 처음부터 다시 짰다. 이 문서는 그 결정의 근거다.
 
----
-# (3차 메모, 참고용)
+## 1. 참고 사이트에서 뽑은 수치 (agent-browser, 1440·375 캡처: scratchpad/ref2)
+- **Supercell**: 컨테이너 1200(x 120~1320), 머리 78px, h1 56/70 -0.8px, 본문 20/31, 메뉴 14px, 단추 13px 700 높이 51.
+  첫 화면 = 이름 + 한 줄 + 캐릭터 아트. 그 아래 **2열 16:9 소식 카드**(그림 → 태그 → 제목 한 줄), 글은 거의 없다.
+- **Nexon**: 머리 56px, 컨테이너 1080(x 180), 히어로 글 36px 700 + 소제목 14px + 테두리 단추 1개, 게임 포스터 5열(세로 캡슐), 섹션 제목 "All Games"처럼 명사 하나.
+- **Blizzard**: 머리 76px, 컨테이너 1200, 히어로 = 게임 로고(워드마크) + h1 48/53 + 한 줄 + 단추 1개, 그 아래 "FEATURED GAMES" + 플랫폼 필터. 어두운 바탕이지만 **키 아트가 화면의 80%**.
+- 공통: 첫 화면은 게임 하나의 키 아트 풀블리드, 로고는 이미지, 글은 2~3줄, 단추 1~2개. 섹션 제목은 명사, 본문 16~20px, 메뉴 14~15px 4~6개.
+  컨테이너 1080~1200, 머리 56~78px, 카드 모서리 4~8px, 호버는 그림 1.03 확대·카드 2px 들림 정도. 중국식 금·빨강 번쩍임 없음.
+- 리오트·PS 스튜디오는 봇 차단/리다이렉트로 수치가 안 잡혔다(캡처 없음).
 
-근거 자료: `ui-ux-pro-max` 스킬(nextlevelbuilder/ui-ux-pro-max-skill)의 `SKILL.md`, `references/quick-reference.md`, `references/pro-rules.md`, `data/*.csv`.
-스킬 `--design-system` 결과(쿼리 "indie game studio portfolio immersive dark")는 **구조·모션·접근성·체크리스트**에만 썼고, 색·타이포는 사용자 지시로 바꿨다(아래 "변경" 참고).
+## 2. 종류와 딜 (스킬 1~4단계)
+- 종류: **gaming** (page type software, site-kind gaming). 파는 것 "종이 광산 게임", 주 행동 "체험판 일정 보기"(#news).
+  Deepfold는 아직 상점 페이지가 없어 위시리스트·구매가 없고, Soul Saver 구매는 그 게임 구역의 단추다.
+- 히어로: `deal.mjs --type software --kind gaming --has photo` → 처음엔 **film**(트레일러 틀)이 나왔으나 트레일러가 없어 다시 딜 → **photo**
+  (키 아트 풀블리드, 글은 왼쪽 차분한 지층 위, data-box="none" data-tone="dark", 아래 사실 4개).
+- 팔레트: `start.mjs deal`이 준 clay-pine(녹색)은 공방 로고(코발트·노랑)와 부딪혀 `start.mjs brand`로 **로고의 코발트 #2f5bff**를 액션색으로,
+  바탕 #f6f5f2(크림 아님, 거의 흰 따뜻한 회색), 잉크 #17181c. 어두운 전체 바탕은 쓰지 않는다(사용자 지적).
+- 글꼴: 딜 1순위 **Urbanist**(라틴) + 한글은 **Pretendard Variable**(jsdelivr). Black Han Sans·Rubik·Noto Sans KR 제거.
+- 부품: nav-centre · footer-statement(sand 바탕) · close-word · 리듬 dark-band(Soul Saver 구역, 그 게임의 남색 #120d2a) · 단추는 pill이 나왔지만
+  사용자가 둥근 모양을 거부해 **solid + radius sharp(4/6/8)**. 마크는 공방 로고 SVG.
+- 모멘트: `moments.mjs pick --page gaming --count 2` → **giant-type-pass**(#letters, "편지 열두 통" 글자 속으로 갱도 사진이 지나감)
+  + **liquid-type**(#studio h2, 포인터가 지나면 물결). 둘 다 WebGL 0, 폰·모션 줄이기에서는 정지.
+- 효과·바탕: `pick.mjs`가 #games bg-dots, #deepfold bg-field를 줬지만 backgrounds.css가 섹션 내용을 세로 가운데로 두고 폰 최소 높이를 없애
+  한 화면 한 섹션 상자를 깨뜨려(1차 캡처에서 #deepfold가 폰에서 140px) **바탕 효과는 모두 뺐다**. WebGL grain-gradient도 UHD 620 때문에 뺌. 효과 0.
 
-## 구조 (landing.csv)
-- 10행 **Scroll-Triggered Storytelling**: 도입 훅(히어로) → 장 1(Deepfold, 노을 세계) → 장 2(Soul Saver, 밤 세계) → 소식·공방 → 클라이맥스 CTA(연락). 장마다 다른 색, 진행 표시(상단 진행 막대 + 현재 구간 메뉴 강조), 장 끝마다 작은 CTA.
-- 32행 **Hero-Centric** + 31행 **Feature-Rich Showcase**(products.csv 12행 Gaming 추천): 큰 키 아트 배너, 기능 카드 3장, 수치 4개, 스크린샷 갤러리.
-- "글만 많고 이미지가 약한 것"(AVOID) 회피: 사진 24장, 모든 장에 큰 이미지.
+## 3. 화면 계획 (1440×900, 섹션 = 정확히 1화면)
+hero(photo) → #games(타일 6+6) → #deepfold(글 5 / 사진 7, 3:2) → #how(카드 3장, 캡처 위·동사 제목) → #letters(스테이트먼트 모멘트)
+→ #soulsaver(어두운 띠, 글 5 / 캡처 7, 구매 단추) → #ss-play(카드 3장) → #news(타일 3장) → #studio(h2 + 글 5 / 일정 7) → footer.closing(close-word + 링크).
+폰에서는 카드 섹션이 내용만큼 자란다(1.3화면쯤). 분할은 모두 5/7(오른쪽 열 x 623)로 통일.
 
-## 모션 (motion.csv, GSAP 3.12.5 + ScrollTrigger, cdnjs 고정 버전)
-- 8행 Stagger List Standard: `back.out`, scale .85→1, each .08 — 카드·단계·수치 등장(종이 공작 느낌으로 ±3° 회전 추가).
-- 5행 Scroll Reveal Standard: y 24, .5s, stagger .08, `power2.out`, start `top 85%`.
-- 13행 Parallax Subtle: 배너·쇼케이스 이미지에만 yPercent ±6 scrub(본문 글에는 안 씀).
-- 2행 Hover Standard: 카드 -4px 들림 200~300ms, 버튼은 입체 밑단(6px) + 눌림(translateY 4px).
-- 정지 화면의 잔잔한 움직임: 종이 조각·편지 떠다님(7~11s), 픽셀 점 깜빡임, 유령 bob, 별 반짝임. `prefers-reduced-motion`에서 모두 끄고 최종 상태로 렌더(landing.csv 10행 조건). `?static`으로 캡처용 강제 정지.
+## 4. 문구
+- 1인 개발자의 담백한 말투. 표어·대구·감탄사 없음. h1은 장르("종이로 만든 광산 게임"), 그 위에 게임 워드마크, 리드에 날짜 하나.
+- 카드 제목은 동사+목적어("과거에 광맥을 심는다"), 섹션 제목은 명사("만드는 게임 두 개", "소식과 일정"). 숫자 띠(3·12·20) 삭제, 숫자는 문장 안으로.
+- `copy-lint.mjs --kind gaming`: 0 FAIL 0 WARN. 모든 문구는 data-en으로 영어 병기(KO/EN 전환 유지).
 
-## 색·타이포 — 스킬 결과에서 바꾼 것 (사용자 지시 2026-11-09)
-- 스킬이 준 "순수 검정 + 흰색" 팔레트(colors.csv 53행 Photography Studio)와 Archivo/Space Grotesk(typography.csv 44행)는 **버림**. 사용자 평: "너무 클로드스러운 어두운 디자인, 진짜 게임 사이트처럼".
-- 바탕은 밝은 크림(#FFF8EE) + 작품별 컬러 섹션. 어두운 영역은 Soul Saver 장(밤·도트)과 푸터만.
-- 스튜디오 색: 코발트 #2F5BFF + 해 노랑 #FFC63A. Deepfold: 노을 주황(#FFC48A→#F47A2A, 벽돌 #B8431A, 종이 질감 SVG 노이즈, 찢은 종이 가장자리). Soul Saver: 남색 #130C2C + 보라 #8B5CF6 + 시안 #5BE0FF, 픽셀 톱니 가장자리, CRT 주사선, 도트 폰트(typography.csv 52행 Pixel Retro의 Press Start 2P — 라벨·숫자에만).
-- 글꼴: 한글 제목 **Black Han Sans**(google-fonts.csv: korean display), 라틴 제목 **Rubik 900**, 본문 **Noto Sans KR**(typography.csv 23행 Korean Modern). `font-synthesis:none`으로 가짜 굵기 방지.
-- 금·빨강 번쩍임, 빽빽한 배너는 쓰지 않음(사용자 금지). 공지는 게임 공지 배너 카드 3장.
+## 5. 기능·보안
+- KO/EN(js/site.js setLang), 로그인 모달·회원 메뉴(#auth), 게시판·프로필·약관 페이지 그대로. 공통 조각(언어 토글·로그인 단추·대화상자·토스트)은
+  `css/auth.css`로 분리해 홈(kit)과 하위 페이지(site.css) 양쪽에서 같은 모양. 하위 페이지의 site.css는 토큰·글꼴·단추(입체 그림자 제거)·머리·푸터만 새 언어로.
+- CSP 유지: 인라인 script 없음 — kit의 head 한 줄(m-enter, mo-js)은 `js/enter.js`로. style-src/font-src에 cdn.jsdelivr.net(Pretendard) 추가.
+  kit 파일(assets/)은 스킬 원본 그대로(gate의 kit-edited 검사 대상), 쓰는 파일만 복사.
+- 이미지: 키 아트·캡슐·스크린샷을 webp로(1280~2000px, 25~110KB). 눈·겨울 그림 없음, Deepfold 결말 노출 없음(편지 "열두 통"과 "하루가 끝난다"는 전제).
 
-## 접근성·반응형 체크 (quick-reference §1·2·5·6·7, pro-rules 체크리스트)
-- 대비: 본문 ≥4.5:1 확인(크림 위 #514B6B 8:1, 주황 위 먹색 5.9:1, 남색 위 #BDB3E6 9:1, 코발트 위 흰색 5.2:1 — 연락 섹션 그라데이션을 밝은 파랑에서 #2A4FE0~#1F3FCC로 낮춰 맞춤).
-- 터치 타깃 ≥44px(메뉴 48, 갤러리 화살표 48, 푸터 링크 44), 포커스 링 3px(어두운 장에서는 시안·노랑).
-- 이모지 아이콘 없음(인라인 SVG 2px 선 한 가족), 자동 회전 콘텐츠 없음, 라이트박스·메뉴는 `<dialog>`(Esc·포커스 가둠).
-- 폭 375·768·1024·1440·1920 확인, 가로 스크롤 0(`?debug`로 뷰포트 밖 요소 자동 검사). 한글은 `keep-all`, 제목 구절은 `nowrap` 묶음.
-- 이미지 width/height·lazy, 히어로 preload, 글꼴 `display=swap`.
-- 위시리스트 링크가 아직 없으므로 "곧 공개" 상태 칩(비활성 버튼 대신).
-
-## 사실 관계 (2026-11-09 정정)
-Soul Saver: 2026-10-13 Steam 출시, ₩1,700, 무료 체험판. **플레이 가능한 캐릭터 14**(CharacterData.cs: 거너·검사·도적·궁수·연금술사·지도 제작자·시계공·우체부·유령·씨름꾼·공사 반장·인형사·장의사·사진사), **세계 4**(Chapters.cs: 초원 → 지하 묘역 → 불타는 지옥 → 영혼의 심연), 무한 모드·일일 도전·도전 모드, 자동 조준 없음, 결계 속 보스·무기 진화, 4개 언어(한국어·English·日本語·简体中文). 예전 "캐릭터 5·보스 3·특수 능력 20·세 스테이지"는 낡은 README 수치라 쓰지 않는다. 보스 수·특수 능력 수는 코드에서 확인되기 전까지 숫자를 적지 않는다.
-Deepfold: 2027 출시 예정, 2027-02-22 넥스트 페스트 체험판(프롤로그~3장), 편지 12통, 3부작(2·3부 무료 업데이트), 20개 언어. 반전·결말·눈·겨울 이미지 없음.
-
-## 회원 화면 (2026-11-09 추가: board · profile · privacy · terms · 로그인 모달)
-- 공통 토큰·버튼·머리·바닥·모션 안전 규칙을 `css/site.css` 로 빼서 모든 페이지가 같은 파일을 쓴다(index.html 의 인라인 `<style>` 은 홈 전용만 남김). 언어 전환·메뉴·회원 모달은 `js/site.js`.
-- 하위 페이지는 크림 바탕 + 흰 카드(`.card`, 둥글기 20, 두 겹 그림자), 입력은 2px 테두리·둥글기 14·포커스 링 4px(`.input`), 단추는 홈과 같은 입체 `.btn`(작은 변형 `.btn--sm`, 위험 `.btn--danger`). 분류 탭은 알약, 분류 태그는 작품 색(공지 벽돌·자유 코발트·버그 초록).
-- 모달은 `<dialog>` 하나(로그인·가입·재설정·새 비밀번호 뷰 전환), 오류는 필드 바로 아래 `.err`, confirm() 대신 페이지 안 확인 상자(`.confirm`). 배지는 종이 조각처럼 ±1° 기울인 카드, 못 받은 배지는 자물쇠 아이콘.
-- Supabase 설정이 비어 있으면 모달·게시판·프로필은 '준비 중' 주황 안내(`.notice`)만 보이고 입력은 비활성.
+## 6. 검사 (스킬 6단계) — 결과
+- `copy-lint.mjs --kind gaming`: 0 FAIL 0 WARN.
+- `layout/check.mjs` 1440×900: 발견 0. 390×844: 폰 h1을 32px로 낮춰 32자 스트레스 3줄 통과(한글은 전각이라 44px면 4줄).
+- `gate.mjs`: 1차 FAIL 1(ss-play/news 간격 — 폰 2화면 강제가 남긴 구멍) → 2차 FAIL 2(카드 섹션이 폰에서 1.4~1.6화면으로 자라며 다음 제목이 보임)
+  → 3차 **GATE: PASS**. 웨이버 5건(`.taste-skill/waivers.json`): copy-headline(워드마크가 이름을 맡음), section-gaps(히어로 사실 줄은 kit 레이아웃),
+  sparse #letters(폰에서 타이포 스테이트먼트는 34%), neighbour #how·#ss-play(폰에서 카드 섹션이 자람; --hm:2는 구멍을 남겼다).
+- `perf.mjs`: WebGL 0, CLS 0, LCP 0.65s(CPU). FAIL로 남는 것: 글꼴 파일 18개/470KB(Pretendard 동적 서브셋 — 한글은 글리프 범위별로 쪼개 받는다, 대안인 단일 파일은 2MB),
+  큰 그림은 srcset(480/720/1280)으로 폰에서 작은 파일을 받게 고침.
+- 그라운드(bg-dots/bg-field)는 kit의 backgrounds.css가 섹션 상자를 깨서 뺐다(2절). 효과 0, 모멘트 2.

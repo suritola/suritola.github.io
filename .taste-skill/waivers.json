@@ -1,0 +1,27 @@
+[
+  {
+    "check": "copy-headline",
+    "target": "h1#hero-h",
+    "reason": "copy.md rule 1 allows a game's wordmark (the client's logo file, img.hero__wordmark 'Deepfold: One Day Deep') over an h1 naming the genre; the h1 names the genre (종이로 만든 광산 게임) and the wordmark carries the name the checker looks for"
+  },
+  {
+    "check": "section-gaps",
+    "target": "section.hero.hero--photo / section#games",
+    "reason": "the dealt photo hero puts its four facts at the hero's foot (layout.css .hero__facts absolute bottom), so the gap to the next h2 is the kit's own 120px padding; every other gap follows from the one-screen box"
+  },
+  {
+    "check": "sparse",
+    "target": "#letters",
+    "reason": "the dealt statement moment (giant-type-pass) is type-led: two words at 19vw and one line fill 34% of a 390 screen by design; the picture shows inside the letters"
+  },
+  {
+    "check": "neighbour",
+    "target": "#how section.section",
+    "reason": "on a phone a three-card section grows with its captures (1.4 screens, layout-v4: at least its screens and grows with what it holds); forcing --hm: 2 left a 472px hole and failed section-gaps in round 1"
+  },
+  {
+    "check": "neighbour",
+    "target": "#ss-play section.section",
+    "reason": "on a phone a three-card section grows with its captures (1.6 screens, layout-v4: at least its screens and grows with what it holds); forcing --hm: 2 left a 472px hole and failed section-gaps in round 1"
+  }
+]
