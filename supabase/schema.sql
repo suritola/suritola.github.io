@@ -22,14 +22,17 @@
 
 -- ---------- 1. 관리자 판정 ----------------------------------------------------------
 -- RLS 정책 안에서 profiles 를 다시 읽어도 재귀가 생기지 않도록 security definer 로 만든다.
+-- plpgsql 은 본문을 실행할 때 검사하므로 profiles 테이블보다 먼저 만들어도 된다(language sql 은 만들 때 검사해 실패).
 create or replace function public.is_admin()
 returns boolean
-language sql
+language plpgsql
 stable
 security definer
 set search_path = public
 as $$
-  select exists (select 1 from public.profiles where id = auth.uid() and role = 'admin');
+begin
+  return exists (select 1 from public.profiles where id = auth.uid() and role = 'admin');
+end;
 $$;
 
 -- ---------- 2. 프로필 ---------------------------------------------------------------
