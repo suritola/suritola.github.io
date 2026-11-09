@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>민공방 게임즈 · MinGongbang Games</title>
 <meta name="description" content="혼자 게임을 만드는 작은 공방, 민공방 게임즈. Soul Saver(Steam 판매 중) · Deepfold: One Day Deep(2027)">
-<meta name="theme-color" content="#07070C">
+<meta name="theme-color" content="#FFF8EE">
 <link rel="canonical" href="https://suritola.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="MinGongbang Games">
@@ -20,920 +20,918 @@
 <meta name="twitter:title" content="민공방 게임즈 · MinGongbang Games">
 <meta name="twitter:description" content="혼자 게임을 만드는 작은 공방. Soul Saver · Deepfold: One Day Deep">
 <meta name="twitter:image" content="https://suritola.github.io/img/keyart_16x9.jpg">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2307070C'/%3E%3Cpath d='M16 5l9 6v10l-9 6-9-6V11z' fill='none' stroke='%23F2B24C' stroke-width='2.4'/%3E%3Ccircle cx='16' cy='16' r='3.2' fill='%23F2B24C'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232F5BFF'/%3E%3Cpath d='M16 5l9 6v10l-9 6-9-6V11z' fill='none' stroke='%23FFC63A' stroke-width='2.6'/%3E%3Ccircle cx='16' cy='16' r='3.4' fill='%23FFC63A'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="img/keyart_16x9.jpg" media="(min-width:681px)">
-<link rel="preload" as="image" href="img/keyart_tall.jpg" media="(max-width:680px)">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=JetBrains+Mono:wght@500&family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<link rel="preload" as="image" href="img/keyart_16x9.jpg" media="(min-width:768px)">
+<link rel="preload" as="image" href="img/keyart_tall.jpg" media="(max-width:767px)">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700&family=Press+Start+2P&family=Rubik:wght@700;900&display=swap">
 <style>
-/* 민공방 게임즈 — 큰 게임사 홈 문법: 전면 키 아트 → 작품 카드 → 작품별 스포트라이트 → 소식 → 공방 → 연락 */
+/* ---------- tokens ---------- */
 :root{
-  --bg:#07070C; --bg2:#0D0C15; --bg3:#141320;
-  --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.16);
-  --text:#F1EDF7; --muted:#A39EB4; --dim:#6E6A80;
-  --amber:#F2B24C; --amber2:#FFD08A;  /* 등불 — 공방 대표색 */
-  --violet:#8C7CFF;                   /* 영혼 — Soul Saver */
-  --dusk:#E59A6B;                     /* 노을 — Deepfold */
-  --acc:var(--amber);
-  --display:"Big Shoulders Display","Noto Sans KR",Impact,sans-serif;
-  --kr:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
-  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
-  --ease:cubic-bezier(.2,.7,.2,1); --ease2:cubic-bezier(.76,0,.24,1);
-  --gutter:max(20px,env(safe-area-inset-left,0px)); --gutter-r:max(20px,env(safe-area-inset-right,0px));
-  --nav:72px;
-  color-scheme:dark;
+  --paper:#FFF8EE; --paper-2:#FBEEDC; --white:#FFFFFF;
+  --ink:#1F1A33; --ink-2:#514B6B; --line:rgba(31,26,51,.12);
+  --brand:#2F5BFF; --brand-deep:#1F3FCC; --brand-soft:#E6ECFF; --navy:#15215A;
+  --sun:#FFC63A; --sun-deep:#D99A00;
+  --df-cream:#FFF3E2; --df-peach:#FFC48A; --df-orange:#F47A2A; --df-brick:#B8431A; --df-brick-deep:#7E2B0E; --df-dusk:#56467F;
+  --ss-bg:#130C2C; --ss-bg-2:#1D1240; --ss-card:#221651; --ss-violet:#8B5CF6; --ss-violet-deep:#6D3BE0; --ss-violet-shadow:#45229E; --ss-cyan:#5BE0FF; --ss-text:#F1EDFF; --ss-muted:#BDB3E6;
+  --ok-bg:#D7F5E3; --ok-fg:#0B6B38; --wip-bg:#FFE6C4; --wip-fg:#8F4300;
+  --font-display:"Rubik","Black Han Sans",sans-serif;
+  --font-body:"Noto Sans KR",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-px:"Press Start 2P",monospace;
+  --r:20px; --r-sm:14px;
+  --shadow:0 12px 32px rgba(31,26,51,.14);
+  --t-fast:160ms; --t:260ms;
+  --gutter:clamp(16px,4vw,48px);
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:var(--nav)}
-body{margin:0;background:var(--bg);color:var(--text);font-family:var(--kr);font-size:16px;line-height:1.7;word-break:keep-all;overflow-wrap:break-word;overflow-x:hidden}
-img{max-width:100%;display:block}
-a{color:inherit;text-decoration:none}
-button{font:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:4px}
-[hidden]{display:none!important}
-.in{max-width:1260px;margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter-r)}
-.label{font-family:var(--mono);font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
-.pixel{image-rendering:pixelated}
-.nb{white-space:nowrap}
-html[lang=en] .nb{white-space:normal}
-html[lang=en] .brand small{display:none}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.skip{position:fixed;left:12px;top:-60px;z-index:200;background:var(--amber);color:#1a1205;padding:10px 16px;border-radius:3px;font-weight:700;transition:top .2s}
-.skip:focus{top:12px}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html,body{overflow-x:clip}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.7 var(--font-body);word-break:keep-all;overflow-wrap:break-word;font-synthesis:none;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--brand);outline-offset:3px;border-radius:6px}
+.sr{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:fixed;left:16px;top:-60px;z-index:200;background:var(--ink);color:#fff;padding:12px 18px;border-radius:12px;font-weight:700;text-decoration:none;transition:top var(--t-fast)}
+.skip:focus{top:16px}
+.wrap{width:min(1280px,100%);margin:0 auto;padding-inline:var(--gutter)}
+h1,h2,h3,h4{margin:0;font-family:var(--font-display);font-weight:900;line-height:1.12;letter-spacing:-.01em;text-wrap:balance}
+p{margin:0}
+.lead{font-size:clamp(1.05rem,1.1vw + .8rem,1.25rem);color:var(--ink-2);max-width:62ch}
+.sec-title{font-size:clamp(2rem,4.2vw,3.4rem)}
+.kicker{display:inline-flex;align-items:center;gap:.5rem;font-weight:700;font-size:.9rem;padding:.45rem .95rem;border-radius:999px;line-height:1.3}
+.kicker svg{width:16px;height:16px}
+.kicker--ok{background:var(--ok-bg);color:var(--ok-fg)}
+.kicker--wip{background:var(--wip-bg);color:var(--wip-fg)}
+.kicker--brand{background:var(--brand-soft);color:var(--brand-deep)}
+svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
 
-/* ───── 인트로(한 세션에 한 번, 1.5초, 누르면 건너뜀) ───── */
-#intro{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-items:center;transition:transform .85s var(--ease2),visibility 0s .85s}
-html:not(.js) #intro,.nointro #intro{display:none}
-.go #intro{transform:translateY(-101%);visibility:hidden}
-#intro .mark{display:flex;flex-direction:column;align-items:center;gap:20px}
-#intro svg{width:76px;height:76px;overflow:visible}
-#intro .hex{stroke-dasharray:84;stroke-dashoffset:84;animation:draw 1s var(--ease) .1s forwards}
-#intro .core{opacity:0;animation:fadeup .5s var(--ease) .7s forwards}
-#intro b{font-family:var(--display);font-weight:800;letter-spacing:.44em;padding-left:.44em;font-size:.92rem;color:var(--muted);opacity:0;animation:fadeup .7s var(--ease) .45s forwards}
-#intro small{position:absolute;bottom:28px;left:0;right:0;text-align:center;font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;color:var(--dim);opacity:0;animation:fadeup .6s var(--ease) .9s forwards}
-@keyframes draw{to{stroke-dashoffset:0}}
-@keyframes fadeup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+/* ---------- buttons (chunky, pressable) ---------- */
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:.55rem;min-height:54px;padding:0 1.6rem;border:0;border-radius:16px;font:700 1.02rem/1.2 var(--font-body);text-decoration:none;color:#fff;background:var(--brand);
+  box-shadow:0 6px 0 var(--brand-deep),0 14px 26px rgba(47,91,255,.28);transition:transform var(--t-fast) ease,box-shadow var(--t-fast) ease,filter var(--t) ease;will-change:transform}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.06);box-shadow:0 8px 0 var(--brand-deep),0 18px 30px rgba(47,91,255,.32)}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 var(--brand-deep),0 6px 12px rgba(47,91,255,.25)}
+.btn:focus-visible{outline:3px solid var(--sun);outline-offset:4px}
+.btn--df{background:var(--df-brick);box-shadow:0 6px 0 var(--df-brick-deep),0 14px 26px rgba(184,67,26,.3)}
+.btn--df:hover{box-shadow:0 8px 0 var(--df-brick-deep),0 18px 30px rgba(184,67,26,.34)}
+.btn--df:active{box-shadow:0 2px 0 var(--df-brick-deep),0 6px 12px rgba(184,67,26,.25)}
+.btn--ss{background:var(--ss-violet-deep);box-shadow:0 6px 0 var(--ss-violet-shadow),0 14px 26px rgba(109,59,224,.4)}
+.btn--ss:hover{box-shadow:0 8px 0 var(--ss-violet-shadow),0 18px 30px rgba(109,59,224,.45)}
+.btn--ss:active{box-shadow:0 2px 0 var(--ss-violet-shadow),0 6px 12px rgba(109,59,224,.3)}
+.btn--ss:focus-visible,.on-dark .btn:focus-visible{outline-color:var(--ss-cyan)}
+.btn--light{background:#fff;color:var(--ink);box-shadow:0 6px 0 #D9CDB8,0 14px 26px rgba(31,26,51,.14)}
+.btn--light:hover{box-shadow:0 8px 0 #D9CDB8,0 18px 30px rgba(31,26,51,.18)}
+.btn--light:active{box-shadow:0 2px 0 #D9CDB8,0 6px 12px rgba(31,26,51,.12)}
+.btn--outline{background:transparent;color:inherit;box-shadow:inset 0 0 0 2.5px currentColor}
+.btn--outline:hover{box-shadow:inset 0 0 0 2.5px currentColor;filter:none;background:rgba(255,255,255,.08)}
+.btn--outline:active{box-shadow:inset 0 0 0 2.5px currentColor;transform:translateY(2px)}
+.btn--sun{background:var(--sun);color:var(--ink);box-shadow:0 6px 0 var(--sun-deep),0 14px 26px rgba(255,198,58,.35)}
+.btn--sun:hover{box-shadow:0 8px 0 var(--sun-deep),0 18px 30px rgba(255,198,58,.4)}
+.btn--sun:active{box-shadow:0 2px 0 var(--sun-deep),0 6px 12px rgba(255,198,58,.3)}
+.btn .i{width:20px;height:20px}
+.chip{display:inline-flex;align-items:center;gap:.5rem;min-height:54px;padding:0 1.2rem;border-radius:16px;font-weight:700;font-size:.98rem;background:rgba(255,255,255,.16);color:#fff;border:2px dashed rgba(255,255,255,.55)}
+.chip .i{width:18px;height:18px}
+.actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
 
-/* ───── 머리 ───── */
-.nav{position:fixed;inset:0 0 auto;z-index:50;padding-top:env(safe-area-inset-top,0px);transition:background .4s,border-color .4s;border-bottom:1px solid transparent}
-.nav::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(7,7,12,.6),transparent);pointer-events:none;transition:opacity .4s}
-.nav.solid{background:rgba(7,7,12,.82);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);border-color:var(--line)}
-.nav.solid::before{opacity:0}
-.nav .in{display:flex;align-items:center;justify-content:space-between;height:var(--nav);gap:20px;position:relative}
-.progress{position:absolute;left:0;bottom:-1px;height:2px;width:0;background:linear-gradient(90deg,var(--amber),var(--amber2));z-index:2;pointer-events:none}
-.brand{display:flex;align-items:center;gap:12px;position:relative;z-index:1}
-.brand svg{width:32px;height:32px;flex:none;transition:transform .6s var(--ease)}
-.brand:hover svg{transform:rotate(60deg)}
-.brand b{font-weight:900;font-size:1.06rem;letter-spacing:.01em;line-height:1;display:block}
-.brand small{display:block;font-family:var(--display);font-weight:800;font-size:.7rem;letter-spacing:.26em;color:var(--muted);margin-top:5px}
-.menu{display:flex;align-items:center;gap:34px}
-.menu a{font-family:var(--display);font-weight:800;font-size:1.02rem;letter-spacing:.16em;color:#CFCADB;position:relative;padding:6px 0;transition:color .3s}
-.menu a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--amber);transform:scaleX(0);transform-origin:right;transition:transform .4s var(--ease)}
-.menu a:hover,.menu a.cur{color:#fff}
-.menu a:hover::after,.menu a.cur::after{transform:scaleX(1);transform-origin:left}
-.lang{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;color:var(--dim)}
-.menu .lang{margin-left:6px;padding-left:28px;border-left:1px solid var(--line2)}
-.lang button{border:0;background:none;padding:6px 4px;color:var(--dim);cursor:pointer;transition:color .3s;letter-spacing:.12em}
-.lang button:hover{color:var(--text)}
-.lang button.on{color:var(--amber)}
-.burger{display:none;width:44px;height:44px;border:0;background:none;cursor:pointer;position:relative;z-index:1}
-.burger span{position:absolute;left:11px;right:11px;height:2px;background:var(--text);transition:transform .35s var(--ease),opacity .3s,top .35s var(--ease)}
-.burger span:nth-child(1){top:15px}.burger span:nth-child(2){top:21px}.burger span:nth-child(3){top:27px}
-.nav.open .burger span:nth-child(1){top:21px;transform:rotate(45deg)}
-.nav.open .burger span:nth-child(2){opacity:0}
-.nav.open .burger span:nth-child(3){top:21px;transform:rotate(-45deg)}
+/* ---------- header ---------- */
+.progress{position:fixed;left:0;top:0;height:4px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--brand),var(--sun));z-index:120;pointer-events:none}
+.header{position:fixed;inset:0 0 auto 0;z-index:110;transition:background var(--t) ease,box-shadow var(--t) ease,backdrop-filter var(--t) ease}
+.header.scrolled{background:rgba(255,248,238,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line),0 8px 24px rgba(31,26,51,.08)}
+.header .wrap{display:flex;align-items:center;gap:16px;min-height:72px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);font-family:var(--font-display);font-weight:900;font-size:1.15rem;letter-spacing:-.01em;min-height:44px}
+.brand .mark{width:40px;height:40px;flex:none;filter:drop-shadow(0 3px 0 rgba(31,26,51,.18))}
+.brand small{display:block;font:700 .75rem/1 var(--font-body);color:var(--ink-2);letter-spacing:.05em;margin-top:3px}
+.nav{margin-left:auto;display:none;gap:4px}
+.nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:12px;font-weight:700;text-decoration:none;color:var(--ink);transition:background var(--t-fast),color var(--t-fast)}
+.nav a:hover{background:rgba(31,26,51,.07)}
+.nav a[aria-current=true]{background:var(--ink);color:#fff}
+.lang{display:inline-flex;background:rgba(31,26,51,.08);border-radius:14px;padding:4px;gap:2px}
+.lang button{min-width:48px;min-height:44px;border:0;border-radius:10px;background:transparent;font-weight:900;font-family:var(--font-display);font-size:.9rem;color:var(--ink-2);transition:background var(--t-fast),color var(--t-fast),transform var(--t-fast)}
+.lang button[aria-pressed=true]{background:var(--ink);color:#fff}
+.lang button:active{transform:scale(.95)}
+.menu-btn{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border:0;border-radius:14px;background:var(--ink);color:#fff;margin-left:auto}
+.menu-btn .i{width:24px;height:24px}
+.header .lang{margin-left:8px}
+@media(min-width:1024px){.nav{display:flex}.menu-btn{display:none}.header .lang{margin-left:12px}}
+@media(max-width:1023px){.header .lang{display:none}}
+/* mobile menu */
+.menu{border:0;padding:0;margin:0;width:100vw;height:100dvh;max-width:none;max-height:none;background:var(--brand);color:#fff;inset:0}
+.menu::backdrop{background:rgba(21,33,90,.6)}
+.menu-in{display:flex;flex-direction:column;min-height:100dvh;padding:calc(16px + env(safe-area-inset-top)) var(--gutter) calc(24px + env(safe-area-inset-bottom))}
+.menu-top{display:flex;align-items:center;justify-content:space-between;min-height:56px}
+.menu-top .brand{color:#fff}
+.menu-top .brand small{color:rgba(255,255,255,.75)}
+.menu-close{width:48px;height:48px;border:0;border-radius:14px;background:rgba(255,255,255,.18);color:#fff;display:inline-flex;align-items:center;justify-content:center}
+.menu-close .i{width:26px;height:26px}
+.menu-links{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:8px}
+.menu-links a{display:flex;align-items:center;justify-content:space-between;min-height:60px;padding:0 18px;border-radius:16px;background:rgba(255,255,255,.12);text-decoration:none;font-family:var(--font-display);font-weight:900;font-size:1.5rem;transition:background var(--t-fast),transform var(--t-fast)}
+.menu-links a:hover{background:rgba(255,255,255,.22)}
+.menu-links a:active{transform:scale(.98)}
+.menu-links a:focus-visible{outline-color:var(--sun)}
+.menu-links small{font:700 .85rem/1 var(--font-body);opacity:.85}
+.menu .lang{margin-top:auto;align-self:flex-start;background:rgba(255,255,255,.18)}
+.menu .lang button{color:rgba(255,255,255,.85)}
+.menu .lang button[aria-pressed=true]{background:#fff;color:var(--brand-deep)}
 
-/* ───── 버튼 ───── */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:54px;padding:0 28px;font-weight:700;font-size:.98rem;letter-spacing:.01em;border-radius:3px;position:relative;overflow:hidden;cursor:pointer;border:0;white-space:nowrap;transition:transform .25s var(--ease),box-shadow .25s,background .25s,color .25s}
-.btn::before{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-20deg);transition:left .65s var(--ease)}
-.btn:hover::before{left:130%}
-.btn:hover{transform:translateY(-2px)}
-.btn:active{transform:translateY(0) scale(.98);transition-duration:.1s}
-.btn.gold{background:linear-gradient(180deg,#FFC66A,#EFAB3E);color:#1a1205;box-shadow:0 12px 30px -8px rgba(242,178,76,.6)}
-.btn.gold:hover{box-shadow:0 16px 40px -8px rgba(242,178,76,.75)}
-.btn.ghost{background:rgba(255,255,255,.05);color:var(--text);box-shadow:inset 0 0 0 1px rgba(255,255,255,.3);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
-.btn.ghost:hover{background:rgba(255,255,255,.12);box-shadow:inset 0 0 0 1px rgba(255,255,255,.5)}
-.btn.off{background:rgba(255,255,255,.06);color:var(--muted);cursor:default;box-shadow:inset 0 0 0 1px var(--line)}
-.btn.off:hover{transform:none;box-shadow:inset 0 0 0 1px var(--line)}
-.btn.off::before{display:none}
-.btn svg{width:18px;height:18px;flex:none}
-
-/* ───── 첫 화면 ───── */
-.hero{position:relative;height:100svh;min-height:620px;max-height:1100px;overflow:hidden;background:#000;isolation:isolate}
-.slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity 1.2s var(--ease),visibility 0s 1.2s}
-.slide.on{opacity:1;visibility:visible;transition:opacity 1.2s var(--ease)}
-.slide .art,.slide .art img{position:absolute;inset:0;width:100%;height:100%}
-.slide .art img{object-fit:cover;object-position:var(--pos,center);transform:scale(1.1);transition:transform 10s linear}
-.go .slide.on .art img{transform:scale(1)}
-.slide .shade{position:absolute;inset:0;background:
-  linear-gradient(90deg,rgba(7,7,12,.9) 0%,rgba(7,7,12,.62) 28%,rgba(7,7,12,.12) 58%,rgba(7,7,12,0) 74%),
-  linear-gradient(0deg,var(--bg) 0%,rgba(7,7,12,.78) 13%,rgba(7,7,12,0) 42%),
-  linear-gradient(180deg,rgba(7,7,12,.5) 0%,rgba(7,7,12,0) 22%)}
-.slide .copy{position:absolute;left:0;right:0;bottom:clamp(150px,19vh,220px);z-index:2}
-.js .slide .copy .in>*{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
-.go .slide.on .copy .in>*{opacity:1;transform:none}
-.go .slide.on .copy .in>*:nth-child(2){transition-delay:.12s}
-.go .slide.on .copy .in>*:nth-child(3){transition-delay:.24s}
-.go .slide.on .copy .in>*:nth-child(4){transition-delay:.34s}
-.go .slide.on .copy .in>*:nth-child(5){transition-delay:.44s}
-.kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--amber)}
-.kicker i{width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 0 rgba(242,178,76,.5);animation:pulse 2.2s var(--ease) infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(242,178,76,.5)}70%{box-shadow:0 0 0 9px rgba(242,178,76,0)}100%{box-shadow:0 0 0 0 rgba(242,178,76,0)}}
-.hero-logo{width:min(480px,70vw,58vh);height:auto;margin:16px 0 18px -1%;filter:drop-shadow(0 8px 34px rgba(0,0,0,.7))}
-.hero .tag{font-weight:900;font-size:clamp(1.55rem,3vw,2.4rem);line-height:1.28;margin:0 0 12px;letter-spacing:-.01em;text-shadow:0 2px 24px rgba(0,0,0,.65)}
-.hero .sub{color:#D9D4E4;max-width:46ch;margin:0 0 28px;font-size:1.02rem;text-shadow:0 1px 14px rgba(0,0,0,.75)}
-.hero .cta{display:flex;gap:12px;flex-wrap:wrap}
-.grain{position:absolute;inset:-50%;width:200%;height:200%;z-index:2;pointer-events:none;opacity:.055;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1.4s steps(5) infinite}
-@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-4%)}60%{transform:translate(-4%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
-#embers{position:absolute;inset:0;pointer-events:none;z-index:2;mix-blend-mode:screen}
-.tabs{position:absolute;left:0;right:0;bottom:36px;z-index:3}
-.tabs .in{display:flex;align-items:center;gap:12px}
-.tab{flex:0 1 276px;display:flex;align-items:center;gap:14px;padding:12px 14px 15px;background:rgba(10,10,18,.5);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:4px;cursor:pointer;text-align:left;position:relative;overflow:hidden;transition:background .3s,border-color .3s,transform .3s var(--ease)}
-.tab:hover{background:rgba(26,24,40,.65);transform:translateY(-2px)}
-.tab .n{font-family:var(--mono);font-size:.68rem;color:var(--dim);letter-spacing:.1em}
-.tab img{width:60px;height:38px;object-fit:cover;border-radius:2px;opacity:.7;transition:opacity .3s}
-.tab b{display:block;font-family:var(--display);font-weight:800;letter-spacing:.1em;font-size:1.05rem;line-height:1.1}
-.tab small{color:var(--muted);font-size:.76rem}
-.tab .bar{position:absolute;left:0;right:0;bottom:0;height:2px;background:rgba(255,255,255,.08)}
-.tab .bar i{display:block;height:100%;width:0;background:var(--amber)}
-.tab.on{border-color:rgba(242,178,76,.5);background:rgba(20,18,32,.72)}
-.tab.on img{opacity:1}
-.arrows{margin-left:auto;display:flex;gap:8px}
-.arrows button,.rbtn{width:46px;height:46px;border-radius:50%;border:1px solid var(--line2);background:rgba(10,10,18,.5);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:var(--text);cursor:pointer;display:grid;place-items:center;padding:0;transition:background .3s,border-color .3s,color .3s,transform .3s var(--ease)}
-.arrows button:hover,.rbtn:hover{background:var(--amber);color:#1a1205;border-color:var(--amber)}
-.arrows svg,.rbtn svg{width:18px;height:18px}
-
-/* ───── 공통 섹션 ───── */
-section{position:relative}
-.sec{padding-block:clamp(90px,11vw,150px)}
-.head{position:relative;margin-bottom:clamp(36px,5vw,60px)}
-.head .ghost-word{position:absolute;left:-.03em;top:-.6em;font-family:var(--display);font-weight:900;font-size:clamp(5rem,14vw,11rem);line-height:1;letter-spacing:.02em;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.06);pointer-events:none;white-space:nowrap;user-select:none}
-.head h2{position:relative;font-weight:900;font-size:clamp(2rem,4.2vw,3.2rem);line-height:1.18;margin:12px 0 0;letter-spacing:-.015em;text-wrap:balance}
-.head .lede{position:relative;color:var(--muted);margin:16px 0 0;max-width:56ch;font-size:1.04rem}
-.head .label{position:relative;display:inline-flex;align-items:center;gap:12px}
-.head .label::before{content:"";width:28px;height:1px;background:var(--acc)}
-
-/* ───── 작품 카드 ───── */
-.games{display:grid;grid-template-columns:1fr 1fr;gap:26px}
-.gcard{position:relative;display:block;aspect-ratio:16/10;overflow:hidden;background:var(--bg3);border-radius:6px;isolation:isolate;transform-style:preserve-3d;transition:transform .5s var(--ease),box-shadow .5s;box-shadow:0 28px 70px -24px rgba(0,0,0,.75)}
-.gcard.ss{--acc:var(--violet)} .gcard.df{--acc:var(--dusk)}
-.gcard .bgimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,center);transform:scale(1.04);transition:transform 1.4s var(--ease),filter .6s;filter:saturate(.92) brightness(.85)}
-.gcard:hover .bgimg{transform:scale(1.1);filter:saturate(1.05) brightness(.98)}
-.gcard::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(7,7,12,.97) 10%,rgba(7,7,12,.4) 52%,rgba(7,7,12,0) 78%);z-index:1}
-.gcard::before{content:"";position:absolute;inset:0;z-index:4;border-radius:6px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);transition:box-shadow .4s;pointer-events:none}
-.gcard:hover::before{box-shadow:inset 0 0 0 1px var(--acc)}
-.gcard .sheen{position:absolute;inset:0;z-index:2;background:radial-gradient(600px circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.13),transparent 42%);opacity:0;transition:opacity .4s}
-.gcard:hover .sheen{opacity:1}
-.gcard .body{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:clamp(22px,3vw,34px)}
-.gcard .meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
-.chip{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;padding:6px 10px;border-radius:2px;background:rgba(7,7,12,.55);color:#DDD8E8;border:1px solid var(--line2);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
-.chip i{width:6px;height:6px;border-radius:50%;background:currentColor}
-.chip.live{color:#CFC6FF;border-color:rgba(140,124,255,.55)}
-.chip.dev{color:#FFD9B8;border-color:rgba(229,154,107,.55)}
-.gcard h3{margin:0}
-.gcard .logo{width:min(230px,52%);height:auto;filter:drop-shadow(0 4px 18px rgba(0,0,0,.75))}
-.gcard .desc{color:#CFCADB;margin:0;max-height:0;opacity:0;overflow:hidden;max-width:46ch;transition:max-height .6s var(--ease),opacity .5s,margin .5s}
-.gcard:hover .desc,.gcard:focus-visible .desc{max-height:6em;opacity:1;margin-top:6px}
-.more{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-weight:800;letter-spacing:.16em;font-size:.92rem;color:var(--acc)}
-.more svg{width:16px;height:16px;transition:transform .3s var(--ease)}
-.gcard .more{margin-top:14px}
-.gcard:hover .more svg,.ncard:hover .more svg{transform:translateX(6px)}
-
-/* ───── 스포트라이트 ───── */
-.spot{overflow:hidden;isolation:isolate}
-.spot.ss{--acc:var(--violet)} .spot.df{--acc:var(--dusk)}
-.spot .wash{position:absolute;inset:0;z-index:-1}
-.spot.ss .wash{background:radial-gradient(1000px 520px at 88% 8%,rgba(140,124,255,.2),transparent 60%),radial-gradient(700px 420px at 0% 100%,rgba(70,160,255,.08),transparent 60%)}
-.spot.ss .wash::after{content:"";position:absolute;inset:0;background:url(img/ss_bg.jpg) center/cover;opacity:.14;-webkit-mask-image:linear-gradient(180deg,transparent,#000 20%,#000 80%,transparent);mask-image:linear-gradient(180deg,transparent,#000 20%,#000 80%,transparent)}
-.spot.df{background:var(--bg2);border-block:1px solid var(--line)}
-.spot.df .wash{background:radial-gradient(1000px 520px at 10% 6%,rgba(229,154,107,.16),transparent 60%),radial-gradient(760px 420px at 100% 100%,rgba(242,178,76,.07),transparent 60%)}
-.spot-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(36px,5vw,76px);align-items:start}
-.spot.df .spot-grid{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
-.spot.df .spot-text{order:2}
-.spot-text .logo{width:min(330px,84%);height:auto;margin:12px 0 16px -1%}
-.spot-text h3{font-weight:900;font-size:clamp(1.4rem,2.3vw,1.85rem);line-height:1.35;margin:0 0 14px;letter-spacing:-.01em;text-wrap:balance}
-.spot-text p{color:#C9C4D6;margin:0 0 14px;max-width:52ch}
-.feats{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:10px}
-.feats li{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;padding:14px 16px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:4px;transition:border-color .3s,background .3s,transform .3s var(--ease)}
-.feats li:hover{background:rgba(255,255,255,.05);border-color:var(--line2);transform:translateX(4px)}
-.feats i{width:44px;height:44px;border-radius:4px;display:grid;place-items:center;background:rgba(255,255,255,.05);font-family:var(--display);font-weight:900;font-size:1.15rem;font-style:normal;color:var(--acc);letter-spacing:.04em}
-.feats i svg{width:22px;height:22px}
-.feats b{display:block;font-size:1rem;line-height:1.4;margin-bottom:2px}
-.feats span{color:var(--muted);font-size:.9rem;line-height:1.6;display:block}
-.quote{margin:24px 0 0;padding:6px 0 6px 20px;border-left:2px solid var(--acc);color:#DDD8E8;font-style:normal;line-height:1.85}
-.quote small{display:block;color:var(--dim);font-size:.74rem;margin-top:8px;font-family:var(--mono);letter-spacing:.12em}
-.stats{display:grid;grid-template-columns:repeat(var(--n,3),1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:26px 0 28px;border-radius:4px;overflow:hidden}
-.stats div{background:var(--bg);padding:16px 14px 14px}
-.spot.df .stats div{background:var(--bg2)}
-.stats b{display:block;font-family:var(--display);font-weight:900;font-size:clamp(1.9rem,3vw,2.5rem);line-height:1;color:var(--acc);font-variant-numeric:tabular-nums}
-.stats span{font-size:.78rem;color:var(--muted);display:block;margin-top:4px;line-height:1.4}
-.cta-row{display:flex;gap:12px;flex-wrap:wrap}
-.gallery{min-width:0;position:sticky;top:calc(var(--nav) + 28px)}
-.stage{position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:6px;box-shadow:0 40px 90px -30px rgba(0,0,0,.85);background:#000}
-.stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.03);transition:opacity .6s var(--ease),transform 1.2s var(--ease)}
-.stage img.on{opacity:1;transform:none}
-.stage .zoom{position:absolute;inset:0;border:0;background:none;cursor:zoom-in;z-index:1;border-radius:6px}
-.stage .nb-btn{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(7,7,12,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff;display:grid;place-items:center;cursor:pointer;z-index:2;opacity:0;padding:0;transition:opacity .3s,background .3s,color .3s}
-.stage:hover .nb-btn,.stage:focus-within .nb-btn{opacity:1}
-.stage .prev{left:14px}.stage .next{right:14px}
-.stage .nb-btn:hover{background:var(--amber);color:#1a1205;border-color:var(--amber)}
-.stage .nb-btn svg{width:18px;height:18px}
-.stage .count{position:absolute;right:14px;bottom:12px;z-index:2;font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;color:#fff;background:rgba(7,7,12,.6);padding:5px 9px;border-radius:2px;pointer-events:none}
-.stage .frame{position:absolute;inset:0;border:1px solid rgba(255,255,255,.12);border-radius:6px;pointer-events:none;z-index:2}
-.cap{font-size:.86rem;color:var(--muted);margin:12px 0 0;min-height:1.6em;display:flex;gap:10px;align-items:baseline}
-.cap::before{content:"";width:18px;height:1px;background:var(--acc);flex:none;transform:translateY(-4px)}
-.thumbs{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:12px}
-.thumbs button{padding:0;border:0;background:#000;aspect-ratio:16/9;overflow:hidden;cursor:pointer;border-radius:3px;position:relative;opacity:.5;transition:opacity .3s,transform .3s var(--ease)}
-.thumbs button:hover{opacity:.9;transform:translateY(-2px)}
-.thumbs button.on{opacity:1}
-.thumbs button.on::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 2px var(--acc);border-radius:3px}
-.thumbs img{width:100%;height:100%;object-fit:cover}
-
-/* ───── 띠 글자 ───── */
-.marquee{border-block:1px solid var(--line);overflow:hidden;padding-block:22px;background:var(--bg);-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
-.marquee .track{display:flex;width:max-content;animation:roll 44s linear infinite}
-.marquee:hover .track{animation-play-state:paused}
-.marquee span{font-family:var(--display);font-weight:900;font-size:clamp(2rem,4.6vw,3.4rem);letter-spacing:.06em;line-height:1;padding-right:56px;white-space:nowrap;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.22);display:flex;align-items:center;gap:56px}
-.marquee span::after{content:"";width:8px;height:8px;background:var(--amber);transform:rotate(45deg);flex:none;opacity:.7}
-.marquee span:nth-child(even){color:#E9E4F2;-webkit-text-stroke:0}
-@keyframes roll{to{transform:translateX(-50%)}}
-
-/* ───── 소식 ───── */
-.news{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.ncard{display:flex;flex-direction:column;background:var(--bg2);border:1px solid var(--line);border-radius:6px;overflow:hidden;transition:transform .45s var(--ease),border-color .45s,box-shadow .45s}
-.ncard:hover{transform:translateY(-6px);border-color:rgba(242,178,76,.4);box-shadow:0 34px 60px -30px rgba(0,0,0,.85)}
-.ncard .thumb{aspect-ratio:16/9;overflow:hidden;position:relative}
-.ncard .thumb img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
-.ncard:hover .thumb img{transform:scale(1.06)}
-.ncard .chip{position:absolute;left:14px;top:14px}
-.ncard .txt{padding:22px 22px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
-.ncard time{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;color:var(--muted)}
-.ncard h3{font-size:1.12rem;font-weight:700;line-height:1.45;margin:0}
-.ncard p{color:var(--muted);font-size:.92rem;margin:0;flex:1}
-.ncard .more{margin-top:6px;font-size:.84rem}
-
-/* ───── 공방 ───── */
-.studio{background:var(--bg2);border-top:1px solid var(--line)}
-.studio-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(32px,6vw,90px);align-items:start}
-.studio-grid p{color:#C9C4D6;max-width:56ch;margin:0 0 16px}
-.roles{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:4px;overflow:hidden}
-.roles div{background:var(--bg2);padding:24px 22px;transition:background .3s;position:relative}
-.roles div:hover{background:var(--bg3)}
-.roles div::before{content:"";position:absolute;left:22px;top:0;width:22px;height:2px;background:var(--amber);opacity:0;transition:opacity .3s}
-.roles div:hover::before{opacity:1}
-.roles b{display:block;font-family:var(--display);font-weight:900;font-size:1.55rem;letter-spacing:.08em;color:var(--amber);line-height:1.1}
-.roles span{font-size:.88rem;color:var(--muted)}
-.sign{display:flex;align-items:center;gap:16px;margin-top:28px}
-.sign .av{width:56px;height:56px;border-radius:50%;background:conic-gradient(from 200deg,var(--amber),var(--dusk),var(--violet),var(--amber));display:grid;place-items:center;font-weight:900;color:#140f06;font-size:1.3rem;flex:none;box-shadow:0 10px 30px -10px rgba(242,178,76,.6)}
-.sign b{display:block;font-size:1.05rem}
-.sign small{color:var(--muted)}
-.timeline{list-style:none;margin:clamp(52px,6vw,84px) 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);position:relative}
-.timeline::before{content:"";position:absolute;left:0;right:0;top:6px;height:1px;background:var(--line2)}
-.timeline li{position:relative;padding:30px 24px 0 0}
-.timeline li::before{content:"";position:absolute;left:0;top:0;width:13px;height:13px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 4px var(--bg2)}
-.timeline li.next::before{background:var(--bg2);border:2px solid var(--amber);width:9px;height:9px}
-.timeline time{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;color:var(--amber);display:block;margin-bottom:8px}
-.timeline b{display:block;font-size:1rem;line-height:1.4}
-.timeline span{color:var(--muted);font-size:.88rem;display:block;margin-top:4px}
-
-/* ───── 연락 ───── */
-.contact{position:relative;overflow:hidden;border-top:1px solid var(--line)}
-.contact .bgart{position:absolute;inset:0;background:url(img/keyart_close.jpg) center/cover;opacity:.2;filter:blur(2px) saturate(.8);transform:scale(1.1)}
-.contact .bgart::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(7,7,12,.35),var(--bg) 72%)}
-.contact .in{position:relative;text-align:center}
-.contact .label{justify-content:center}
-.contact h2{font-weight:900;font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.15;margin:14px 0 16px;letter-spacing:-.02em}
-.contact p{color:var(--muted);margin:0 auto 30px;max-width:46ch}
-.mail{display:inline-flex;align-items:stretch;border:1px solid rgba(255,255,255,.22);border-radius:3px;overflow:hidden;max-width:100%;box-shadow:0 30px 60px -30px rgba(0,0,0,.9)}
-.mail code{font-family:var(--mono);font-size:clamp(.9rem,2.4vw,1.1rem);padding:16px 24px;user-select:all;background:rgba(7,7,12,.7);overflow-wrap:anywhere;text-align:left;display:flex;align-items:center}
-.mail button{border:0;background:var(--amber);color:#1a1205;font-weight:700;padding:0 22px;cursor:pointer;white-space:nowrap;transition:background .3s}
-.mail button:hover{background:var(--amber2)}
-.contact .alt{margin-top:18px;font-size:.88rem;color:var(--dim)}
-.contact .alt a{color:var(--muted);text-decoration:underline;text-underline-offset:4px}
-.contact .alt a:hover{color:var(--text)}
-
-/* ───── 바닥 ───── */
-footer{border-top:1px solid var(--line);background:#050509;padding-block:60px calc(40px + env(safe-area-inset-bottom,0px))}
-.foot{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px}
-.foot h4{font-family:var(--display);font-weight:800;letter-spacing:.2em;font-size:.9rem;color:var(--muted);margin:0 0 14px}
-.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
-.foot a{color:#CFCADB;transition:color .3s}
-.foot a:hover{color:var(--amber)}
-.foot .small{color:var(--dim);font-size:.84rem;margin-top:14px;max-width:32ch}
-.social{display:flex;gap:10px;margin-top:18px}
-.social a{width:40px;height:40px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;color:var(--muted);transition:border-color .3s,color .3s,transform .3s var(--ease)}
-.social a:hover{border-color:var(--amber);color:var(--amber);transform:translateY(-2px)}
-.social svg{width:18px;height:18px}
-.foot .lang{font-size:.8rem}
-.foot .lang button{padding:4px 6px 4px 0}
-.legal{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--dim);font-size:.8rem}
-.totop{position:fixed;right:max(20px,env(safe-area-inset-right,0px));bottom:max(20px,env(safe-area-inset-bottom,0px));z-index:40;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .3s,transform .3s,visibility 0s .3s,background .3s,color .3s,border-color .3s;background:rgba(7,7,12,.7)}
-.totop.show{opacity:1;visibility:visible;transform:none;transition:opacity .3s,transform .3s,background .3s,color .3s,border-color .3s}
-
-/* ───── 크게 보기 ───── */
-.lightbox{position:fixed;inset:0;z-index:80;background:rgba(5,5,9,.95);display:flex;align-items:center;justify-content:center;padding:max(64px,env(safe-area-inset-top,0px)) max(64px,env(safe-area-inset-right,0px)) max(56px,env(safe-area-inset-bottom,0px)) max(64px,env(safe-area-inset-left,0px));animation:fade .3s}
-.lightbox figure{margin:0;max-width:100%;max-height:100%;display:flex;flex-direction:column;align-items:center;gap:14px;min-width:0}
-.lightbox img{max-width:100%;max-height:calc(100svh - 170px);width:auto;height:auto;border-radius:4px;box-shadow:0 30px 90px rgba(0,0,0,.7)}
-.lightbox figcaption{color:var(--muted);font-size:.9rem;text-align:center}
-.lightbox .rbtn{position:absolute;background:rgba(255,255,255,.06)}
-.lightbox .lb-x{top:max(16px,env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px))}
-.lightbox .lb-prev{left:max(12px,env(safe-area-inset-left,0px));top:50%;transform:translateY(-50%)}
-.lightbox .lb-next{right:max(12px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%)}
-@keyframes fade{from{opacity:0}}
-
-/* ───── 스크롤 등장(자바스크립트가 있을 때만) ───── */
-.js .rv{opacity:0;transform:translateY(36px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
-.js .rv.seen{opacity:1;transform:none}
-.js .rv.d1{transition-delay:.1s}.js .rv.d2{transition-delay:.2s}.js .rv.d3{transition-delay:.3s}
-
-/* ───── 화면 폭·높이 ───── */
-@media (max-height:820px){
-  .hero .sub{display:none}
-  .hero-logo{width:min(420px,66vw,50vh);margin:10px 0 12px -1%}
-  .slide .copy{bottom:clamp(140px,18vh,180px)}
+/* ---------- hero ---------- */
+.hero{padding:calc(88px + env(safe-area-inset-top)) 0 32px;position:relative}
+.hero::before{content:"";position:absolute;inset:0 0 40%;background:radial-gradient(60% 70% at 20% 0%,rgba(47,91,255,.14),transparent 60%),radial-gradient(50% 60% at 90% 10%,rgba(255,198,58,.28),transparent 60%);pointer-events:none}
+.hero .wrap{position:relative}
+.hero-grid{display:grid;gap:18px;grid-template-columns:1fr}
+.banner{position:relative;overflow:hidden;border-radius:var(--r);background:#2B2140;box-shadow:var(--shadow);isolation:isolate}
+.banner picture,.banner>img{position:absolute;inset:0;width:100%;height:100%}
+.banner img{width:100%;height:100%;object-fit:cover;transform:scale(1.001)}
+.banner-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(31,26,51,0) 35%,rgba(31,26,51,.55) 70%,rgba(31,26,51,.9) 100%);z-index:1}
+.banner-body{position:absolute;inset:auto 0 0 0;z-index:2;padding:clamp(18px,3vw,40px);color:#fff;display:grid;gap:14px;justify-items:start}
+.banner-body .kicker{background:rgba(255,255,255,.14);color:#fff;border:1.5px solid rgba(255,255,255,.4);backdrop-filter:blur(6px)}
+.banner-body h1,.banner-body h2{color:#fff;text-shadow:0 2px 0 rgba(31,26,51,.35),0 10px 30px rgba(31,26,51,.5)}
+.banner-body p{color:rgba(255,255,255,.9);max-width:54ch;text-shadow:0 1px 10px rgba(31,26,51,.6)}
+/* below 1024 the banner grows with its text: image area on top, copy in flow */
+@media(max-width:1023px){.banner-body{position:relative;margin-top:clamp(150px,44vw,300px)}.hero-side .banner-body{margin-top:clamp(120px,30vw,220px)}}
+.hero-main .logo{width:min(62%,260px);height:auto;filter:drop-shadow(0 6px 18px rgba(31,26,51,.5))}
+.hero-main h1{font-size:clamp(1.7rem,4.6vw,3.2rem);max-width:17ch}
+html[lang=en] .hero-main h1{font-size:clamp(1.55rem,3.3vw,2.7rem);max-width:24ch}
+.hero-main .lead{color:rgba(255,255,255,.9);font-size:clamp(1rem,1vw + .7rem,1.15rem)}
+.hero-side h2{font-size:clamp(1.5rem,2.6vw,2.2rem)}
+.hero-side .banner-scrim{background:linear-gradient(180deg,rgba(19,12,44,0) 30%,rgba(19,12,44,.7) 70%,rgba(19,12,44,.95) 100%)}
+.hero-side .kicker{font-family:var(--font-px);font-size:.75rem;letter-spacing:.02em;text-transform:uppercase;border-color:rgba(91,224,255,.55);color:var(--ss-cyan);background:rgba(19,12,44,.5)}
+@media(min-width:1024px){.hero-side h2{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}} /* the baked logo in ss_tall.jpg already shows the title */
+.hero-side .price{font-family:var(--font-display);font-weight:900;font-size:1.1rem;color:var(--sun)}
+.hero-side .btn{min-height:50px}
+.hero-side img{object-position:30% 50%}
+.nw{white-space:nowrap}
+@media(min-width:1024px){.hero-side img{object-position:50% 0}}
+@media(max-width:1023px){.hero-main .logo{width:min(48%,240px)}}
+@media(min-width:1024px){
+  .hero{padding-top:calc(104px + env(safe-area-inset-top))}
+  .hero-grid{grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);align-items:stretch}
+  .hero-main,.hero-side{aspect-ratio:auto;min-height:clamp(540px,64vh,720px)}
+  .hero-side .banner-body{padding-bottom:28px}
 }
-@media (max-width:1100px){.menu{gap:24px}.menu .lang{padding-left:18px}}
-@media (max-width:960px){
-  .menu{position:fixed;inset:0;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 var(--gutter);gap:10px;background:rgba(7,7,12,.96);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);opacity:0;visibility:hidden;transition:opacity .4s,visibility 0s .4s;z-index:-1}
-  .menu a{font-size:2.6rem;letter-spacing:.06em;padding:4px 0;opacity:0;transform:translateY(18px);transition:opacity .5s var(--ease),transform .5s var(--ease),color .3s}
-  .menu a::after{height:3px}
-  .nav.open .menu{opacity:1;visibility:visible;transition:opacity .4s}
-  .nav.open .menu a{opacity:1;transform:none}
-  .nav.open .menu a:nth-child(1){transition-delay:.08s}.nav.open .menu a:nth-child(2){transition-delay:.14s}.nav.open .menu a:nth-child(3){transition-delay:.2s}.nav.open .menu a:nth-child(4){transition-delay:.26s}
-  .menu .lang{margin:26px 0 0;padding:0;border:0;font-size:.9rem;opacity:0;transition:opacity .5s .32s}
-  .nav.open .menu .lang{opacity:1}
-  .burger{display:block}
-  .spot-grid,.spot.df .spot-grid{grid-template-columns:1fr}
-  .spot.df .spot-text{order:0}
-  .gallery{position:static}
-  .studio-grid{grid-template-columns:1fr}
-  .news{grid-template-columns:1fr 1fr}
-  .news .ncard:last-child{grid-column:1/-1}
-  .timeline{grid-template-columns:1fr 1fr;gap:28px 24px}
-  .timeline::before{display:none}
-  .timeline li{padding:0 0 0 26px}
-  .timeline li::before{top:7px}
-  .foot{grid-template-columns:1fr 1fr 1fr}
-  .foot>div:first-child{grid-column:1/-1}
-}
-@media (max-width:680px){
-  :root{--nav:64px}
-  .brand small{display:none}
-  .hero{min-height:640px}
-  .slide .shade{background:linear-gradient(0deg,var(--bg) 4%,rgba(7,7,12,.6) 42%,rgba(7,7,12,.1) 70%,rgba(7,7,12,.5) 100%)}
-  .slide .copy{bottom:118px}
-  .hero-logo{width:min(300px,72vw);margin:12px 0 14px -1%}
-  .hero .sub{display:none}
-  .btn{height:48px;padding:0 20px;font-size:.92rem}
-  .tabs{bottom:22px}
-  .tab{flex:1;padding:10px 12px 13px;gap:10px}
-  .tab img,.tab small,.tab .n{display:none}
-  .tab b{font-size:.92rem}
-  .arrows{display:none}
-  .grain{display:none}
-  .games{grid-template-columns:1fr;gap:18px}
-  .gcard{aspect-ratio:4/5}
-  .gcard .logo{width:min(220px,62%)}
-  .gcard .desc{max-height:none;opacity:1;margin-top:6px}
-  .feats li{grid-template-columns:40px 1fr;gap:12px;padding:12px 14px}
-  .feats i{width:40px;height:40px}
-  .stats{--n:2!important}
-  .stats div:last-child:nth-child(odd){grid-column:1/-1}
-  .stats b{font-size:1.7rem}
-  .stage .nb-btn{opacity:1;width:38px;height:38px}
-  .thumbs{grid-template-columns:repeat(3,1fr);gap:6px}
-  .news{grid-template-columns:1fr}
-  .timeline{grid-template-columns:1fr}
-  .mail{flex-direction:column;width:100%}
-  .mail button{padding:14px}
-  .foot{grid-template-columns:1fr 1fr}
-  .lightbox{padding:72px 12px 24px}
-  .lightbox img{max-height:calc(100svh - 150px)}
-  .lightbox .lb-prev,.lightbox .lb-next{top:auto;bottom:max(16px,env(safe-area-inset-bottom,0px));transform:none}
-  .lightbox .lb-prev{left:auto;right:calc(max(16px,env(safe-area-inset-right,0px)) + 56px)}
-}
-@media (hover:none){.stage .nb-btn{opacity:1}}
-@media (prefers-reduced-motion:reduce){
+@media(min-width:1440px){.hero-grid{gap:22px}}
+.hero-marquee{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;color:var(--ink-2);font-weight:700;font-size:.95rem}
+.hero-marquee span{display:inline-flex;align-items:center;gap:.5rem}
+.hero-marquee .i{width:18px;height:18px;color:var(--brand)}
+
+/* ---------- section plumbing ---------- */
+.section{position:relative;padding:clamp(64px,9vw,120px) 0}
+.sec-head{display:grid;gap:16px;justify-items:start;margin-bottom:clamp(32px,5vw,56px)}
+.sec-head .lead{max-width:60ch}
+.edge{display:block;width:100%;height:clamp(28px,4vw,56px);position:absolute;left:0;right:0;pointer-events:none}
+.edge--top{top:-1px}
+.edge--bottom{bottom:-1px;transform:scaleY(-1)}
+.px-edge{position:absolute;left:0;right:0;height:16px;pointer-events:none;background-image:repeating-linear-gradient(90deg,var(--ss-bg) 0 16px,transparent 16px 32px)}
+.px-edge--top{top:-16px}
+.px-edge--bottom{bottom:-16px}
+
+/* ---------- Deepfold world ---------- */
+.df{background:linear-gradient(180deg,var(--df-cream) 0%,var(--df-peach) 42%,var(--df-orange) 100%);overflow:hidden;--ink-2:#4B3A3E}
+.df::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .38 0 0 0 0 .22 0 0 0 .28 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.df .wrap{position:relative;z-index:1}
+.df .kicker--wip{background:#fff}
+.df-head{display:grid;gap:28px;align-items:center}
+.df-title{font-size:clamp(2.3rem,5vw,4.2rem);color:var(--ink)}
+.df-title em{font-style:normal;display:block;font-size:.5em;color:var(--df-brick);letter-spacing:0}
+.df-tag{font-family:var(--font-display);font-weight:900;font-size:clamp(1.25rem,2.2vw,1.7rem);line-height:1.3;color:var(--df-brick-deep)}
+.frame{position:relative;background:#fff;padding:12px 12px 48px;border-radius:6px;box-shadow:0 2px 0 rgba(31,26,51,.08),0 24px 50px rgba(120,60,20,.28);transform:rotate(-2deg)}
+.frame img{border-radius:3px;aspect-ratio:16/9;object-fit:cover;width:100%}
+.frame .cap{position:absolute;left:14px;right:14px;bottom:12px;font:700 .95rem/1.3 var(--font-body);color:var(--ink-2);display:flex;justify-content:space-between;gap:4px 12px;flex-wrap:wrap}
+@media(max-width:479px){.frame{padding-bottom:64px}}
+.frame .tape{position:absolute;top:-14px;left:50%;width:120px;height:30px;transform:translateX(-50%) rotate(2deg);background:rgba(255,224,130,.85);box-shadow:0 2px 4px rgba(0,0,0,.08)}
+.df-show{position:relative;padding:20px 0}
+.scrap{position:absolute;border-radius:4px;pointer-events:none;box-shadow:0 2px 0 rgba(0,0,0,.08)}
+.scrap.a{width:34px;height:24px;background:#FFD9A8;left:-6%;top:8%;transform:rotate(-18deg);animation:float 8s ease-in-out infinite}
+.scrap.b{width:26px;height:40px;background:#F58C45;right:-5%;top:12%;transform:rotate(14deg);animation:float 10s ease-in-out infinite reverse}
+.scrap.c{width:46px;height:28px;background:#7A6AA8;left:6%;bottom:-6px;transform:rotate(8deg);animation:float 9s ease-in-out infinite 1s}
+.scrap.d{width:20px;height:20px;background:#FFF1D6;right:14%;bottom:6px;transform:rotate(30deg);animation:float 7s ease-in-out infinite .5s}
+.scrap.e{width:38px;height:26px;background:#E9B07A;right:28%;top:-12px;transform:rotate(-9deg);animation:float 11s ease-in-out infinite 2s}
+.letter-fly{position:absolute;right:4%;top:-26px;width:56px;height:56px;color:#fff;filter:drop-shadow(0 6px 10px rgba(120,60,20,.3));animation:float 9s ease-in-out infinite .8s}
+@keyframes float{0%,100%{translate:0 0;rotate:0deg}50%{translate:0 -14px;rotate:4deg}}
+@media(min-width:1024px){.df-head{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:48px}.df-show{padding:30px 0}}
+.steps{list-style:none;margin:clamp(40px,6vw,72px) 0 0;padding:0;display:grid;gap:22px;counter-reset:step}
+.step{position:relative;background:#fff;border-radius:var(--r);padding:16px 16px 22px;box-shadow:0 2px 0 rgba(31,26,51,.06),0 18px 40px rgba(120,60,20,.2);display:grid;gap:14px}
+.step img{border-radius:12px;aspect-ratio:16/9;object-fit:cover;width:100%}
+.step .num{position:absolute;top:-16px;left:16px;width:52px;height:52px;border-radius:14px;background:var(--df-brick);color:#fff;font:900 1.3rem/52px var(--font-display);text-align:center;box-shadow:0 5px 0 var(--df-brick-deep);transform:rotate(-4deg)}
+.step h3{font-size:1.6rem;color:var(--ink)}
+.step h3 small{display:block;font:700 .9rem/1.4 var(--font-body);color:var(--df-brick);margin-top:2px}
+.step p{color:var(--ink-2)}
+.step:nth-child(1){transform:rotate(-1.2deg)}.step:nth-child(2){transform:rotate(.8deg)}.step:nth-child(3){transform:rotate(-.6deg)}
+@media(min-width:768px){.steps{grid-template-columns:repeat(3,1fr);gap:24px}}
+.df-mid{display:grid;gap:24px;margin-top:clamp(44px,7vw,80px);align-items:center}
+.note{position:relative;background:#FFF9EC;border-radius:8px;padding:34px 28px 28px;box-shadow:0 2px 0 rgba(31,26,51,.06),0 20px 44px rgba(120,60,20,.25);transform:rotate(1deg);background-image:repeating-linear-gradient(transparent 0 31px,rgba(184,67,26,.12) 31px 32px);background-size:100% 32px;background-position:0 12px}
+.note::before{content:"";position:absolute;top:-10px;left:50%;width:18px;height:18px;border-radius:50%;background:var(--df-brick);box-shadow:inset 0 -3px 0 rgba(0,0,0,.25),0 3px 4px rgba(0,0,0,.25);transform:translateX(-50%)}
+.note q{quotes:"“" "”";font-size:clamp(1.15rem,1.4vw + .7rem,1.5rem);line-height:1.75;font-weight:500;color:var(--ink)}
+.note cite{display:block;margin-top:14px;font-style:normal;font-weight:700;color:var(--df-brick);font-size:.95rem}
+.facts{display:grid;gap:12px}
+.fact{display:flex;gap:14px;align-items:center;background:rgba(255,255,255,.75);border-radius:16px;padding:14px 18px;box-shadow:0 2px 0 rgba(31,26,51,.06)}
+.fact b{font-family:var(--font-display);font-weight:900;font-size:2rem;line-height:1;color:var(--df-brick);min-width:2.2ch;text-align:center}
+.fact span{font-weight:700;color:var(--ink)}
+.fact small{display:block;font-weight:500;color:var(--ink-2);font-size:.9rem}
+@media(min-width:1024px){.df-mid{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:48px}}
+.df .actions{margin-top:clamp(40px,6vw,64px)}
+.df .chip{background:rgba(255,255,255,.55);color:var(--df-brick-deep);border-color:rgba(126,43,14,.5)}
+
+/* ---------- gallery (snap scroller) ---------- */
+.gal{margin-top:clamp(44px,7vw,80px)}
+.gal-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:18px}
+.gal-head h3{font-size:1.5rem}
+.gal-nav{display:flex;gap:8px}
+.gal-nav button{width:48px;height:48px;border:0;border-radius:14px;background:#fff;color:var(--ink);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 4px 0 rgba(31,26,51,.15);transition:transform var(--t-fast),box-shadow var(--t-fast)}
+.gal-nav button:hover{transform:translateY(-2px)}
+.gal-nav button:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(31,26,51,.15)}
+.gal-nav .i{width:24px;height:24px}
+.gal-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px 4px 20px;margin:0 -4px;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.gal-track::-webkit-scrollbar{height:8px}.gal-track::-webkit-scrollbar-thumb{background:rgba(31,26,51,.25);border-radius:4px}
+.shot{flex:0 0 min(82%,520px);scroll-snap-align:start;border:0;padding:0;background:#fff;border-radius:16px;overflow:hidden;text-align:left;box-shadow:0 2px 0 rgba(31,26,51,.06),0 14px 30px rgba(31,26,51,.18);transition:transform var(--t),box-shadow var(--t)}
+.shot:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 2px 0 rgba(31,26,51,.06),0 22px 40px rgba(31,26,51,.24)}
+.shot:active{transform:scale(.99)}
+.shot img{aspect-ratio:16/9;object-fit:cover;width:100%}
+.shot figcaption{display:flex;justify-content:space-between;gap:10px;padding:12px 14px;font-weight:700;font-size:.95rem;color:var(--ink)}
+.shot figcaption .i{width:18px;height:18px;color:var(--ink-2)}
+.shot figure{margin:0}
+@media(min-width:1024px){.shot{flex-basis:calc(33.333% - 11px)}}
+
+/* ---------- Soul Saver world (dark) ---------- */
+.ss{background:var(--ss-bg);color:var(--ss-text);overflow:visible;--ink:var(--ss-text);--ink-2:var(--ss-muted);padding-top:calc(clamp(64px,9vw,120px) + 12px)}
+.ss::before{content:"";position:absolute;inset:0;background:url("img/ss_bg.jpg") center/900px repeat;opacity:.28;mix-blend-mode:screen;pointer-events:none}
+.ss::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(45% 40% at 15% 20%,rgba(139,92,246,.35),transparent 70%),radial-gradient(40% 35% at 85% 60%,rgba(91,224,255,.18),transparent 70%)}
+.ss .wrap{position:relative;z-index:1}
+.ss :focus-visible{outline-color:var(--ss-cyan)}
+.ss .kicker{font-family:var(--font-px);font-size:.75rem;text-transform:uppercase;background:rgba(91,224,255,.12);color:var(--ss-cyan);border:1.5px solid rgba(91,224,255,.5);padding:.6rem 1rem}
+.ss-head{display:grid;gap:26px;align-items:center}
+.ss-logo{width:min(100%,460px);image-rendering:pixelated;filter:drop-shadow(0 10px 0 rgba(0,0,0,.35)) drop-shadow(0 0 28px rgba(139,92,246,.5))}
+.ss-tag{font-family:var(--font-display);font-weight:900;font-size:clamp(1.25rem,2.2vw,1.7rem);line-height:1.3;color:#fff}
+.ss .lead{color:var(--ss-muted)}
+.ss-show{position:relative;margin-top:clamp(36px,5vw,56px)}
+.crt{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 0 0 4px #2A1B5E,0 0 0 8px #4B2FA8,0 30px 60px rgba(0,0,0,.55),0 0 60px rgba(139,92,246,.35)}
+.crt img{width:100%;aspect-ratio:21/9;object-fit:cover}
+.crt::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(180deg,rgba(255,255,255,.035) 0 2px,transparent 2px 4px);pointer-events:none}
+.px{position:absolute;width:10px;height:10px;background:var(--ss-cyan);box-shadow:0 0 12px var(--ss-cyan);pointer-events:none;animation:blink 2.4s steps(2,end) infinite}
+.px.v{background:var(--ss-violet);box-shadow:0 0 12px var(--ss-violet)}
+.px.p1{left:3%;top:-8px;animation-delay:.3s}.px.p2{right:6%;top:18%;animation-delay:1.1s}.px.p3{left:12%;bottom:-14px;width:14px;height:14px;animation-delay:.7s}.px.p4{right:20%;bottom:-6px;animation-delay:1.6s}.px.p5{left:40%;top:-16px;width:8px;height:8px;animation-delay:2s}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.ghost{position:absolute;right:-6px;top:-54px;width:72px;height:72px;filter:drop-shadow(0 8px 0 rgba(0,0,0,.4));animation:bob 3s steps(4,end) infinite;pointer-events:none}
+@keyframes bob{0%,100%{translate:0 0}50%{translate:0 -10px}}
+@media(min-width:1024px){.ss-head{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px}}
+.feats{list-style:none;margin:clamp(44px,6vw,72px) 0 0;padding:0;display:grid;gap:18px}
+.feat{background:linear-gradient(180deg,var(--ss-card),#1A1040);border-radius:18px;padding:24px 22px;box-shadow:0 0 0 2px #4B2FA8,0 10px 0 #2A1B5E;display:grid;gap:12px;transition:transform var(--t),box-shadow var(--t)}
+.feat:hover{transform:translateY(-4px);box-shadow:0 0 0 2px var(--ss-violet),0 14px 0 #2A1B5E,0 0 40px rgba(139,92,246,.35)}
+.feat .ic{width:54px;height:54px;border-radius:12px;display:grid;place-items:center;background:rgba(139,92,246,.22);color:var(--ss-cyan);box-shadow:inset 0 0 0 2px rgba(91,224,255,.35)}
+.feat .ic .i{width:28px;height:28px}
+.feat h3{font-size:1.35rem;color:#fff}
+.feat p{color:var(--ss-muted)}
+@media(min-width:768px){.feats{grid-template-columns:repeat(3,1fr);gap:22px}}
+.stats{list-style:none;margin:clamp(40px,6vw,64px) 0 0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.stat{background:rgba(19,12,44,.7);border-radius:16px;padding:22px 16px;text-align:center;box-shadow:0 0 0 2px #2A1B5E;display:grid;gap:10px}
+.stat b{font-family:var(--font-px);font-size:clamp(1.5rem,3vw,2.2rem);color:var(--ss-cyan);text-shadow:0 0 18px rgba(91,224,255,.6);font-weight:400;line-height:1}
+.stat span{font-weight:700;color:var(--ss-text);font-size:.98rem}
+@media(min-width:768px){.stats{grid-template-columns:repeat(4,1fr)}}
+.ss .gal-nav button{background:#2A1B5E;color:#fff;box-shadow:0 4px 0 #4B2FA8}
+.ss .shot{background:#1A1040;box-shadow:0 0 0 2px #2A1B5E,0 14px 30px rgba(0,0,0,.45)}
+.ss .shot:hover{box-shadow:0 0 0 2px var(--ss-violet),0 22px 40px rgba(0,0,0,.5)}
+.ss .shot figcaption{color:var(--ss-text)}
+.ss .shot figcaption .i{color:var(--ss-muted)}
+.ss .gal-track::-webkit-scrollbar-thumb{background:rgba(189,179,230,.35)}
+.ss .actions{margin-top:clamp(40px,6vw,64px)}
+.ss .price-tag{font-family:var(--font-display);font-weight:900;font-size:1.1rem;color:var(--sun)}
+
+/* ---------- News ---------- */
+.news{background:var(--paper)}
+.news-list{list-style:none;margin:0;padding:0;display:grid;gap:16px}
+.news-card{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:center;background:#fff;border-radius:var(--r);padding:14px;text-decoration:none;color:var(--ink);box-shadow:0 2px 0 rgba(31,26,51,.06),0 10px 26px rgba(31,26,51,.1);transition:transform var(--t),box-shadow var(--t);position:relative;overflow:hidden}
+.news-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:8px;background:var(--acc,var(--brand))}
+.news-card:hover{transform:translateY(-3px);box-shadow:0 2px 0 rgba(31,26,51,.06),0 18px 36px rgba(31,26,51,.16)}
+.news-card:active{transform:scale(.995)}
+.news-card img{width:96px;height:72px;object-fit:cover;border-radius:12px}
+.news-card .meta{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;font-size:.88rem;font-weight:700;color:var(--ink-2)}
+.news-card .tag{display:inline-flex;padding:.2rem .6rem;border-radius:8px;font-size:.78rem;font-weight:900;font-family:var(--font-display);letter-spacing:.02em;color:#fff;background:var(--acc,var(--brand))}
+.news-card time{font-variant-numeric:tabular-nums}
+.news-card h3{font-size:1.2rem;margin-top:6px;color:var(--ink)}
+.news-card p{color:var(--ink-2);margin-top:4px;font-size:.98rem}
+.news-card .go{display:none;color:var(--ink-2)}
+.news-card[data-acc=df]{--acc:var(--df-brick)}.news-card[data-acc=ss]{--acc:var(--ss-violet-deep)}
+@media(min-width:768px){.news-card{grid-template-columns:200px 1fr auto;padding:16px 22px 16px 16px;gap:22px}.news-card img{width:200px;height:120px}.news-card .go{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:var(--paper-2);color:var(--ink)}.news-card .go .i{width:24px;height:24px}}
+
+/* ---------- Studio ---------- */
+.studio{background:#fff}
+.studio::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(40% 50% at 100% 0%,rgba(255,198,58,.22),transparent 70%),radial-gradient(40% 50% at 0% 100%,rgba(47,91,255,.1),transparent 70%)}
+.studio-grid{display:grid;gap:36px}
+.studio-text{display:grid;gap:18px}
+.studio-text .lead{color:var(--ink-2)}
+.roles{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.role{display:grid;gap:10px;background:var(--paper);border-radius:18px;padding:18px;box-shadow:0 2px 0 rgba(31,26,51,.06),0 10px 26px rgba(31,26,51,.08);transition:transform var(--t)}
+.role:hover{transform:translateY(-4px) rotate(-1deg)}
+.role .ic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.18)}
+.role .ic .i{width:26px;height:26px}
+.role b{font-family:var(--font-display);font-weight:900;font-size:1.05rem;letter-spacing:.02em}
+.role span{color:var(--ink-2);font-size:.95rem;font-weight:500}
+.role.r1 .ic{background:var(--brand)}.role.r2 .ic{background:var(--df-orange)}.role.r3 .ic{background:var(--ss-violet)}.role.r4 .ic{background:#0E9F6E}
+.founder{display:flex;align-items:center;gap:16px;background:var(--ink);color:#fff;border-radius:18px;padding:16px 18px;box-shadow:0 6px 0 #0D0A1A}
+.founder .avatar{width:60px;height:60px;border-radius:16px;background:linear-gradient(135deg,var(--brand),var(--sun));display:grid;place-items:center;font-family:var(--font-display);font-weight:900;font-size:1.6rem;color:#fff;flex:none;box-shadow:inset 0 -4px 0 rgba(0,0,0,.2)}
+.founder b{display:block;font-size:1.1rem}
+.founder span{color:rgba(255,255,255,.75);font-size:.92rem;font-weight:500}
+@media(min-width:1024px){.studio-grid{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:56px;align-items:start}}
+.roadmap{margin-top:clamp(44px,6vw,72px)}
+.roadmap h3{font-size:1.5rem;margin-bottom:18px}
+.road{list-style:none;margin:0;padding:0;display:grid;gap:14px;position:relative}
+.road::before{content:"";position:absolute;left:21px;top:16px;bottom:16px;width:4px;border-radius:2px;background:linear-gradient(180deg,var(--brand),var(--sun))}
+.road li{display:grid;grid-template-columns:46px 1fr;gap:14px;align-items:start}
+.road .dot{width:46px;height:46px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 0 0 4px var(--brand),0 4px 0 4px var(--brand-deep)}
+.road .dot::after{content:"";width:14px;height:14px;border-radius:50%;background:var(--brand)}
+.road li.done .dot::after{background:#0E9F6E}.road li.done .dot{box-shadow:0 0 0 4px #0E9F6E,0 4px 0 4px #0B7A54}
+.road li.next .dot{box-shadow:0 0 0 4px var(--sun),0 4px 0 4px var(--sun-deep)}.road li.next .dot::after{background:var(--sun)}
+.road .body{background:var(--paper);border-radius:16px;padding:12px 16px;box-shadow:0 2px 0 rgba(31,26,51,.06)}
+.road time{font-family:var(--font-display);font-weight:900;color:var(--brand-deep);font-variant-numeric:tabular-nums}
+.road b{display:block;font-size:1.05rem}
+.road span{color:var(--ink-2);font-size:.95rem}
+@media(min-width:768px){.road{grid-template-columns:repeat(4,1fr);gap:18px}.road::before{left:8%;right:8%;top:21px;bottom:auto;width:auto;height:4px;background:linear-gradient(90deg,#0E9F6E,var(--brand),var(--sun))}.road li{grid-template-columns:1fr;justify-items:center;text-align:center}.road .body{width:100%}}
+
+/* ---------- Contact ---------- */
+.contact{background:linear-gradient(135deg,var(--brand) 0%,#2A4FE0 60%,var(--brand-deep) 100%);color:#fff;overflow:hidden}
+.contact::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(30% 50% at 85% 20%,rgba(255,198,58,.35),transparent 70%)}
+.contact .sec-title,.contact .lead{color:#fff}
+.contact .lead{color:#fff}
+.mail{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:28px}
+.mail-box{display:inline-flex;align-items:center;gap:12px;background:#fff;color:var(--ink);border-radius:16px;padding:0 18px;min-height:54px;font-family:var(--font-display);font-weight:700;font-size:clamp(1rem,2.4vw,1.2rem);box-shadow:0 6px 0 #C9D3FF;overflow-wrap:anywhere}
+.copied{min-height:24px;font-weight:700;color:var(--sun)}
+.contact .btn--light{box-shadow:0 6px 0 #C9D3FF,0 14px 26px rgba(0,0,0,.15)}
+.contact .btn--light:active{box-shadow:0 2px 0 #C9D3FF}
+.contact .btn:focus-visible{outline-color:var(--sun)}
+.spark{position:absolute;color:var(--sun);pointer-events:none;animation:twinkle 3.2s ease-in-out infinite}
+.spark svg{width:100%;height:100%;fill:currentColor}
+.spark.s1{right:8%;top:14%;width:34px;height:34px}.spark.s2{right:18%;top:48%;width:20px;height:20px;animation-delay:1.1s}.spark.s3{left:6%;bottom:12%;width:26px;height:26px;animation-delay:2s}
+@keyframes twinkle{0%,100%{opacity:.35;scale:.8}50%{opacity:1;scale:1.1}}
+
+/* ---------- footer ---------- */
+.footer{background:var(--navy);color:#fff;padding:48px 0 calc(32px + env(safe-area-inset-bottom))}
+.foot-grid{display:grid;gap:28px}
+.foot-brand{display:grid;gap:10px;justify-items:start}
+.foot-brand .brand{color:#fff}.foot-brand .brand small{color:rgba(255,255,255,.7)}
+.foot-brand p{color:rgba(255,255,255,.8);max-width:36ch}
+.foot-col h4{font-size:.85rem;letter-spacing:.08em;color:var(--sun);margin-bottom:12px;font-family:var(--font-body);font-weight:900}
+.foot-col ul{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.foot-col a{display:inline-flex;align-items:center;gap:.4rem;min-height:44px;text-decoration:none;color:rgba(255,255,255,.88);font-weight:500}
+.foot-col a:hover{color:#fff;text-decoration:underline}
+.foot-col .i{width:16px;height:16px}
+.foot-bottom{margin-top:36px;padding-top:20px;border-top:1px solid rgba(255,255,255,.18);display:flex;flex-wrap:wrap;gap:8px 24px;font-size:.88rem;color:rgba(255,255,255,.75)}
+@media(min-width:768px){.foot-grid{grid-template-columns:1.4fr 1fr 1fr}}
+
+/* ---------- lightbox ---------- */
+.lb{border:0;padding:0;background:transparent;max-width:none;max-height:none;width:100vw;height:100dvh;inset:0;margin:0;color:#fff}
+.lb::backdrop{background:rgba(19,12,44,.92)}
+.lb-in{position:relative;width:100%;height:100%;display:grid;grid-template-rows:1fr auto;padding:calc(16px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom))}
+.lb-in img{max-width:100%;max-height:100%;width:auto;height:auto;margin:auto;border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.6);object-fit:contain;min-height:0}
+.lb-stage{display:grid;place-items:center;min-height:0;overflow:hidden}
+.lb-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:12px}
+.lb-bar figcaption{font-weight:700;color:#fff}
+.lb-bar .count{font-family:var(--font-display);font-weight:900;color:var(--sun);font-variant-numeric:tabular-nums;white-space:nowrap}
+.lb button{width:48px;height:48px;border:0;border-radius:14px;background:rgba(255,255,255,.14);color:#fff;display:inline-flex;align-items:center;justify-content:center;transition:background var(--t-fast),transform var(--t-fast)}
+.lb button:hover{background:rgba(255,255,255,.26)}
+.lb button:active{transform:scale(.94)}
+.lb button:focus-visible{outline-color:var(--sun)}
+.lb .i{width:26px;height:26px}
+.lb-close{position:absolute;right:16px;top:calc(16px + env(safe-area-inset-top))}
+.lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%)}
+.lb-prev{left:12px}.lb-next{right:12px}
+.lb-prev:active,.lb-next:active{transform:translateY(-50%) scale(.94)}
+.lb figure{margin:0;display:contents}
+
+/* ---------- motion safety ---------- */
+@media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;transition-delay:0s!important}
-  .js .rv{opacity:1;transform:none}
-  #embers,.grain{display:none}
-  .slide .art img{transform:none}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
+html.static *{animation:none!important}
 </style>
 </head>
 <body>
-<script>document.documentElement.classList.add('js')</script>
+<a class="skip" href="#main" data-en="Skip to content">본문으로 건너뛰기</a>
+<div class="progress" id="progress" aria-hidden="true"></div>
 
-<!-- 인트로: 한 세션에 한 번만, 1.5초 뒤(또는 누르면) 걷힌다. 주 스크립트와 따로 돌아 실패해도 화면을 가리지 않는다 -->
-<div id="intro" aria-hidden="true">
-  <div class="mark">
-    <svg viewBox="0 0 32 32" fill="none"><path class="hex" d="M16 3l11 7v12l-11 7-11-7V10z" stroke="#F2B24C" stroke-width="1.6"/><path class="core" d="M16 9l6 4v6l-6 4-6-4v-6z" fill="rgba(242,178,76,.18)" stroke="#F2B24C" stroke-width="1"/><circle class="core" cx="16" cy="16" r="2.4" fill="#F2B24C"/></svg>
-    <b>MINGONGBANG GAMES</b>
-  </div>
-  <small>CLICK TO SKIP</small>
-</div>
-<script>
-(function(){var h=document.documentElement,seen=0;try{seen=sessionStorage.getItem('mg-intro')}catch(e){}
-if(seen||matchMedia('(prefers-reduced-motion: reduce)').matches||/nointro/.test(location.search)){h.classList.add('nointro','go');return}
-try{sessionStorage.setItem('mg-intro','1')}catch(e){}
-var done=function(){h.classList.add('go');removeEventListener('click',done);removeEventListener('keydown',done)};
-setTimeout(done,1500);addEventListener('click',done);addEventListener('keydown',done)})();
-</script>
-
-<a class="skip" href="#games" data-en="Skip to content">본문으로 건너뛰기</a>
-
-<!-- 머리 -->
-<header class="nav" id="nav">
-  <div class="in">
-    <a class="brand" href="#top" aria-label="민공방 게임즈 처음으로">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3l11 7v12l-11 7-11-7V10z" fill="none" stroke="#F2B24C" stroke-width="2"/><path d="M16 9l6 4v6l-6 4-6-4v-6z" fill="rgba(242,178,76,.18)" stroke="#F2B24C" stroke-width="1.2"/><circle cx="16" cy="16" r="2.6" fill="#F2B24C"/></svg>
-      <span><b data-en="MinGongbang Games">민공방 게임즈</b><small>MINGONGBANG GAMES</small></span>
+<header class="header" id="header">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="민공방 게임즈 홈" data-en-label="MinGongbang Games home">
+      <svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#2F5BFF"/><path d="M20 6l11 7.5v13L20 34 9 26.5v-13z" fill="none" stroke="#FFC63A" stroke-width="3.2" stroke-linejoin="round"/><circle cx="20" cy="20" r="4.4" fill="#FFC63A"/></svg>
+      <span><span data-en="MinGongbang Games">민공방 게임즈</span><small data-en="ONE-PERSON GAME WORKSHOP">MINGONGBANG GAMES</small></span>
     </a>
-    <nav class="menu" id="menu" aria-label="주 메뉴">
-      <a href="#games">GAMES</a><a href="#news">NEWS</a><a href="#studio">STUDIO</a><a href="#contact">CONTACT</a>
-      <div class="lang" role="group" aria-label="언어 · Language"><button type="button" class="on" data-lang="ko" aria-pressed="true">KO</button><span aria-hidden="true">/</span><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
+    <nav class="nav" aria-label="주요 메뉴" data-en-label="Main menu">
+      <a href="#deepfold">Deepfold</a>
+      <a href="#soulsaver">Soul Saver</a>
+      <a href="#news" data-en="News">소식</a>
+      <a href="#studio" data-en="Studio">공방</a>
+      <a href="#contact" data-en="Contact">연락</a>
     </nav>
-    <button class="burger" id="burger" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
-    <div class="progress" id="progress" aria-hidden="true"></div>
+    <div class="lang" role="group" aria-label="언어" data-en-label="Language">
+      <button type="button" data-lang="ko" aria-pressed="true" lang="ko">KO</button>
+      <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
+    </div>
+    <button class="menu-btn" type="button" id="menuBtn" aria-label="메뉴 열기" data-en-label="Open menu" aria-haspopup="dialog" aria-controls="menu"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
   </div>
 </header>
 
-<!-- 첫 화면 -->
-<section class="hero" id="top" aria-roledescription="carousel" aria-label="대표 작품">
-  <h1 class="sr">민공방 게임즈 — 혼자 게임을 만드는 작은 공방</h1>
-  <div class="slide on" data-i="0" aria-label="Deepfold: One Day Deep">
-    <picture class="art">
-      <source media="(max-width:680px)" srcset="img/keyart_tall.jpg">
-      <img src="img/keyart_16x9.jpg" alt="" width="2560" height="1440" fetchpriority="high" decoding="async" style="--pos:60% 50%">
-    </picture>
-    <div class="shade"></div>
-    <div class="copy"><div class="in">
-      <div class="kicker"><i></i>COMING 2027 · STEAM</div>
-      <img class="hero-logo" src="img/df_logo.png" alt="Deepfold: One Day Deep" width="900" height="506">
-      <h2 class="tag"><span class="nb" data-en="A mine your grandmother left behind.">할머니가 남긴 폐광,</span><br><span class="nb" data-en="One letter for every layer down.">한 겹 아래마다 편지 한 통</span></h2>
-      <p class="sub" data-en="Plant ore seams in deep time, fast-forward millions of years, then dig them out by hand today. A papercraft mining story.">깊은 시간에 광맥을 심고, 수백만 년을 빨리 감고, 지금의 땅을 손으로 파 내려가는 종이 광산 이야기.</p>
-      <div class="cta">
-        <a class="btn gold" href="#deepfold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span data-en="Explore the game">게임 살펴보기</span></a>
-        <span class="btn off" title="상점 페이지가 열리면 연결됩니다"><span data-en="Wishlist · coming soon">위시리스트 · 곧 공개</span></span>
-      </div>
-    </div></div>
-  </div>
-  <div class="slide" data-i="1" aria-label="Soul Saver" aria-hidden="true">
-    <picture class="art">
-      <img class="pixel" src="img/ss_hero.jpg" alt="" width="2560" height="827" decoding="async" fetchpriority="low" style="--pos:72% 50%">
-    </picture>
-    <div class="shade"></div>
-    <div class="copy"><div class="in">
-      <div class="kicker"><i></i>NOW ON STEAM · ₩1,700</div>
-      <img class="hero-logo pixel" src="img/ss_logo.png" alt="Soul Saver" width="900" height="506">
-      <h2 class="tag"><span class="nb" data-en="Aim every shot yourself.">한 발 한 발 직접 조준하는</span><br><span class="nb" data-en="A pixel-art roguelite.">도트 로그라이트</span></h2>
-      <p class="sub" data-en="Bosses learn your favorite attack and block it. Beat them inside the barrier and your weapon evolves.">보스는 내가 가장 많이 쓰는 공격을 배워 막아 냅니다. 방어막 안에서 쓰러뜨리면 무기가 진화합니다.</p>
-      <div class="cta">
-        <a class="btn gold" href="https://store.steampowered.com/app/5328770/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-9.96 9.1l5.36 2.22a2.8 2.8 0 0 1 1.6-.5l2.4-3.47v-.05a3.8 3.8 0 1 1 3.8 3.8h-.09l-3.42 2.44a2.83 2.83 0 0 1-5.6.53L2.3 14.6A10 10 0 1 0 12 2zm-4.3 15.2-1.23-.51a2.13 2.13 0 1 0 1.16-2.9l1.27.53a1.57 1.57 0 1 1-1.2 2.88zM15.2 12.4a2.53 2.53 0 1 0 0-5.07 2.53 2.53 0 0 0 0 5.07z"/></svg><span data-en="Buy on Steam">Steam에서 구매</span></a>
-        <a class="btn ghost" href="#soulsaver"><span data-en="Learn more">자세히 보기</span></a>
-      </div>
-    </div></div>
-  </div>
-  <div class="grain" aria-hidden="true"></div>
-  <canvas id="embers" aria-hidden="true"></canvas>
-  <div class="tabs"><div class="in">
-    <div role="tablist" aria-label="작품 고르기" style="display:contents">
-      <button class="tab on" role="tab" aria-selected="true" data-go="0" type="button"><img src="img/keyart_16x9.jpg" alt="" loading="lazy" width="60" height="38"><span><b>DEEPFOLD</b><small data-en="In development · 2027">개발 중 · 2027</small></span><span class="bar"><i></i></span></button>
-      <button class="tab" role="tab" aria-selected="false" data-go="1" type="button"><img class="pixel" src="img/ss_hero.jpg" alt="" loading="lazy" width="60" height="38"><span><b>SOUL SAVER</b><small data-en="Out now on Steam">Steam 판매 중</small></span><span class="bar"><i></i></span></button>
+<dialog class="menu" id="menu" aria-label="메뉴" data-en-label="Menu">
+  <div class="menu-in">
+    <div class="menu-top">
+      <span class="brand"><svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#fff"/><path d="M20 6l11 7.5v13L20 34 9 26.5v-13z" fill="none" stroke="#2F5BFF" stroke-width="3.2" stroke-linejoin="round"/><circle cx="20" cy="20" r="4.4" fill="#2F5BFF"/></svg><span><span data-en="MinGongbang Games">민공방 게임즈</span><small>MINGONGBANG GAMES</small></span></span>
+      <button class="menu-close" type="button" id="menuClose" aria-label="메뉴 닫기" data-en-label="Close menu"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     </div>
-    <div class="arrows">
-      <button class="prev" type="button" aria-label="이전 작품"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
-      <button class="next" type="button" aria-label="다음 작품"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+    <ul class="menu-links">
+      <li><a href="#deepfold">Deepfold <small data-en="Coming 2027">2027 출시 예정</small></a></li>
+      <li><a href="#soulsaver">Soul Saver <small data-en="Out on Steam">Steam 판매 중</small></a></li>
+      <li><a href="#news"><span data-en="News">소식</span></a></li>
+      <li><a href="#studio"><span data-en="Studio">공방</span></a></li>
+      <li><a href="#contact"><span data-en="Contact">연락</span></a></li>
+    </ul>
+    <div class="lang" role="group" aria-label="언어" data-en-label="Language">
+      <button type="button" data-lang="ko" aria-pressed="true" lang="ko">KO</button>
+      <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
     </div>
-  </div></div>
+  </div>
+</dialog>
+
+<main id="main">
+<!-- ===== HERO ===== -->
+<section class="hero" id="top" aria-label="대표 게임" data-en-label="Featured games">
+  <div class="wrap">
+    <div class="hero-grid">
+      <article class="banner hero-main" id="heroMain">
+        <picture>
+          <source media="(max-width:767px)" srcset="img/keyart_tall.jpg">
+          <img src="img/keyart_16x9.jpg" width="2560" height="1440" alt="노을 진 폐광촌 노을재. 권양탑 아래 갱도에서 종이 인형 광부 둘이 등불을 켜고 일한다" data-en-alt="The old mining town of Noeuljae at sunset. Two papercraft miners work by lantern light in the tunnel beneath the headframe" fetchpriority="high" decoding="async" data-parallax>
+        </picture>
+        <div class="banner-scrim"></div>
+        <div class="banner-body">
+          <span class="kicker pop"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span data-en="Coming 2027 · Steam">2027 출시 예정 · Steam</span></span>
+          <img class="logo pop" src="img/df_logo.png" width="900" height="506" alt="Deepfold: One Day Deep" decoding="async">
+          <h1 class="pop" data-en="A mine your grandmother left behind. One letter for every layer down.">할머니가 남긴 폐광, <span class="nw">한 겹 아래마다</span> <span class="nw">편지 한 통</span></h1>
+          <p class="lead pop" data-en="Plant ore seams in deep time, fast-forward millions of years, then dig them out by hand today. A papercraft mining story.">깊은 시간에 광맥을 심고, 수백만 년을 빨리 감고, 지금의 땅을 손으로 파 내려가는 종이 광산 이야기.</p>
+          <div class="actions pop">
+            <a class="btn btn--df" href="#deepfold"><span data-en="Explore the game">게임 살펴보기</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <span class="chip"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span data-en="Steam wishlist · coming soon">Steam 위시리스트 · 곧 공개</span></span>
+          </div>
+        </div>
+      </article>
+      <article class="banner hero-side" id="heroSide">
+        <picture>
+          <source media="(min-width:1024px)" srcset="img/ss_tall.jpg">
+          <img src="img/ss_banner.jpg" width="1232" height="706" alt="Soul Saver: 모자를 쓴 총잡이가 방어막에 둘러싸인 보스를 향해 총을 쏜다" data-en-alt="Soul Saver: the gunner fires at a boss wrapped in its barrier" decoding="async" data-parallax>
+        </picture>
+        <div class="banner-scrim"></div>
+        <div class="banner-body">
+          <span class="kicker pop">Now on Steam</span>
+          <h2 class="pop">Soul Saver</h2>
+          <p class="pop" data-en="Aim every shot yourself. A pixel-art roguelite.">한 발 한 발 직접 조준하는 도트 로그라이트</p>
+          <div class="actions pop">
+            <a class="btn btn--ss" href="https://store.steampowered.com/app/5328770/" target="_blank" rel="noopener"><span data-en="Buy on Steam">Steam에서 구매</span><span class="price">₩1,700</span></a>
+            <a class="btn btn--outline" href="#soulsaver"><span data-en="Learn more">자세히</span></a>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="hero-marquee" data-reveal>
+      <span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg><span data-en="A one-person game workshop">혼자 게임을 만드는 작은 공방</span></span>
+      <span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg><span data-en="Soul Saver · out on Steam since 2026-10-13">Soul Saver · 2026. 10. 13 Steam 출시</span></span>
+      <span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg><span data-en="Deepfold · demo at Steam Next Fest, 2027-02-22">Deepfold · 2027. 02. 22 Steam 넥스트 페스트 체험판</span></span>
+    </div>
+  </div>
 </section>
 
-<main>
-  <!-- 작품 -->
-  <section class="sec" id="games" data-nav="games">
-    <div class="in">
-      <div class="head rv">
-        <div class="ghost-word" aria-hidden="true">GAMES</div>
-        <div class="label">01 — Our Games</div>
-        <h2 data-en="Games from the workshop">공방에서 만든 게임</h2>
-        <p class="lede" data-en="Different genres, the same handmade touch.">장르는 달라도, 손으로 만진 흔적이 남는 게임을 만듭니다.</p>
+<!-- ===== DEEPFOLD ===== -->
+<section class="section df" id="deepfold" aria-labelledby="dfTitle">
+  <svg class="edge edge--top" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path fill="#FFF8EE" d="M0 0h1440v14c-60 6-110 22-170 18s-100-24-160-20-110 26-170 24-120-30-180-26-110 30-170 28-120-26-180-22-110 24-170 20S70 14 0 20z"/></svg>
+  <div class="wrap">
+    <div class="df-head">
+      <div class="sec-head" data-reveal>
+        <span class="kicker kicker--wip"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg><span data-en="In development · Coming 2027 on Steam">개발 중 · 2027 Steam 출시 예정</span></span>
+        <h2 class="df-title" id="dfTitle">Deepfold<em>One Day Deep</em></h2>
+        <p class="df-tag" data-en="A closed mine, and a time drill asleep beneath it">할머니가 남긴 폐광과 잠든 타임 드릴</p>
+        <p class="lead" data-en="Autumn 2035, the old mining town of Noeuljae. You inherit a closed mining company, one plot of land, and a time drill asleep under the shed. It sends only objects into the past, and brings only stone back up.">2035년 가을, 폐광촌 노을재. 물려받은 것은 문 닫은 광업사와 땅 한 필지, 그리고 창고 아래 잠든 타임 드릴. 드릴은 물건만 과거로 보내고, 돌만 끌어올립니다.</p>
       </div>
-      <div class="games">
-        <a class="gcard ss rv d1" href="#soulsaver">
-          <img class="bgimg pixel" src="img/ss_hero.jpg" alt="" loading="lazy" decoding="async" style="--pos:70% 50%">
-          <span class="sheen"></span>
-          <div class="body">
-            <div class="meta"><span class="chip live"><i></i><span data-en="Out now on Steam">STEAM 판매 중</span></span><span class="chip">2026. 10. 13</span></div>
-            <h3><img class="logo pixel" src="img/ss_logo.png" alt="Soul Saver" loading="lazy" width="900" height="506"></h3>
-            <p class="desc" data-en="From the catacombs through hell to the meadow. A pixel-art top-down shooter roguelite where you aim and reload yourself.">지하 묘역에서 지옥을 지나 초원까지. 직접 조준하고 직접 장전하는 픽셀 아트 탑다운 슈팅 로그라이트.</p>
-            <span class="more"><span data-en="See more">자세히 보기</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </div>
-        </a>
-        <a class="gcard df rv d2" href="#deepfold">
-          <img class="bgimg" src="img/keyart_close.jpg" alt="" loading="lazy" decoding="async" style="--pos:50% 40%">
-          <span class="sheen"></span>
-          <div class="body">
-            <div class="meta"><span class="chip dev"><i></i><span data-en="In development">개발 중</span></span><span class="chip" data-en="Coming 2027">2027 출시 예정</span></div>
-            <h3><img class="logo" src="img/df_logo.png" alt="Deepfold: One Day Deep" loading="lazy" width="900" height="506"></h3>
-            <p class="desc" data-en="Plant seams in deep time, wind millions of years forward, and dig down through today's ground by hand. A papercraft mining story.">깊은 시간에 광맥을 심고 수백만 년을 감아, 지금의 땅을 손으로 파 내려가는 종이 광산 이야기.</p>
-            <span class="more"><span data-en="See more">자세히 보기</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </div>
-        </a>
+      <div class="df-show">
+        <i class="scrap a" aria-hidden="true"></i><i class="scrap b" aria-hidden="true"></i><i class="scrap c" aria-hidden="true"></i><i class="scrap d" aria-hidden="true"></i><i class="scrap e" aria-hidden="true"></i>
+        <svg class="letter-fly" viewBox="0 0 56 56" aria-hidden="true"><rect x="6" y="14" width="44" height="30" rx="4" fill="#FFF9EC" stroke="#B8431A" stroke-width="2.5"/><path d="M6 18l22 15 22-15" fill="none" stroke="#B8431A" stroke-width="2.5" stroke-linejoin="round"/><circle cx="40" cy="36" r="4" fill="#B8431A"/></svg>
+        <figure class="frame" data-pop>
+          <span class="tape" aria-hidden="true"></span>
+          <img src="img/keyart_close.jpg" width="2560" height="1440" alt="갱도 안에서 노란 안전모를 쓴 종이 인형 광부가 곡괭이를 들고 있고, 옆에 작은 암모나이트가 있다" data-en-alt="Inside the tunnel, a papercraft miner in a yellow helmet holds a pickaxe; a small ammonite sits nearby" loading="lazy" decoding="async">
+          <figcaption class="cap"><span data-en="Noeuljae, autumn 2035">노을재, 2035년 가을</span><span data-en="Papercraft · hand-painted">종이 공작 · 손 채색</span></figcaption>
+        </figure>
       </div>
     </div>
-  </section>
 
-  <!-- Soul Saver -->
-  <section class="sec spot ss" id="soulsaver" data-nav="games">
-    <div class="wash" aria-hidden="true"></div>
-    <div class="in spot-grid">
-      <div class="spot-text rv">
-        <div class="label">Soul Saver · Now on Steam</div>
-        <img class="logo pixel" src="img/ss_logo.png" alt="Soul Saver" loading="lazy" width="900" height="506">
-        <h3 data-en="Hordes close in. You aim, you shoot, you reload.">몰려드는 적, 직접 쏘고 직접 장전한다</h3>
-        <p data-en="Enemies pour in from every side of the catacombs. Defeat the Lich King to open the burning hell, the Hell Lord to reach the meadow. Grow your character with level-up perks, a wandering shop and special abilities.">사방에서 적이 몰려드는 지하 묘역에서 리치 왕을 쓰러뜨리면 불타는 지옥이, 지옥의 군주를 쓰러뜨리면 초원이 열립니다. 레벨업 능력·떠돌이 상점·특수 능력으로 캐릭터를 키우세요.</p>
-        <ul class="feats">
-          <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></i><div><b data-en="Aim and reload yourself">직접 조준 · 직접 장전</b><span data-en="Aim each shot with the mouse, and reload when the magazine runs dry.">마우스로 한 발 한 발 겨눠 쏘고, 탄창이 비면 장전합니다.</span></div></li>
-          <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 7.8-8 9-4.6-1.2-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></i><div><b data-en="Bosses that learn">배우는 보스</b><span data-en="Bosses learn the attack you use most and block it. Beat them inside that barrier and your weapon evolves.">보스는 내가 가장 많이 쓰는 공격을 배워 막아 냅니다. 그 방어막 안에서 쓰러뜨리면 무기가 진화합니다.</span></div></li>
-          <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12c-2.5-3-6-2-6 0s3.5 3 6 0 6-3 8.5 0 6 2 6 0-3.5-3-6 0-6 3-8.5 0z"/></svg></i><div><b data-en="Three stages, then Endless">세 스테이지, 그리고 무한 모드</b><span data-en="Catacombs, burning hell, meadow. Past the Lich King, the Hell Lord and the King Slime lies Endless mode.">지하 묘역, 불타는 지옥, 초원. 리치 왕·지옥의 군주·킹 슬라임을 넘어 무한 모드까지.</span></div></li>
-        </ul>
-        <div class="stats" style="--n:4">
-          <div><b data-count="5">5</b><span data-en="Characters">플레이어블 캐릭터</span></div>
-          <div><b data-count="3">3</b><span data-en="Bosses">보스</span></div>
-          <div><b data-count="20">20</b><span data-en="Special abilities">특수 능력</span></div>
-          <div><b data-count="4">4</b><span data-en="Languages">지원 언어</span></div>
-        </div>
-        <div class="cta-row">
-          <a class="btn gold" href="https://store.steampowered.com/app/5328770/" target="_blank" rel="noopener"><span data-en="Buy on Steam · ₩1,700">Steam에서 구매 · ₩1,700</span></a>
-          <a class="btn ghost" href="https://store.steampowered.com/app/5369030/" target="_blank" rel="noopener"><span data-en="Free demo">무료 체험판</span></a>
+    <ol class="steps" data-pop-group>
+      <li class="step">
+        <span class="num" aria-hidden="true">01</span>
+        <img src="img/s2.jpg" width="1920" height="1080" alt="연대표를 과거로 내려 드러난 옛 땅 위에 광맥 카드를 놓는 화면" data-en-alt="Laying an ore card on the land of a past age, revealed by scrolling the timeline down" loading="lazy" decoding="async">
+        <h3><span data-en="Plant">심는다</span><small data-en="Step 1">첫째</small></h3>
+        <p data-en="Scroll the timeline down to a past age and lay an ore card on that land.">연대표를 내려 과거의 땅을 드러내고, 그 위에 광맥 카드를 놓습니다.</p>
+      </li>
+      <li class="step">
+        <span class="num" aria-hidden="true">02</span>
+        <img src="img/s7.jpg" width="1920" height="1080" alt="'300만 년 전' 표지와 함께 빨리 감기로 지층이 쌓이는 화면" data-en-alt="Fast-forward: strata pile up under a '3 million years ago' title card" loading="lazy" decoding="async">
+        <h3><span data-en="Fast-forward">감는다</span><small data-en="Step 2">둘째</small></h3>
+        <p data-en="Millions of years pass in seconds, and what you planted becomes a seam.">빨리 감기를 누르면 수백만 년이 몇 초에 흐르고, 심은 것이 광맥이 됩니다.</p>
+      </li>
+      <li class="step">
+        <span class="num" aria-hidden="true">03</span>
+        <img src="img/s4.jpg" width="1920" height="1080" alt="지하 60m, 등불을 켜고 갱도를 파 내려가는 화면" data-en-alt="Sixty meters down, carving the tunnel by lantern light" loading="lazy" decoding="async">
+        <h3><span data-en="Dig">판다</span><small data-en="Step 3">셋째</small></h3>
+        <p data-en="Back in the present, carve down one tile at a time. A letter comes up with every layer.">지금의 땅으로 돌아와 방향키로 한 칸씩 파 내려갑니다. 한 겹마다 편지가 올라옵니다.</p>
+      </li>
+    </ol>
+
+    <div class="df-mid">
+      <blockquote class="note" data-pop>
+        <q data-en="What a long sunset. Button fell asleep leaning on my knee. Grandma lived long, and lived well. Don't worry.">노을이 참 길구나. 단추가 무릎에 기대 잠들었어. 할머니는 오래, 잘 살았어. 걱정 마.</q>
+        <cite data-en="— From Grandma's first letter">— 할머니의 첫 편지에서</cite>
+      </blockquote>
+      <ul class="facts" data-pop-group>
+        <li class="fact"><b>3</b><span><span data-en="Parts in one story">부작</span><small data-en="Parts 2 and 3 are free updates">2·3부는 무료 업데이트</small></span></li>
+        <li class="fact"><b>12</b><span><span data-en="Letters">통의 편지</span><small data-en="One for every layer you dig">한 겹 아래마다 한 통</small></span></li>
+        <li class="fact"><b>20</b><span><span data-en="Languages">개 언어</span><small data-en="Subtitles and voice-over">자막과 더빙</small></span></li>
+      </ul>
+    </div>
+
+    <div class="gal" data-gal="df">
+      <div class="gal-head" data-reveal>
+        <h3 data-en="Screenshots">스크린샷</h3>
+        <div class="gal-nav">
+          <button type="button" data-dir="-1" aria-label="이전 스크린샷" data-en-label="Previous screenshots"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button>
+          <button type="button" data-dir="1" aria-label="다음 스크린샷" data-en-label="Next screenshots"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>
         </div>
       </div>
-      <div class="gallery rv d1" data-gallery>
-        <div class="stage">
-          <img class="on pixel" src="img/ss_shot1.jpg" alt="방어막을 두른 보스를 직접 조준하는 거너" data-en="The gunner takes aim at a boss wrapped in its barrier" loading="lazy" decoding="async" width="1600" height="900">
-          <img class="pixel" src="img/ss_shot2.jpg" alt="지하 묘역, 검사와 리치 왕의 보스전" data-en="Catacombs: the swordsman against the Lich King" loading="lazy" decoding="async" width="1600" height="900">
-          <img class="pixel" src="img/ss_shot3.jpg" alt="불타는 지옥, 궁수와 지옥의 군주" data-en="Burning hell: the archer against the Hell Lord" loading="lazy" decoding="async" width="1600" height="900">
-          <img class="pixel" src="img/ss_shot4.jpg" alt="방어막 안에서 쓰러뜨리면 열리는 무기 진화" data-en="Weapon evolution, unlocked by a kill inside the barrier" loading="lazy" decoding="async" width="1600" height="900">
-          <img class="pixel" src="img/ss_shot5.jpg" alt="초원, 분열하는 킹 슬라임" data-en="The meadow and the splitting King Slime" loading="lazy" decoding="async" width="1600" height="900">
-          <img class="pixel" src="img/ss_shot6.jpg" alt="특수 능력 20종을 고르는 영혼 트리" data-en="The soul tree: twenty special abilities to pick from" loading="lazy" decoding="async" width="1600" height="900">
-          <button class="zoom" type="button" aria-label="크게 보기"></button>
-          <button class="nb-btn prev" type="button" aria-label="이전 화면"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
-          <button class="nb-btn next" type="button" aria-label="다음 화면"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
-          <span class="count">1 / 6</span>
-          <span class="frame"></span>
-        </div>
-        <p class="cap"></p>
-        <div class="thumbs">
-          <button class="on" type="button" aria-label="1번 화면"><img class="pixel" src="img/ss_shot1.jpg" alt="" loading="lazy" width="1600" height="900"></button>
-          <button type="button" aria-label="2번 화면"><img class="pixel" src="img/ss_shot2.jpg" alt="" loading="lazy" width="1600" height="900"></button>
-          <button type="button" aria-label="3번 화면"><img class="pixel" src="img/ss_shot3.jpg" alt="" loading="lazy" width="1600" height="900"></button>
-          <button type="button" aria-label="4번 화면"><img class="pixel" src="img/ss_shot4.jpg" alt="" loading="lazy" width="1600" height="900"></button>
-          <button type="button" aria-label="5번 화면"><img class="pixel" src="img/ss_shot5.jpg" alt="" loading="lazy" width="1600" height="900"></button>
-          <button type="button" aria-label="6번 화면"><img class="pixel" src="img/ss_shot6.jpg" alt="" loading="lazy" width="1600" height="900"></button>
-        </div>
+      <div class="gal-track" data-pop-group>
+        <button class="shot" type="button"><figure><img src="img/s1.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="2035년 가을, 노을재의 지표와 권양탑" data-en-alt="Autumn 2035: the surface of Noeuljae and its headframe"><figcaption><span data-en="Autumn 2035: Noeuljae and its headframe">2035년 가을, 노을재의 지표와 권양탑</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M21 3l-7 7M9 21H3v-6M3 21l7-7"/></svg></figcaption></figure></button>
+        <button class="shot" type="button"><figure><img src="img/s2.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="과거 시대의 땅에 광맥 카드를 놓는 장면" data-en-alt="Planting an ore card on the land of a past age"><figcaption><span data-en="Planting an ore card in a past age">과거 시대의 땅에 광맥 카드를 놓는 장면</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M21 3l-7 7M9 21H3v-6M3 21l7-7"/></svg></figcaption></figure></button>
+        <button class="shot" type="button"><figure><img src="img/s7.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="빨리 감기: 수백만 년이 몇 초에 흐른다" data-en-alt="Fast-forward: millions of years pass in seconds"><figcaption><span data-en="Fast-forward: millions of years in seconds">빨리 감기: 수백만 년이 몇 초에</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M21 3l-7 7M9 21H3v-6M3 21l7-7"/></svg></figcaption></figure></button>
+        <button class="shot" type="button"><figure><img src="img/s3.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="한 겹 아래에서 올라온 할머니의 첫 편지" data-en-alt="Grandma's first letter, brought up from one layer down"><figcaption><span data-en="Grandma's first letter">한 겹 아래에서 올라온 할머니의 첫 편지</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M21 3l-7 7M9 21H3v-6M3 21l7-7"/></svg></figcaption></figure></button>
+        <button class="shot" type="button"><figure><img src="img/s5.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="깃발을 꽂으면 은퇴한 광부들이 파고, 컨베이어가 광석을 올린다" data-en-alt="Plant a flag and retired miners dig; the conveyor carries the ore up"><figcaption><span data-en="Retired miners and the conveyor">깃발을 꽂으면 은퇴한 광부들이 판다</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M21 3l-7 7M9 21H3v-6M3 21l7-7"/></svg></figcaption></figure></button>
+        <button class="shot" type="button"><figure><img src="img/s6.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="더 깊은 갱도, 더 촘촘한 지층" data-en-alt="Deeper tunnels, denser strata"><figcaption><span data-en="Deeper tunnels, denser strata">더 깊은 갱도, 더 촘촘한 지층</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M21 3l-7 7M9 21H3v-6M3 21l7-7"/></svg></figcaption></figure></button>
       </div>
     </div>
-  </section>
 
-  <!-- Deepfold -->
-  <section class="sec spot df" id="deepfold" data-nav="games">
-    <div class="wash" aria-hidden="true"></div>
-    <div class="in spot-grid">
-      <div class="spot-text rv">
-        <div class="label">Deepfold: One Day Deep · 2027</div>
-        <img class="logo" src="img/df_logo.png" alt="Deepfold: One Day Deep" loading="lazy" width="900" height="506">
-        <h3 data-en="A closed mine, and a time drill asleep beneath it">할머니가 남긴 폐광과 잠든 타임 드릴</h3>
-        <p data-en="Autumn 2035, the old mining town of Noeuljae. You inherit a closed mining company, one plot of land, and a time drill asleep under the shed. It sends only objects into the past, and brings only stone back up.">2035년 가을, 폐광촌 노을재. 물려받은 것은 문 닫은 광업사와 땅 한 필지, 그리고 창고 아래 잠든 타임 드릴. 드릴은 물건만 과거로 보내고, 돌만 끌어올립니다.</p>
-        <ul class="feats">
-          <li><i>01</i><div><b data-en="Plant">심는다</b><span data-en="Scroll the timeline down to a past age and lay an ore card on that land.">연대표를 내려 과거의 땅을 드러내고, 그 위에 광맥 카드를 놓습니다.</span></div></li>
-          <li><i>02</i><div><b data-en="Fast-forward">감는다</b><span data-en="Millions of years pass in seconds, and what you planted becomes a seam.">빨리 감기를 누르면 수백만 년이 몇 초에 흐르고, 심은 것이 광맥이 됩니다.</span></div></li>
-          <li><i>03</i><div><b data-en="Dig">판다</b><span data-en="Back in the present, carve down one tile at a time. A letter comes up with every layer.">지금의 땅으로 돌아와 방향키로 한 칸씩 파 내려갑니다. 한 겹마다 편지가 올라옵니다.</span></div></li>
-        </ul>
-        <blockquote class="quote"><span data-en="“What a long sunset. Button fell asleep leaning on my knee. Grandma lived long, and lived well. Don't worry.”">“노을이 참 길구나. 단추가 무릎에 기대 잠들었어. 할머니는 오래, 잘 살았어. 걱정 마.”</span><small data-en="— From Grandma's first letter">— 할머니의 첫 편지에서</small></blockquote>
-        <div class="stats">
-          <div><b data-count="3">3</b><span data-en="Parts · 2 and 3 are free updates">부작 · 2·3부 무료 업데이트</span></div>
-          <div><b data-count="12">12</b><span data-en="Letters">통의 편지</span></div>
-          <div><b data-count="20">20</b><span data-en="Languages, fully voiced">개 언어 · 더빙</span></div>
-        </div>
-        <div class="cta-row">
-          <span class="btn off" title="상점 페이지가 열리면 연결됩니다"><span data-en="Steam wishlist · coming soon">Steam 위시리스트 · 곧 공개</span></span>
-          <a class="btn ghost" href="#news"><span data-en="Demo details">체험판 안내</span></a>
+    <div class="actions" data-reveal>
+      <a class="btn btn--df" href="#news"><span data-en="Demo details">체험판 안내</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <span class="chip"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span data-en="Steam wishlist · coming soon">Steam 위시리스트 · 곧 공개</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SOUL SAVER ===== -->
+<section class="section ss on-dark" id="soulsaver" aria-labelledby="ssTitle">
+  <div class="px-edge px-edge--top" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="ss-head">
+      <div class="sec-head" data-reveal>
+        <span class="kicker">Now on Steam</span>
+        <h2 class="sr" id="ssTitle">Soul Saver</h2>
+        <img class="ss-logo" src="img/ss_logo.png" width="900" height="506" alt="" aria-hidden="true" loading="lazy" decoding="async">
+        <p class="ss-tag" data-en="Hordes close in. You aim, you shoot, you reload.">몰려드는 적, 직접 쏘고 직접 장전한다</p>
+        <p class="lead" data-en="Enemies pour in from every side of the catacombs. Defeat the Lich King to open the burning hell, the Hell Lord to reach the meadow. Grow your character with level-up perks, a wandering shop and special abilities.">사방에서 적이 몰려드는 지하 묘역에서 리치 왕을 쓰러뜨리면 불타는 지옥이, 지옥의 군주를 쓰러뜨리면 초원이 열립니다. 레벨업 능력·떠돌이 상점·특수 능력으로 캐릭터를 키우세요.</p>
+        <div class="actions">
+          <a class="btn btn--ss" href="https://store.steampowered.com/app/5328770/" target="_blank" rel="noopener"><span data-en="Buy on Steam">Steam에서 구매</span><span class="price-tag">₩1,700</span></a>
+          <a class="btn btn--outline" href="https://store.steampowered.com/app/5369030/" target="_blank" rel="noopener"><span data-en="Free demo">무료 체험판</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg></a>
         </div>
       </div>
-      <div class="gallery rv d1" data-gallery>
-        <div class="stage">
-          <img class="on" src="img/s1.jpg" alt="2035년 가을, 노을재의 지표와 권양탑" data-en="Autumn 2035: the surface of Noeuljae and its headframe" loading="lazy" decoding="async" width="1920" height="1080">
-          <img src="img/s2.jpg" alt="과거의 땅 위에 광맥 카드를 심는다" data-en="Planting an ore card on the land of a past age" loading="lazy" decoding="async" width="1920" height="1080">
-          <img src="img/s7.jpg" alt="빨리 감기 — 수백만 년이 몇 초에 흐른다" data-en="Fast-forward: millions of years pass in seconds" loading="lazy" decoding="async" width="1920" height="1080">
-          <img src="img/s3.jpg" alt="한 겹 아래에서 올라온 할머니의 첫 편지" data-en="Grandma's first letter, brought up from one layer down" loading="lazy" decoding="async" width="1920" height="1080">
-          <img src="img/s5.jpg" alt="깃발을 꽂으면 은퇴 광부들이 캐고, 컨베이어가 광석을 올린다" data-en="Plant a flag and retired miners dig; the conveyor carries the ore up" loading="lazy" decoding="async" width="1920" height="1080">
-          <img src="img/s6.jpg" alt="더 깊은 갱도, 더 촘촘해지는 지층" data-en="Deeper tunnels, denser strata" loading="lazy" decoding="async" width="1920" height="1080">
-          <button class="zoom" type="button" aria-label="크게 보기"></button>
-          <button class="nb-btn prev" type="button" aria-label="이전 화면"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
-          <button class="nb-btn next" type="button" aria-label="다음 화면"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
-          <span class="count">1 / 6</span>
-          <span class="frame"></span>
-        </div>
-        <p class="cap"></p>
-        <div class="thumbs">
-          <button class="on" type="button" aria-label="1번 화면"><img src="img/s1.jpg" alt="" loading="lazy" width="1920" height="1080"></button>
-          <button type="button" aria-label="2번 화면"><img src="img/s2.jpg" alt="" loading="lazy" width="1920" height="1080"></button>
-          <button type="button" aria-label="3번 화면"><img src="img/s7.jpg" alt="" loading="lazy" width="1920" height="1080"></button>
-          <button type="button" aria-label="4번 화면"><img src="img/s3.jpg" alt="" loading="lazy" width="1920" height="1080"></button>
-          <button type="button" aria-label="5번 화면"><img src="img/s5.jpg" alt="" loading="lazy" width="1920" height="1080"></button>
-          <button type="button" aria-label="6번 화면"><img src="img/s6.jpg" alt="" loading="lazy" width="1920" height="1080"></button>
+      <div class="ss-show">
+        <i class="px p1" aria-hidden="true"></i><i class="px v p2" aria-hidden="true"></i><i class="px p3" aria-hidden="true"></i><i class="px v p4" aria-hidden="true"></i><i class="px p5" aria-hidden="true"></i>
+        <svg class="ghost" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><path fill="#F3F0FF" d="M2 0h4v1H2zM1 1h6v1H1zM0 2h8v4H0zM0 6h2v1H0zM3 6h2v1H3zM6 6h2v1H6z"/><path fill="#2A1B5E" d="M2 2h1v2H2zM5 2h1v2H5z"/><path fill="#5BE0FF" d="M2 3h1v1H2zM5 3h1v1H5z"/></svg>
+        <div class="crt" data-pop>
+          <img src="img/ss_hero.jpg" width="2560" height="827" alt="지하 묘역에서 다섯 캐릭터가 해골·슬라임·리치 왕 무리와 맞선다" data-en-alt="Five characters face a horde of skeletons, slimes and the Lich King in the catacombs" loading="lazy" decoding="async" data-parallax>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- 띠 -->
-  <div class="marquee" aria-hidden="true"><div class="track">
-    <span>MINGONGBANG GAMES</span><span>민공방 게임즈</span><span>SOUL SAVER</span><span>손으로 만든 게임</span><span>DEEPFOLD</span><span>HANDMADE GAMES</span>
-    <span>MINGONGBANG GAMES</span><span>민공방 게임즈</span><span>SOUL SAVER</span><span>손으로 만든 게임</span><span>DEEPFOLD</span><span>HANDMADE GAMES</span>
-  </div></div>
+    <ul class="feats" data-pop-group>
+      <li class="feat">
+        <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="1.5"/></svg></span>
+        <h3 data-en="Aim and reload yourself">직접 조준 · 직접 장전</h3>
+        <p data-en="Aim each shot with the mouse, and reload when the magazine runs dry.">마우스로 한 발 한 발 겨눠 쏘고, 탄창이 비면 장전합니다.</p>
+      </li>
+      <li class="feat">
+        <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+        <h3 data-en="Bosses that learn">배우는 보스</h3>
+        <p data-en="Bosses learn the attack you use most and block it. Beat them inside that barrier and your weapon evolves.">보스는 내가 가장 많이 쓰는 공격을 배워 막아 냅니다. 그 방어막 안에서 쓰러뜨리면 무기가 진화합니다.</p>
+      </li>
+      <li class="feat">
+        <span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/><path d="m3 17.5 9 5 9-5"/></svg></span>
+        <h3 data-en="Three stages, then Endless">세 스테이지, 그리고 무한 모드</h3>
+        <p data-en="Catacombs, burning hell, meadow. Past the Lich King, the Hell Lord and the King Slime lies Endless mode.">지하 묘역, 불타는 지옥, 초원. 리치 왕·지옥의 군주·킹 슬라임을 넘어 무한 모드까지.</p>
+      </li>
+    </ul>
 
-  <!-- 소식 -->
-  <section class="sec" id="news" data-nav="news">
-    <div class="in">
-      <div class="head rv">
-        <div class="ghost-word" aria-hidden="true">NEWS</div>
-        <div class="label">02 — Latest News</div>
-        <h2 data-en="News from the workshop">공방 소식</h2>
+    <ul class="stats" data-pop-group>
+      <li class="stat"><b data-count="5">5</b><span data-en="Playable characters">플레이어블 캐릭터</span></li>
+      <li class="stat"><b data-count="3">3</b><span data-en="Bosses">보스</span></li>
+      <li class="stat"><b data-count="20">20</b><span data-en="Special abilities">특수 능력</span></li>
+      <li class="stat"><b data-count="4">4</b><span data-en="Languages">지원 언어</span></li>
+    </ul>
+
+    <div class="gal" data-gal="ss">
+      <div class="gal-head" data-reveal>
+        <h3 data-en="Screenshots">스크린샷</h3>
+        <div class="gal-nav">
+          <button type="button" data-dir="-1" aria-label="이전 스크린샷" data-en-label="Previous screenshots"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button>
+          <button type="button" data-dir="1" aria-label="다음 스크린샷" data-en-label="Next screenshots"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>
+        </div>
       </div>
-      <div class="news">
-        <a class="ncard rv d1" href="#deepfold">
-          <div class="thumb"><img src="img/s3.jpg" alt="" loading="lazy" decoding="async" width="1920" height="1080"><span class="chip dev">DEEPFOLD</span></div>
-          <div class="txt"><time datetime="2027-02-22"><span data-en="2027. 02. 22 · Planned">2027. 02. 22 · 예정</span></time><h3 data-en="Deepfold demo at Steam Next Fest">Steam 넥스트 페스트에서 「Deepfold」 체험판 공개</h3><p data-en="Prologue through Chapter 3: meet the first of Grandma's letters early.">프롤로그부터 3장까지, 할머니의 첫 편지들을 먼저 만나 보세요.</p><span class="more"><span data-en="About the game">게임 소개</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-        </a>
-        <a class="ncard rv d2" href="#deepfold">
-          <div class="thumb"><img src="img/s7.jpg" alt="" loading="lazy" decoding="async" width="1920" height="1080"><span class="chip dev">DEEPFOLD</span></div>
-          <div class="txt"><time datetime="2026-11">2026. 11</time><h3 data-en="Deepfold's Steam page is in the works">「Deepfold」 Steam 상점 페이지 준비 중</h3><p data-en="Once it opens, wishlist to hear about the launch first.">상점이 열리면 위시리스트로 출시 소식을 가장 먼저 받을 수 있습니다.</p><span class="more"><span data-en="About the game">게임 소개</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-        </a>
-        <a class="ncard rv d3" href="https://store.steampowered.com/app/5328770/" target="_blank" rel="noopener">
-          <div class="thumb"><img class="pixel" src="img/ss_shot3.jpg" alt="" loading="lazy" decoding="async" width="1600" height="900"><span class="chip live">SOUL SAVER</span></div>
-          <div class="txt"><time datetime="2026-10-13">2026. 10. 13</time><h3 data-en="Soul Saver is out on Steam">「Soul Saver」 Steam 출시</h3><p data-en="The workshop's first game is live on Steam, with a free demo.">공방의 첫 게임이 Steam에 나왔습니다. 무료 체험판도 있습니다.</p><span class="more"><span data-en="Steam page">Steam 상점</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-        </a>
+      <div class="gal-track" data-pop-group>
+        <button class="shot" type="button"><figure><img src="img/ss_shot1.jpg" width="1600" height="900" loading="lazy" decoding="async" alt="총잡이가 방어막에 둘러싸인 보스를 조준한다" data-en-alt="The gunner takes aim at a boss wrapped in its barrier"><figcaption><span data-en="Aiming at a barrier-wrapped boss">방어막 보스를 조준하는 총잡이</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M21 3l-7 7M9 21H3v-6M3 21l7-7"/></svg></figcaption></figure></button>
+        <button class="shot" type="button"><figure><img src="img/ss_shot2.jpg" width="1600" height="900" loading="lazy" decoding="async" alt="지하 묘역: 검사가 리치 왕과 맞선다" data-en-alt="Catacombs: the swordsman against the Lich King"><figcaption><span data-en="Catacombs: swordsman vs. Lich King">지하 묘역: 검사 대 리치 왕</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M21 3l-7 7M9 21H3v-6M3 21l7-7"/></svg></figcaption></figure></button>
+        <button class="shot" type="button"><figure><img src="img/ss_shot3.jpg" width="1600" height="900" loading="lazy" decoding="async" alt="불타는 지옥: 궁수가 지옥의 군주와 맞선다" data-en-alt="Burning hell: the archer against the Hell Lord"><figcaption><span data-en="Burning hell: archer vs. Hell Lord">불타는 지옥: 궁수 대 지옥의 군주</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M21 3l-7 7M9 21H3v-6M3 21l7-7"/></svg></figcaption></figure></button>
+        <button class="shot" type="button"><figure><img src="img/ss_shot4.jpg" width="1600" height="900" loading="lazy" decoding="async" alt="무기 진화 선택 화면, 방어막 안에서 쓰러뜨려 열렸다" data-en-alt="Weapon evolution, unlocked by a kill inside the barrier"><figcaption><span data-en="Weapon evolution">무기 진화</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M21 3l-7 7M9 21H3v-6M3 21l7-7"/></svg></figcaption></figure></button>
+        <button class="shot" type="button"><figure><img src="img/ss_shot5.jpg" width="1600" height="900" loading="lazy" decoding="async" alt="초원과 갈라지는 킹 슬라임" data-en-alt="The meadow and the splitting King Slime"><figcaption><span data-en="The meadow and the King Slime">초원과 갈라지는 킹 슬라임</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M21 3l-7 7M9 21H3v-6M3 21l7-7"/></svg></figcaption></figure></button>
+        <button class="shot" type="button"><figure><img src="img/ss_shot6.jpg" width="1600" height="900" loading="lazy" decoding="async" alt="영혼 트리: 스무 가지 특수 능력" data-en-alt="The soul tree: twenty special abilities to pick from"><figcaption><span data-en="The soul tree: 20 special abilities">영혼 트리: 스무 가지 특수 능력</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M21 3l-7 7M9 21H3v-6M3 21l7-7"/></svg></figcaption></figure></button>
       </div>
     </div>
-  </section>
+  </div>
+  <div class="px-edge px-edge--bottom" aria-hidden="true"></div>
+</section>
 
-  <!-- 공방 -->
-  <section class="sec studio" id="studio" data-nav="studio">
-    <div class="in">
-      <div class="studio-grid">
-        <div class="rv">
-          <div class="head" style="margin-bottom:28px">
-            <div class="ghost-word" aria-hidden="true">STUDIO</div>
-            <div class="label">03 — About the Studio</div>
-            <h2 data-en="One person, start to finish">한 사람이 끝까지 만드는 공방</h2>
-          </div>
-          <p data-en="MinGongbang Games is a one-person studio run by Park Min-geun. Design, art, sound and code: one pair of hands, from the first sketch to the last build.">민공방 게임즈는 박민근이 혼자 꾸리는 1인 게임 공방입니다. 기획부터 그림, 소리, 코드까지 한 사람이 처음부터 끝까지 맡습니다.</p>
-          <p data-en="Controls that feel good in the hand, rules you learn by playing, stories that are short and solid. Each game picks a different material, but every one keeps the marks of the hands that made it.">손맛 있는 조작, 화면을 보고 해 보는 것만으로 이해되는 규칙, 짧고 단단한 이야기를 좋아합니다. 작품마다 다른 재료를 고르되, 손으로 만든 흔적이 남는 게임을 목표로 합니다.</p>
-          <div class="sign">
-            <div class="av" aria-hidden="true">민</div>
-            <div><b>박민근 · ParkMinGeun</b><small>Founder · Game Developer</small></div>
-          </div>
+<!-- ===== NEWS ===== -->
+<section class="section news" id="news" aria-labelledby="newsTitle" style="padding-top:calc(clamp(64px,9vw,120px) + 24px)">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="kicker kicker--brand"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11v2a1 1 0 0 0 1 1h3l6 4V6L8 10H5a1 1 0 0 0-1 1z"/><path d="M18 9a4 4 0 0 1 0 6"/></svg><span data-en="Notices">공지</span></span>
+      <h2 class="sec-title" id="newsTitle" data-en="News from the workshop">공방 소식</h2>
+    </div>
+    <ul class="news-list" data-pop-group>
+      <li><a class="news-card" data-acc="df" href="#deepfold">
+        <img src="img/s3.jpg" width="200" height="120" loading="lazy" decoding="async" alt="">
+        <div>
+          <div class="meta"><span class="tag">DEEPFOLD</span><time datetime="2027-02-22">2027. 02. 22</time><span data-en="Planned">예정</span></div>
+          <h3 data-en="Deepfold demo at Steam Next Fest">Steam 넥스트 페스트에서 「Deepfold」 체험판 공개</h3>
+          <p data-en="Prologue through Chapter 3: meet the first of Grandma's letters early.">프롤로그부터 3장까지, 할머니의 첫 편지들을 먼저 만나 보세요.</p>
         </div>
-        <div class="roles rv d1">
-          <div><b>DESIGN</b><span data-en="Design · Levels · Story">기획 · 레벨 · 이야기</span></div>
-          <div><b>ART</b><span data-en="Pixel art · Papercraft · VFX">도트 · 종이 공작 · 이펙트</span></div>
-          <div><b>SOUND</b><span data-en="Music · Sound effects">음악 · 효과음</span></div>
-          <div><b>CODE</b><span>Unity · C#</span></div>
+        <span class="go" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a></li>
+      <li><a class="news-card" data-acc="df" href="#deepfold">
+        <img src="img/s1.jpg" width="200" height="120" loading="lazy" decoding="async" alt="">
+        <div>
+          <div class="meta"><span class="tag">DEEPFOLD</span><time datetime="2026-11">2026. 11</time><span data-en="In preparation">준비 중</span></div>
+          <h3 data-en="Deepfold's Steam page is in the works">「Deepfold」 Steam 상점 페이지 준비 중</h3>
+          <p data-en="Once it opens, wishlist to hear about the launch first.">상점이 열리면 위시리스트로 출시 소식을 가장 먼저 받을 수 있습니다.</p>
+        </div>
+        <span class="go" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a></li>
+      <li><a class="news-card" data-acc="ss" href="https://store.steampowered.com/app/5328770/" target="_blank" rel="noopener">
+        <img src="img/ss_shot1.jpg" width="200" height="120" loading="lazy" decoding="async" alt="">
+        <div>
+          <div class="meta"><span class="tag">SOUL SAVER</span><time datetime="2026-10-13">2026. 10. 13</time><span data-en="Released">출시</span></div>
+          <h3 data-en="Soul Saver is out on Steam">「Soul Saver」 Steam 출시</h3>
+          <p data-en="The workshop's first game is live on Steam, with a free demo.">공방의 첫 게임이 Steam에 나왔습니다. 무료 체험판도 있습니다.</p>
+        </div>
+        <span class="go" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg></span>
+      </a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== STUDIO ===== -->
+<section class="section studio" id="studio" aria-labelledby="studioTitle">
+  <div class="wrap">
+    <div class="studio-grid">
+      <div class="studio-text" data-reveal>
+        <span class="kicker kicker--brand"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg><span data-en="About the workshop">공방 소개</span></span>
+        <h2 class="sec-title" id="studioTitle" data-en="One person, start to finish">한 사람이 끝까지 만드는 공방</h2>
+        <p class="lead" data-en="MinGongbang Games is a one-person studio run by Park Min-geun. Design, art, sound and code: one pair of hands, from the first sketch to the last build.">민공방 게임즈는 박민근이 혼자 꾸리는 1인 게임 공방입니다. 기획부터 그림, 소리, 코드까지 한 사람이 처음부터 끝까지 맡습니다.</p>
+        <p class="lead" data-en="Controls that feel good in the hand, rules you learn by playing, stories that are short and solid. Each game picks a different material, but every one keeps the marks of the hands that made it.">손맛 있는 조작, 화면을 보고 해 보는 것만으로 이해되는 규칙, 짧고 단단한 이야기를 좋아합니다. 작품마다 다른 재료를 고르되, 손으로 만든 흔적이 남는 게임을 목표로 합니다.</p>
+        <div class="founder">
+          <span class="avatar" aria-hidden="true">민</span>
+          <span><b>박민근 · ParkMinGeun</b><span data-en="Founder · Game Developer">Founder · 게임 개발자</span></span>
         </div>
       </div>
-      <ol class="timeline rv">
-        <li><time>2026. 10</time><b data-en="Soul Saver launches on Steam">Soul Saver Steam 출시</b><span data-en="The workshop's first game">공방의 첫 게임</span></li>
-        <li><time>2026. 11</time><b data-en="Deepfold Steam page">Deepfold 상점 페이지</b><span data-en="In preparation">준비 중</span></li>
-        <li class="next"><time>2027. 02</time><b data-en="Steam Next Fest demo">Steam 넥스트 페스트 체험판</b><span data-en="Prologue through Chapter 3">프롤로그 ~ 3장</span></li>
-        <li class="next"><time>2027</time><b data-en="Deepfold: One Day Deep">Deepfold: One Day Deep 출시</b><span data-en="Planned release">출시 예정</span></li>
+      <ul class="roles" data-pop-group>
+        <li class="role r1"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span><b>DESIGN</b><span data-en="Design · Levels · Story">기획 · 레벨 · 이야기</span></li>
+        <li class="role r2"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="8" cy="10" r="1.2"/><circle cx="12" cy="7" r="1.2"/><circle cx="16" cy="10" r="1.2"/><path d="M12 21a3 3 0 0 0 0-6h-1a2 2 0 0 1 0-4"/></svg></span><b>ART</b><span data-en="Pixel art · Papercraft · VFX">도트 · 종이 공작 · 이펙트</span></li>
+        <li class="role r3"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span><b>SOUND</b><span data-en="Music · Sound effects">음악 · 효과음</span></li>
+        <li class="role r4"><span class="ic" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 4l-4 16"/></svg></span><b>CODE</b><span>Unity · C#</span></li>
+      </ul>
+    </div>
+    <div class="roadmap" data-reveal>
+      <h3 data-en="Roadmap">로드맵</h3>
+      <ol class="road">
+        <li class="done"><span class="dot" aria-hidden="true"></span><div class="body"><time datetime="2026-10">2026. 10</time><b data-en="Soul Saver launches on Steam">Soul Saver Steam 출시</b><span data-en="The workshop's first game">공방의 첫 게임</span></div></li>
+        <li><span class="dot" aria-hidden="true"></span><div class="body"><time datetime="2026-11">2026. 11</time><b data-en="Deepfold Steam page">Deepfold 상점 페이지</b><span data-en="In preparation">준비 중</span></div></li>
+        <li class="next"><span class="dot" aria-hidden="true"></span><div class="body"><time datetime="2027-02">2027. 02</time><b data-en="Steam Next Fest demo">Steam 넥스트 페스트 체험판</b><span data-en="Prologue through Chapter 3">프롤로그 ~ 3장</span></div></li>
+        <li><span class="dot" aria-hidden="true"></span><div class="body"><time datetime="2027">2027</time><b>Deepfold: One Day Deep</b><span data-en="Planned release">출시 예정</span></div></li>
       </ol>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- 연락 -->
-  <section class="sec contact" id="contact" data-nav="contact">
-    <div class="bgart" aria-hidden="true"></div>
-    <div class="in rv">
-      <div class="label">04 — Contact</div>
-      <h2 data-en="Let's talk">함께 이야기해요</h2>
-      <p data-en="Press, collaboration, bug reports: all welcome. Copy the address and write any time.">보도 · 협업 · 버그 제보 모두 환영합니다. 메일 주소를 복사해 보내 주세요.</p>
-      <div class="mail">
-        <code id="mail">mingeunb0@gmail.com</code>
-        <button id="copy" type="button" data-en="Copy address">주소 복사</button>
-      </div>
-      <div class="alt"><a href="mailto:mingeunb0@gmail.com" data-en="Open in your mail app">메일 앱으로 열기</a></div>
+<!-- ===== CONTACT ===== -->
+<section class="section contact" id="contact" aria-labelledby="contactTitle">
+  <span class="spark s1" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg></span>
+  <span class="spark s2" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg></span>
+  <span class="spark s3" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg></span>
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <h2 class="sec-title" id="contactTitle" data-en="Let's talk">함께 이야기해요</h2>
+      <p class="lead" data-en="Press, collaboration, bug reports: all welcome. Copy the address and write any time.">보도 · 협업 · 버그 제보 모두 환영합니다. 메일 주소를 복사해 보내 주세요.</p>
     </div>
-  </section>
+    <div class="mail" data-reveal>
+      <span class="mail-box"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span id="mailText">mingeunb0@gmail.com</span></span>
+      <button class="btn btn--sun" type="button" id="copyBtn"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span data-en="Copy address">주소 복사</span></button>
+      <a class="btn btn--light" href="mailto:mingeunb0@gmail.com"><span data-en="Open in your mail app">메일 앱으로 열기</span></a>
+      <a class="btn btn--outline" href="https://github.com/suritola" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="fill:currentColor;stroke:none"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2.17c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>GitHub</a>
+      <span class="copied" id="copied" role="status" aria-live="polite"></span>
+    </div>
+  </div>
+</section>
 </main>
 
-<footer>
-  <div class="in">
-    <div class="foot">
-      <div>
-        <a class="brand" href="#top" aria-label="민공방 게임즈 처음으로">
-          <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3l11 7v12l-11 7-11-7V10z" fill="none" stroke="#F2B24C" stroke-width="2"/><circle cx="16" cy="16" r="2.6" fill="#F2B24C"/></svg>
-          <span><b data-en="MinGongbang Games">민공방 게임즈</b><small>MINGONGBANG GAMES</small></span>
-        </a>
-        <p class="small" data-en="A small one-person game workshop. Soul Saver · Deepfold: One Day Deep">혼자 게임을 만드는 작은 공방. Soul Saver · Deepfold: One Day Deep</p>
-        <div class="social">
-          <a href="https://store.steampowered.com/app/5328770/" target="_blank" rel="noopener" aria-label="Steam"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-9.96 9.1l5.36 2.22a2.8 2.8 0 0 1 1.6-.5l2.4-3.47v-.05a3.8 3.8 0 1 1 3.8 3.8h-.09l-3.42 2.44a2.83 2.83 0 0 1-5.6.53L2.3 14.6A10 10 0 1 0 12 2zm-4.3 15.2-1.23-.51a2.13 2.13 0 1 0 1.16-2.9l1.27.53a1.57 1.57 0 1 1-1.2 2.88zM15.2 12.4a2.53 2.53 0 1 0 0-5.07 2.53 2.53 0 0 0 0 5.07z"/></svg></a>
-          <a href="https://github.com/suritola" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12.3c0 5.2 3.3 9.6 7.9 11.2.6.1.8-.3.8-.6v-2.2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.4-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11 11 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.7 5.6-5.3 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6a11.5 11.5 0 0 0 7.8-11.2A11.5 11.5 0 0 0 12 .5z"/></svg></a>
-          <a href="mailto:mingeunb0@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
-        </div>
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <span class="brand"><svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#2F5BFF"/><path d="M20 6l11 7.5v13L20 34 9 26.5v-13z" fill="none" stroke="#FFC63A" stroke-width="3.2" stroke-linejoin="round"/><circle cx="20" cy="20" r="4.4" fill="#FFC63A"/></svg><span><span data-en="MinGongbang Games">민공방 게임즈</span><small>MINGONGBANG GAMES</small></span></span>
+        <p data-en="A small one-person game workshop. Soul Saver · Deepfold: One Day Deep">혼자 게임을 만드는 작은 공방. Soul Saver · Deepfold: One Day Deep</p>
       </div>
-      <div>
+      <div class="foot-col">
         <h4>GAMES</h4>
-        <ul><li><a href="#soulsaver">Soul Saver</a></li><li><a href="#deepfold">Deepfold: One Day Deep</a></li></ul>
+        <ul>
+          <li><a href="#deepfold">Deepfold: One Day Deep</a></li>
+          <li><a href="#soulsaver">Soul Saver</a></li>
+          <li><a href="#news" data-en="News">소식</a></li>
+          <li><a href="#studio" data-en="Studio">공방</a></li>
+        </ul>
       </div>
-      <div>
+      <div class="foot-col">
         <h4>LINKS</h4>
         <ul>
-          <li><a href="https://store.steampowered.com/app/5328770/" target="_blank" rel="noopener">Steam — Soul Saver</a></li>
-          <li><a href="https://store.steampowered.com/app/5369030/" target="_blank" rel="noopener"><span data-en="Steam — Soul Saver Demo">Steam — Soul Saver 체험판</span></a></li>
-          <li><a href="https://github.com/suritola" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://store.steampowered.com/app/5328770/" target="_blank" rel="noopener">Steam — Soul Saver <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg></a></li>
+          <li><a href="https://store.steampowered.com/app/5369030/" target="_blank" rel="noopener"><span data-en="Steam — Soul Saver Demo">Steam — Soul Saver 체험판</span> <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg></a></li>
+          <li><a href="https://github.com/suritola" target="_blank" rel="noopener">GitHub <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg></a></li>
           <li><a href="mailto:mingeunb0@gmail.com">mingeunb0@gmail.com</a></li>
         </ul>
       </div>
-      <div>
-        <h4>LANGUAGE</h4>
-        <div class="lang" role="group" aria-label="언어 · Language"><button type="button" class="on" data-lang="ko" aria-pressed="true">한국어</button><span aria-hidden="true">/</span><button type="button" data-lang="en" aria-pressed="false">English</button></div>
-      </div>
     </div>
-    <div class="legal">
+    <div class="foot-bottom">
       <span>© 2026 MinGongbang Games. All rights reserved.</span>
       <span data-en="Steam and the Steam logo are trademarks of Valve Corporation.">Steam 및 Steam 로고는 Valve Corporation의 상표입니다.</span>
     </div>
   </div>
 </footer>
 
-<button class="rbtn totop" id="totop" type="button" aria-label="맨 위로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<dialog class="lb" id="lb" aria-label="스크린샷 크게 보기" data-en-label="Screenshot viewer">
+  <div class="lb-in">
+    <figure>
+      <div class="lb-stage"><img id="lbImg" src="" alt="" width="1920" height="1080"></div>
+      <div class="lb-bar"><figcaption id="lbCap"></figcaption><span class="count" id="lbCount"></span></div>
+    </figure>
+    <button class="lb-close" type="button" id="lbClose" aria-label="닫기" data-en-label="Close"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <button class="lb-prev" type="button" id="lbPrev" aria-label="이전" data-en-label="Previous"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button>
+    <button class="lb-next" type="button" id="lbNext" aria-label="다음" data-en-label="Next"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>
+  </div>
+</dialog>
 
-<div class="lightbox" id="lb" hidden role="dialog" aria-modal="true" aria-label="크게 보기">
-  <button class="rbtn lb-x" type="button" aria-label="닫기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-  <button class="rbtn lb-prev" type="button" aria-label="이전 화면"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
-  <figure><img id="lbimg" alt=""><figcaption id="lbcap"></figcaption></figure>
-  <button class="rbtn lb-next" type="button" aria-label="다음 화면"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
-</div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script>
-(function () {
-  var html = document.documentElement, reduce = matchMedia('(prefers-reduced-motion: reduce)').matches, lang = 'ko';
-  function txt(el) { return (lang === 'en' && el.dataset.en) || el.dataset.ko || el.alt || el.textContent; }
+(function(){
+  var q = new URLSearchParams(location.search);
+  var STATIC = q.has('static');
+  if (STATIC) document.documentElement.classList.add('static');
 
-  // 머리: 내리면 반투명 배경·진행선·위로 가기, 모바일 메뉴
-  var nav = document.getElementById('nav'), burger = document.getElementById('burger'), prog = document.getElementById('progress'), totop = document.getElementById('totop');
-  function onScroll() {
-    var y = scrollY, h = html.scrollHeight - innerHeight;
-    nav.classList.toggle('solid', y > 40); prog.style.width = (h > 0 ? y / h * 100 : 0) + '%'; totop.classList.toggle('show', y > innerHeight * .9);
-  }
-  addEventListener('scroll', onScroll, { passive: true }); onScroll();
-  totop.addEventListener('click', function () { scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); });
-  function setMenu(o) { nav.classList.toggle('open', o); burger.setAttribute('aria-expanded', o); burger.setAttribute('aria-label', o ? '메뉴 닫기' : '메뉴 열기'); document.body.style.overflow = o ? 'hidden' : ''; }
-  burger.addEventListener('click', function () { setMenu(!nav.classList.contains('open')); });
-  document.querySelectorAll('.menu a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
-  // 지금 보는 구역의 메뉴를 밝힌다
-  var links = [].slice.call(document.querySelectorAll('.menu a[href^="#"]'));
-  var spy = new IntersectionObserver(function (es) {
-    es.forEach(function (e) { if (e.isIntersecting) links.forEach(function (a) { a.classList.toggle('cur', a.getAttribute('href') === '#' + e.target.dataset.nav); }); });
-  }, { rootMargin: '-45% 0px -50% 0px' });
-  document.querySelectorAll('[data-nav]').forEach(function (s) { spy.observe(s); });
-
-  // 언어: data-en 글만 바꾼다(KO가 기본). 선택은 localStorage에 기억
-  function setLang(l) {
-    lang = l;
-    document.querySelectorAll('[data-en]').forEach(function (el) {
-      if (el.tagName === 'IMG') return;
-      if (!el.dataset.ko) el.dataset.ko = el.textContent;
-      el.textContent = l === 'en' ? el.dataset.en : el.dataset.ko;
-    });
-    html.lang = l; document.title = l === 'en' ? 'MinGongbang Games · 민공방 게임즈' : '민공방 게임즈 · MinGongbang Games';
-    document.querySelectorAll('.lang button').forEach(function (b) { var on = b.dataset.lang === l; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
-    document.querySelectorAll('[data-gallery]').forEach(function (g) { if (g._refresh) g._refresh(); });
-    try { localStorage.setItem('mg-lang', l); } catch (e) {}
-  }
-  document.querySelectorAll('.lang button').forEach(function (b) { b.addEventListener('click', function () { setLang(b.dataset.lang); }); });
-  var saved = null; try { saved = localStorage.getItem('mg-lang'); } catch (e) {}
-  if (/[?&]lang=en/.test(location.search) || (saved === 'en' && !/[?&]lang=ko/.test(location.search))) setLang('en');
-
-  // 첫 화면 슬라이더: 7초마다 넘김, 탭 막대가 차오름, 마우스를 올리거나 화면 밖이면 멈춤
-  var hero = document.querySelector('.hero'), slides = hero.querySelectorAll('.slide'), tabs = hero.querySelectorAll('.tab'), n = slides.length, cur = 0, p = 0, last = performance.now(), hover = false, heroVisible = true, DUR = 7000;
-  function go(i) {
-    cur = (i + n) % n; p = 0;
-    slides.forEach(function (s, k) { s.classList.toggle('on', k === cur); s.setAttribute('aria-hidden', k !== cur); });
-    tabs.forEach(function (b, k) { var on = k === cur; b.classList.toggle('on', on); b.setAttribute('aria-selected', on); b.querySelector('.bar i').style.width = '0'; });
-  }
-  tabs.forEach(function (b) { b.addEventListener('click', function () { go(+b.dataset.go); }); });
-  hero.querySelector('.arrows .prev').addEventListener('click', function () { go(cur - 1); });
-  hero.querySelector('.arrows .next').addEventListener('click', function () { go(cur + 1); });
-  hero.addEventListener('mouseenter', function () { hover = true; });
-  hero.addEventListener('mouseleave', function () { hover = false; });
-  hero.addEventListener('keydown', function (e) { if (e.key === 'ArrowRight') go(cur + 1); else if (e.key === 'ArrowLeft') go(cur - 1); });
-  new IntersectionObserver(function (es) { heroVisible = es[0].isIntersecting; }).observe(hero);
-  (function tick(now) {
-    var dt = Math.min(100, now - last); last = now;
-    if (!reduce && !hover && heroVisible && !document.hidden && html.classList.contains('go')) {
-      p += dt / DUR; tabs[cur].querySelector('.bar i').style.width = Math.min(1, p) * 100 + '%';
-      if (p >= 1) go(cur + 1);
-    }
-    requestAnimationFrame(tick);
-  })(last);
-  var sx = null, sy = null;
-  hero.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
-  hero.addEventListener('touchend', function (e) {
-    if (sx === null) return; var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
-    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) go(cur + (dx < 0 ? 1 : -1)); sx = sy = null;
-  });
-  var m = /[?&]slide=(\d)/.exec(location.search); if (m) go(+m[1]);
-
-  // 첫 화면 불티: 아래에서 천천히 떠오르는 등불 가루(화면 밖·숨은 탭에서는 쉼)
-  var cv = document.getElementById('embers');
-  if (cv && !reduce) {
-    var cx = cv.getContext('2d'), W, H, parts = [];
-    function size() { var dpr = Math.min(2, devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0); }
-    function spawn(y) { return { x: Math.random() * W, y: y == null ? H + 10 : y, r: Math.random() * 1.8 + .5, vy: -(Math.random() * .35 + .12), vx: (Math.random() - .5) * .18, a: Math.random() * .6 + .25, ph: Math.random() * 6.28 }; }
-    size(); addEventListener('resize', size);
-    var N = W < 700 ? 30 : 64;
-    for (var i = 0; i < N; i++) parts.push(spawn(Math.random() * H));
-    (function draw() {
-      if (heroVisible && !document.hidden) {
-        cx.clearRect(0, 0, W, H);
-        parts.forEach(function (q, k) {
-          q.y += q.vy; q.ph += .02; q.x += q.vx + Math.sin(q.ph) * .15;
-          if (q.y < -10) parts[k] = spawn();
-          var fl = q.a * (.7 + .3 * Math.sin(q.ph * 2)), g = cx.createRadialGradient(q.x, q.y, 0, q.x, q.y, q.r * 4);
-          g.addColorStop(0, 'rgba(255,214,140,' + fl + ')'); g.addColorStop(1, 'rgba(242,178,76,0)');
-          cx.fillStyle = g; cx.beginPath(); cx.arc(q.x, q.y, q.r * 4, 0, 6.283); cx.fill();
-        });
-      }
-      requestAnimationFrame(draw);
-    })();
-  }
-
-  // 스크롤 등장 + 숫자 올리기
-  var io = new IntersectionObserver(function (es) {
-    es.forEach(function (e) {
-      if (!e.isIntersecting) return;
-      e.target.classList.add('seen'); io.unobserve(e.target);
-      if (reduce) return;
-      e.target.querySelectorAll('[data-count]').forEach(function (b) {
-        var v = +b.dataset.count, s = performance.now();
-        (function up(t) { var q = Math.min(1, (t - s) / 1200); b.textContent = Math.round(v * (1 - Math.pow(1 - q, 3))); if (q < 1) requestAnimationFrame(up); })(s);
+  /* ---------- language (KO/EN) ---------- */
+  var ATTRS = [['data-en','text'],['data-en-alt','alt'],['data-en-label','aria-label']];
+  function setLang(lang){
+    ATTRS.forEach(function(pair){
+      var attr = pair[0], target = pair[1], koAttr = attr.replace('-en','-ko');
+      document.querySelectorAll('['+attr+']').forEach(function(el){
+        if (!el.hasAttribute(koAttr)) el.setAttribute(koAttr, target==='text' ? el.innerHTML : (el.getAttribute(target)||''));
+        var v = el.getAttribute(lang==='en' ? attr : koAttr);
+        if (target!=='text') el.setAttribute(target, v);
+        else if (lang==='en') el.textContent = v;
+        else el.innerHTML = v; // KO side keeps its own markup (nowrap spans)
       });
     });
-  }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.rv').forEach(function (el) { io.observe(el); });
-
-  // 작품 카드: 마우스를 따라 기울고 빛이 지나감(마우스 있는 기기만)
-  if (matchMedia('(hover: hover) and (pointer: fine)').matches && !reduce) {
-    document.querySelectorAll('.gcard').forEach(function (c) {
-      c.addEventListener('mousemove', function (e) {
-        var r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-        c.style.setProperty('--mx', x * 100 + '%'); c.style.setProperty('--my', y * 100 + '%');
-        c.style.transform = 'perspective(1100px) rotateY(' + (x - .5) * 5 + 'deg) rotateX(' + (.5 - y) * 5 + 'deg) translateY(-6px)';
-      });
-      c.addEventListener('mouseleave', function () { c.style.transform = ''; });
-    });
+    document.documentElement.lang = lang;
+    document.querySelectorAll('.lang button').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.lang===lang)); });
+    try { localStorage.setItem('mg-lang', lang); } catch(e){}
   }
+  document.querySelectorAll('.lang button').forEach(function(b){ b.addEventListener('click', function(){ setLang(b.dataset.lang); }); });
+  var saved = null; try { saved = localStorage.getItem('mg-lang'); } catch(e){}
+  var initial = q.get('lang') || saved || 'ko';
+  if (initial === 'en') setLang('en');
 
-  // 작품 화면 갤러리 + 크게 보기(이전·다음·키보드)
-  var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg'), lbcap = document.getElementById('lbcap'), lbList = [], lbIdx = 0, lbFrom = null;
-  function showLb() { var im = lbList[lbIdx]; lbimg.src = im.currentSrc || im.src; lbimg.alt = im.alt; lbimg.classList.toggle('pixel', im.classList.contains('pixel')); lbcap.textContent = txt(im) + ' · ' + (lbIdx + 1) + ' / ' + lbList.length; }
-  function openLb(imgs, i, from) { lbList = imgs; lbIdx = i; lbFrom = from; showLb(); lb.hidden = false; document.body.style.overflow = 'hidden'; lb.querySelector('.lb-x').focus(); }
-  function closeLb() { lb.hidden = true; document.body.style.overflow = ''; if (lbFrom) lbFrom.focus(); }
-  lb.addEventListener('click', function (e) { if (e.target === lb || e.target.closest('.lb-x')) closeLb(); });
-  lb.querySelector('.lb-prev').addEventListener('click', function () { lbIdx = (lbIdx + lbList.length - 1) % lbList.length; showLb(); });
-  lb.querySelector('.lb-next').addEventListener('click', function () { lbIdx = (lbIdx + 1) % lbList.length; showLb(); });
-  document.querySelectorAll('[data-gallery]').forEach(function (g) {
-    var imgs = g.querySelectorAll('.stage img'), btns = g.querySelectorAll('.thumbs button'), cap = g.querySelector('.cap'), count = g.querySelector('.count'), k = 0;
-    function show(i) {
-      k = (i + imgs.length) % imgs.length;
-      imgs.forEach(function (im, j) { im.classList.toggle('on', j === k); });
-      btns.forEach(function (b, j) { b.classList.toggle('on', j === k); b.setAttribute('aria-pressed', j === k); });
-      cap.textContent = txt(imgs[k]); count.textContent = (k + 1) + ' / ' + imgs.length;
-    }
-    g._refresh = function () { show(k); };
-    btns.forEach(function (b, j) { b.addEventListener('click', function () { show(j); }); });
-    g.querySelector('.prev').addEventListener('click', function () { show(k - 1); });
-    g.querySelector('.next').addEventListener('click', function () { show(k + 1); });
-    var z = g.querySelector('.zoom'); z.addEventListener('click', function () { openLb(imgs, k, z); });
-    show(0);
-  });
-  addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') { if (!lb.hidden) closeLb(); if (nav.classList.contains('open')) setMenu(false); }
-    if (!lb.hidden && e.key === 'ArrowLeft') lb.querySelector('.lb-prev').click();
-    if (!lb.hidden && e.key === 'ArrowRight') lb.querySelector('.lb-next').click();
+  /* ---------- header + mobile menu ---------- */
+  var header = document.getElementById('header');
+  function onScroll(){ header.classList.toggle('scrolled', scrollY > 24); }
+  addEventListener('scroll', onScroll, {passive:true}); onScroll();
+  var menu = document.getElementById('menu');
+  document.getElementById('menuBtn').addEventListener('click', function(){ menu.showModal(); });
+  document.getElementById('menuClose').addEventListener('click', function(){ menu.close(); });
+  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ menu.close(); }); });
+  menu.addEventListener('click', function(e){ if (e.target === menu) menu.close(); });
+  if (q.has('menu')) menu.showModal(); // screenshot check
+
+  /* ---------- copy email ---------- */
+  var copyBtn = document.getElementById('copyBtn'), copied = document.getElementById('copied'), copyTimer;
+  copyBtn.addEventListener('click', function(){
+    var mail = document.getElementById('mailText').textContent;
+    var done = function(ok){
+      copied.textContent = ok ? (document.documentElement.lang==='en' ? 'Copied' : '복사했습니다') : (document.documentElement.lang==='en' ? 'Copy failed — select the address' : '복사 실패 — 주소를 직접 선택해 주세요');
+      clearTimeout(copyTimer); copyTimer = setTimeout(function(){ copied.textContent=''; }, 3000);
+    };
+    if (navigator.clipboard) navigator.clipboard.writeText(mail).then(function(){ done(true); }, function(){ done(false); });
+    else done(false);
   });
 
-  // 메일 주소 복사
-  document.getElementById('copy').addEventListener('click', function () {
-    var t = document.getElementById('mail'), b = this, back = txt(b);
-    (navigator.clipboard ? navigator.clipboard.writeText(t.textContent) : Promise.reject())
-      .then(function () { b.textContent = lang === 'en' ? 'Copied ✓' : '복사됨 ✓'; setTimeout(function () { b.textContent = back; }, 1600); })
-      .catch(function () { var r = document.createRange(); r.selectNodeContents(t); var s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = lang === 'en' ? 'Press Ctrl+C' : 'Ctrl+C로 복사'; });
+  /* ---------- galleries + lightbox ---------- */
+  var lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'), lbCap = document.getElementById('lbCap'), lbCount = document.getElementById('lbCount');
+  var cur = {items:[], i:0};
+  function show(i){
+    cur.i = (i + cur.items.length) % cur.items.length;
+    var img = cur.items[cur.i].querySelector('img');
+    lbImg.src = img.currentSrc || img.src; lbImg.alt = img.alt; lbImg.width = img.width; lbImg.height = img.height;
+    lbCap.textContent = cur.items[cur.i].querySelector('figcaption span').textContent;
+    lbCount.textContent = (cur.i+1) + ' / ' + cur.items.length;
+  }
+  document.querySelectorAll('[data-gal]').forEach(function(gal){
+    var track = gal.querySelector('.gal-track');
+    var items = Array.prototype.slice.call(track.querySelectorAll('.shot'));
+    items.forEach(function(btn, i){ btn.addEventListener('click', function(){ cur.items = items; show(i); lb.showModal(); }); });
+    gal.querySelectorAll('.gal-nav button').forEach(function(b){
+      b.addEventListener('click', function(){
+        var w = items[0].getBoundingClientRect().width + 16;
+        track.scrollBy({left: w * Number(b.dataset.dir), behavior: 'smooth'});
+      });
+    });
+  });
+  document.getElementById('lbClose').addEventListener('click', function(){ lb.close(); });
+  document.getElementById('lbPrev').addEventListener('click', function(){ show(cur.i-1); });
+  document.getElementById('lbNext').addEventListener('click', function(){ show(cur.i+1); });
+  lb.addEventListener('click', function(e){ if (e.target === lb) lb.close(); });
+  lb.addEventListener('keydown', function(e){ if (e.key==='ArrowLeft') show(cur.i-1); else if (e.key==='ArrowRight') show(cur.i+1); });
+  lb.addEventListener('close', function(){ lbImg.src=''; });
+  if (q.has('lb')) { cur.items = Array.prototype.slice.call(document.querySelector('.gal-track').querySelectorAll('.shot')); show(Number(q.get('lb'))||0); lb.showModal(); } // screenshot check
+
+  /* ---------- motion (GSAP) ---------- */
+  function motion(){
+    if (!window.gsap || !window.ScrollTrigger) return;
+    gsap.registerPlugin(ScrollTrigger);
+    var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // progress + active nav work in every mode (no visual motion of content)
+    gsap.to('#progress', {scaleX:1, ease:'none', scrollTrigger:{start:0, end:'max', scrub:0.3}});
+    var links = document.querySelectorAll('.nav a');
+    links.forEach(function(a){
+      var sec = document.querySelector(a.getAttribute('href'));
+      if (!sec) return;
+      ScrollTrigger.create({trigger:sec, start:'top 50%', end:'bottom 50%',
+        onToggle:function(st){ a.setAttribute('aria-current', st.isActive ? 'true' : 'false'); }});
+    });
+    if (reduce || STATIC) return;
+
+    // hero entrance (back.out pop, 300-450ms stagger list — motion.csv #8)
+    gsap.from('#heroMain img[data-parallax]', {scale:1.12, duration:1.4, ease:'power2.out'});
+    gsap.from('#heroMain .pop', {y:28, opacity:0, scale:.92, duration:.5, stagger:.08, ease:'back.out(1.6)', delay:.1});
+    gsap.from('#heroSide', {x:40, opacity:0, rotation:1.5, duration:.7, ease:'back.out(1.4)', delay:.25});
+    gsap.from('#heroSide .pop', {y:20, opacity:0, duration:.45, stagger:.07, ease:'back.out(1.6)', delay:.5});
+
+    // scroll reveal (motion.csv #5: y24, .5s, stagger .08, power2.out, top 85%)
+    document.querySelectorAll('[data-reveal]').forEach(function(el){
+      gsap.from(el.children.length > 1 ? el.children : el, {y:24, opacity:0, duration:.5, stagger:.08, ease:'power2.out',
+        scrollTrigger:{trigger:el, start:'top 85%', once:true}});
+    });
+    // pop-in cards (motion.csv #8 adapted: scale .85, back.out(1.7), each .08, slight handmade rotation)
+    document.querySelectorAll('[data-pop-group]').forEach(function(group){
+      var kids = group.children;
+      gsap.from(kids, {y:24, opacity:0, scale:.85, rotation:function(i){ return [-3,2,-2,3][i%4]; }, duration:.5, stagger:{each:.08, from:'start'}, ease:'back.out(1.7)',
+        scrollTrigger:{trigger:group, start:'top 85%', once:true}});
+    });
+    document.querySelectorAll('[data-pop]').forEach(function(el){
+      gsap.from(el, {y:30, opacity:0, scale:.86, duration:.6, ease:'back.out(1.6)', scrollTrigger:{trigger:el, start:'top 85%', once:true}});
+    });
+    // parallax on banner / showcase images (motion.csv #13: small yPercent, scrub, decorative only)
+    document.querySelectorAll('img[data-parallax]').forEach(function(img){
+      gsap.fromTo(img, {yPercent:-6, scale:1.14}, {yPercent:6, scale:1.14, ease:'none',
+        scrollTrigger:{trigger:img.closest('.banner, .crt') || img, start:'top bottom', end:'bottom top', scrub:.5}});
+    });
+    // count-up stats
+    document.querySelectorAll('[data-count]').forEach(function(el){
+      var end = Number(el.dataset.count), obj = {v:0};
+      gsap.to(obj, {v:end, duration:1.1, ease:'power2.out', snap:{v:1}, onUpdate:function(){ el.textContent = Math.round(obj.v); },
+        scrollTrigger:{trigger:el, start:'top 90%', once:true}});
+    });
+    addEventListener('load', function(){ ScrollTrigger.refresh(); });
+  }
+  if (document.readyState === 'complete') motion(); else addEventListener('DOMContentLoaded', function(){ setTimeout(motion, 0); });
+
+  /* ---------- ?debug: list elements wider than the viewport (headless --dump-dom check) ---------- */
+  if (q.has('debug')) addEventListener('load', function(){
+    var w = innerWidth, bad = [];
+    document.querySelectorAll('body *').forEach(function(el){
+      if (el.closest('.gal-track') || el.id === 'dbg') return; // horizontal scroller is meant to overflow
+      var r = el.getBoundingClientRect();
+      if (r.width && (r.right > w + 1 || r.left < -1)) bad.push(el.tagName.toLowerCase() + (el.className && typeof el.className === 'string' ? '.' + el.className.split(' ').join('.') : '') + '[' + Math.round(r.left) + ',' + Math.round(r.right) + ']');
+    });
+    var d = document.createElement('pre'); d.id = 'dbg';
+    d.style.cssText = 'position:fixed;left:0;top:0;z-index:9999;margin:0;padding:6px;background:#000;color:#0f0;font:11px/1.3 monospace;max-width:100%;white-space:pre-wrap;word-break:break-all';
+    d.textContent = 'DBG innerW=' + w + ' scrollW=' + document.documentElement.scrollWidth + ' H=' + document.documentElement.scrollHeight + '\n' + bad.slice(0, 40).join('\n');
+    document.body.appendChild(d);
   });
 })();
 </script>
