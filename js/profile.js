@@ -1,6 +1,7 @@
 /* 내 프로필: 닉네임 · 소식 메일 동의 · 가입일 · 배지 · 회원 탈퇴(페이지 안 확인 단계, confirm() 없음) */
 (function(){
   var t = MG.t, h = MG.h, say = MG.say, view = document.getElementById('view');
+  if (window.top !== window.self) { view.hidden = true; try { window.top.location.href = location.href; } catch(e){} return; } // no framing (clickjacking on account deletion)
   var BADGE_ICON = {
     first_visit:'<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V5a2 2 0 0 1 2-2h8l6 6v12"/><path d="M14 3v6h6M9 14h6M9 18h6"/></svg>',
     first_voice:'<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.3A8 8 0 1 1 21 12z"/><path d="M8 12h.01M12 12h.01M16 12h.01"/></svg>',

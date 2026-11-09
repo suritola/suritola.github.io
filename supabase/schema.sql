@@ -17,7 +17,8 @@
 --  보안
 --    모든 테이블 RLS 켬. 관리자 판정은 public.is_admin() (security definer, search_path 고정).
 --    profiles 는 본인·관리자만 읽고, 본인은 nickname·newsletter_opt_in 두 열만 고칠 수 있다(열 단위 grant). role 은 SQL Editor 에서만 바꾼다.
---    도배 제한: 1분에 글 3개·댓글 10개 (트리거). 배지는 트리거로만 붙고 클라이언트는 쓸 수 없다.
+--    도배 제한: 글 1분 3개·하루 20개, 댓글 1분 10개·하루 100개, 신고 1분 5개·하루 20개 (트리거, 작성 시각은 서버가 고정).
+--    닉네임은 서버에서 보이지 않는 글자를 지우고 운영자 사칭 예약어를 막는다. 배지는 트리거로만 붙고 클라이언트는 쓸 수 없다.
 -- =====================================================================================
 
 -- ---------- 1. 관리자 판정 ----------------------------------------------------------
@@ -65,25 +66,6 @@ revoke all on table public.profiles from anon, authenticated;
 grant select on table public.profiles to authenticated;
 grant update (nickname, newsletter_opt_in) on table public.profiles to authenticated;
 
--- 소식 메일 동의가 바뀌면 일시를 남기고, 닉네임 앞뒤 공백을 지운다.
-create or replace function public.profiles_before_update()
-returns trigger
-language plpgsql
-set search_path = public
-as $$
-begin
-  if new.newsletter_opt_in is distinct from old.newsletter_opt_in then
-    new.newsletter_updated_at := now();
-  end if;
-  new.nickname := trim(new.nickname);
-  return new;
-end;
-$$;
-drop trigger if exists profiles_before_update on public.profiles;
-create trigger profiles_before_update
-  before update on public.profiles
-  for each row execute function public.profiles_before_update();
-
 -- 공개 프로필 뷰: 게시판에서 글쓴이 이름을 보여 주기 위한 4개 열. 뷰는 만든 사람(postgres) 권한으로 읽어 RLS 를 지나치므로
 -- 여기 넣는 열은 "누구에게 보여도 되는 것"만 둔다. (Supabase 린터의 security_definer_view 경고는 의도한 것.)
 create or replace view public.public_profiles
@@ -94,6 +76,52 @@ grant select on public.public_profiles to anon, authenticated;
 
 -- 가입하면 프로필을 자동으로 만든다. 닉네임은 가입 메타데이터, 구글 로그인은 구글 이름을 쓴다.
 -- 닉네임이 겹치면 뒤에 숫자를 붙여서 가입 자체는 실패하지 않게 한다(프로필에서 바꿀 수 있다).
+-- 보이지 않는 글자(제어 문자, 폭 없는 공백, 방향 바꿈, 한글 채움 문자)를 지우고, 공백을 하나로 줄이고,
+-- 앞쪽의 = + - @ 를 뗀다(관리자 CSV 를 시트에 붙일 때 수식으로 실행되지 않게).
+create or replace function public.clean_nickname(s text)
+returns text
+language sql
+immutable
+set search_path = public
+as $$
+  select ltrim(btrim(regexp_replace(
+           regexp_replace(coalesce(s, ''), '[\u0001-\u001f\u007f-\u009f\u00ad\u061c\u115f\u1160\u180e\u200b-\u200f\u202a-\u202e\u2060-\u206f\u3164\ufeff\uffa0]', '', 'g'),
+           '\s+', ' ', 'g')), '=+-@ ');
+$$;
+-- 운영자 사칭 예약어. 공백·밑줄·점·하이픈을 빼고 본다(예: "운 영 자", "ad_min").
+create or replace function public.nickname_reserved(s text)
+returns boolean
+language sql
+immutable
+set search_path = public
+as $$
+  select regexp_replace(lower(coalesce(s, '')), '[\s_.-]', '', 'g')
+         ~ '(운영자|관리자|운영진|운영팀|민공방|mingongbang|admin|staff|moderator|official|공식)';
+$$;
+
+create or replace function public.profiles_before_update()
+returns trigger
+language plpgsql
+set search_path = public
+as $$
+begin
+  new.nickname := public.clean_nickname(new.nickname);
+  if new.role <> 'admin' and public.nickname_reserved(new.nickname) then
+    raise exception '운영자·관리자·민공방·admin·staff 같은 말은 닉네임에 쓸 수 없습니다. / Words like admin, staff or official cannot be used in a nickname.'
+      using errcode = 'P0001';
+  end if;
+  if tg_op = 'UPDATE' and new.newsletter_opt_in is distinct from old.newsletter_opt_in then
+    new.newsletter_updated_at := now();
+  end if;
+  return new;
+end;
+$$;
+drop trigger if exists profiles_before_update on public.profiles;
+create trigger profiles_before_update
+  before insert or update on public.profiles
+  for each row execute function public.profiles_before_update();
+
+-- 가입 트리거: 같은 정리를 먼저 하고, 예약어·너무 짧은 이름은 '손님' 으로 바꿔 가입 자체는 실패하지 않게 한다.
 create or replace function public.handle_new_user()
 returns trigger
 language plpgsql
@@ -105,13 +133,14 @@ declare
   nick text;
   n    int := 0;
 begin
-  base := left(trim(coalesce(
-            nullif(trim(new.raw_user_meta_data ->> 'nickname'), ''),
-            nullif(trim(new.raw_user_meta_data ->> 'name'), ''),
-            nullif(trim(new.raw_user_meta_data ->> 'full_name'), ''),
+  base := left(public.clean_nickname(coalesce(
+            nullif(public.clean_nickname(new.raw_user_meta_data ->> 'nickname'), ''),
+            nullif(public.clean_nickname(new.raw_user_meta_data ->> 'name'), ''),
+            nullif(public.clean_nickname(new.raw_user_meta_data ->> 'full_name'), ''),
             nullif(split_part(coalesce(new.email, ''), '@', 1), ''),
             '손님')), 20);
-  if char_length(base) < 2 then
+  base := btrim(base);
+  if char_length(base) < 2 or public.nickname_reserved(base) then
     base := '손님';
   end if;
   nick := base;
@@ -130,6 +159,7 @@ begin
   return new;
 end;
 $$;
+
 drop trigger if exists on_auth_user_created on auth.users;
 create trigger on_auth_user_created
   after insert on auth.users
@@ -219,7 +249,8 @@ create policy comments_delete_own_or_admin on public.comments
 
 revoke update on table public.comments from anon, authenticated;   -- 댓글 수정 기능은 없다
 
--- ---------- 5. 도배 제한 (1분에 글 3개 · 댓글 10개) ----------------------------------
+-- ---------- 5. 도배 제한 (1분·하루 한도) + 작성 시각 고정 ------------------------------
+-- rate_limit(1분 한도, 하루 한도, 글쓴이 열 이름). 신고 트리거는 reports 표를 만든 뒤 6장에서 붙인다.
 create or replace function public.rate_limit()
 returns trigger
 language plpgsql
@@ -227,27 +258,62 @@ security definer
 set search_path = public
 as $$
 declare
-  lim int := tg_argv[0]::int;
-  n   int;
+  per_min int  := tg_argv[0]::int;
+  per_day int  := tg_argv[1]::int;
+  col     text := coalesce(tg_argv[2], 'author_id');
+  who     uuid := (to_jsonb(new) ->> col)::uuid;
+  n_min   int;
+  n_day   int;
 begin
-  execute format('select count(*) from %I.%I where author_id = $1 and created_at > now() - interval ''1 minute''', tg_table_schema, tg_table_name)
-    into n using new.author_id;
-  if n >= lim then
-    raise exception 'rate_limit: 1분에 %개까지만 쓸 수 있습니다. 잠시 후 다시 시도해 주세요.', lim
+  -- 같은 사람이 동시에 여러 요청을 보내 한도를 함께 통과하지 않도록 한 사람씩 줄 세운다.
+  perform pg_advisory_xact_lock(hashtext(tg_table_name || ':' || who::text));
+  execute format(
+    'select count(*) filter (where created_at > now() - interval ''1 minute''), count(*)
+       from %I.%I where %I = $1 and created_at > now() - interval ''1 day''',
+    tg_table_schema, tg_table_name, col)
+    into n_min, n_day using who;
+  if n_min >= per_min then
+    raise exception 'rate_limit: 1분에 %개까지만 쓸 수 있습니다. 잠시 후 다시 시도해 주세요.', per_min
+      using errcode = 'P0001';
+  end if;
+  if per_day is not null and n_day >= per_day then
+    raise exception 'rate_limit: 하루에 %개까지만 쓸 수 있습니다. 내일 다시 시도해 주세요.', per_day
       using errcode = 'P0001';
   end if;
   return new;
 end;
 $$;
+create index if not exists posts_author_created_idx    on public.posts (author_id, created_at);
+create index if not exists comments_author_created_idx on public.comments (author_id, created_at);
 drop trigger if exists posts_rate_limit on public.posts;
-create trigger posts_rate_limit
-  before insert on public.posts
-  for each row execute function public.rate_limit('3');
+create trigger posts_rate_limit before insert on public.posts
+  for each row execute function public.rate_limit('3', '20', 'author_id');
 drop trigger if exists comments_rate_limit on public.comments;
-create trigger comments_rate_limit
-  before insert on public.comments
-  for each row execute function public.rate_limit('10');
+create trigger comments_rate_limit before insert on public.comments
+  for each row execute function public.rate_limit('10', '100', 'author_id');
 
+-- 넣을 때 created_at 을 서버 시각으로 고정한다(옛 날짜로 넣어 도배 제한을 피하지 못하게). 글의 updated_at, 신고의 resolved_at 도 비운다.
+create or replace function public.stamp_insert()
+returns trigger
+language plpgsql
+set search_path = public
+as $$
+begin
+  new.created_at := now();
+  if tg_table_name = 'posts' then
+    new.updated_at := null;
+  elsif tg_table_name = 'reports' then
+    new.resolved_at := null;
+  end if;
+  return new;
+end;
+$$;
+drop trigger if exists posts_stamp_insert on public.posts;
+create trigger posts_stamp_insert before insert on public.posts
+  for each row execute function public.stamp_insert();
+drop trigger if exists comments_stamp_insert on public.comments;
+create trigger comments_stamp_insert before insert on public.comments
+  for each row execute function public.stamp_insert();
 -- ---------- 6. 신고 -----------------------------------------------------------------
 create table if not exists public.reports (
   id          bigint generated always as identity primary key,
@@ -278,6 +344,14 @@ create policy reports_update_admin on public.reports
   for update to authenticated
   using (public.is_admin())
   with check (public.is_admin());
+
+create index if not exists reports_reporter_created_idx on public.reports (reporter_id, created_at);
+drop trigger if exists reports_rate_limit on public.reports;
+create trigger reports_rate_limit before insert on public.reports
+  for each row execute function public.rate_limit('5', '20', 'reporter_id');
+drop trigger if exists reports_stamp_insert on public.reports;
+create trigger reports_stamp_insert before insert on public.reports
+  for each row execute function public.stamp_insert();
 
 -- ---------- 7. 배지 (서버 규칙으로만 부여) --------------------------------------------
 create table if not exists public.badges (
@@ -382,10 +456,16 @@ $$;
 revoke execute on function public.delete_my_account() from public, anon;
 grant execute on function public.delete_my_account() to authenticated;
 
+-- ---------- 9. 쓰지 않는 권한 회수 (방어 겹치기) -------------------------------------------
+-- anon 은 읽기만 한다(글·댓글·배지·공개 프로필). truncate 는 RLS 를 거치지 않으므로 아무에게도 주지 않는다.
+revoke insert, update, delete on all tables in schema public from anon;
+revoke truncate, references, trigger on all tables in schema public from anon, authenticated;
+
 -- ---------- 초기화 (필요할 때만 주석을 풀어 실행) ----------------------------------------
 -- drop trigger if exists on_auth_user_created on auth.users;
 -- drop function if exists public.handle_new_user(), public.award_badge(), public.rate_limit(),
---   public.profiles_before_update(), public.posts_before_update(), public.newsletter_list(), public.delete_my_account();
+--   public.profiles_before_update(), public.posts_before_update(), public.newsletter_list(), public.delete_my_account(),
+--   public.stamp_insert(), public.clean_nickname(text), public.nickname_reserved(text);
 -- drop view if exists public.public_profiles;
 -- drop table if exists public.user_badges, public.badges, public.reports, public.comments, public.posts, public.profiles;
 -- drop function if exists public.is_admin();

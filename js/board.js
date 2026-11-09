@@ -1,6 +1,7 @@
 /* 게시판: 해시 라우팅 (#cat=free&p=2 · #post=12 · #new · #edit=12 · #admin). 사용자 글은 전부 textContent 로만 넣는다. */
 (function(){
   var t = MG.t, h = MG.h, say = MG.say, view = document.getElementById('view');
+  if (window.top !== window.self) { view.hidden = true; try { window.top.location.href = location.href; } catch(e){} return; } // no framing (clickjacking on delete buttons)
   var SIZE = 15;
   var CATS = {notice:['공지','Notice'], free:['자유','Free talk'], bug:['버그·건의','Bugs & ideas']};
   var GAMES = {soulsaver:'Soul Saver', deepfold:'Deepfold'};
@@ -28,6 +29,8 @@
   function loading(){ return h('p', {class:'muted'}, t('불러오는 중…', 'Loading…')); }
   function fail(box, e){ box.textContent = ''; box.appendChild(h('p', {class:'empty'}, MG.errMsg(e))); }
   function uid(){ return MG.session ? MG.session.user.id : null; }
+  // CSV cell for spreadsheets: a leading = + - @ would run as a formula (e.g. IMPORTXML sending the list away), so prefix '
+  function csv(v){ v = String(v == null ? '' : v); if (/^[=+\-@\t\r]/.test(v)) v = "'" + v; return '"' + v.replace(/"/g, '""') + '"'; }
   // nickname/role of a set of authors (public_profiles view: 4 public columns only)
   function authors(ids){
     ids = ids.filter(function(v, i, a){ return v && a.indexOf(v) === i; });
@@ -249,7 +252,7 @@
     MG.sb.rpc('newsletter_list').then(function(r){
       if (r.error) { pre.textContent = MG.errMsg(r.error); return; }
       var rows = r.data || [];
-      pre.textContent = rows.length ? 'email,nickname,agreed_at\n' + rows.map(function(x){ return [x.email, '"' + String(x.nickname).replace(/"/g, '""') + '"', x.agreed_at].join(','); }).join('\n') : t('아직 동의한 분이 없습니다.', 'No subscribers yet.');
+      pre.textContent = rows.length ? 'email,nickname,agreed_at\n' + rows.map(function(x){ return [csv(x.email), csv(x.nickname), csv(x.agreed_at)].join(','); }).join('\n') : t('아직 동의한 분이 없습니다.', 'No subscribers yet.');
       if (rows.length) nl.appendChild(h('div', {class:'row'}, [h('span', {class:'hint'}, rows.length + t('명', ' people')), h('button', {class:'btn btn--sm btn--light', type:'button', onclick:function(){ navigator.clipboard && navigator.clipboard.writeText(pre.textContent).then(function(){ say(t('복사했습니다.', 'Copied.')); }, function(){ say(t('복사 실패 — 직접 선택해 주세요.', 'Copy failed — select the text instead.')); }); }, html:I.copy + '<span>' + t('CSV 복사', 'Copy CSV') + '</span>'})]));
     });
   }
