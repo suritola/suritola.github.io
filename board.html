@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>게시판 · 민공방 게임즈</title>
+<meta name="description" content="민공방 게임즈 게시판 — 공지, 자유 이야기, 버그·건의">
+<meta name="theme-color" content="#FFF8EE">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://suritola.github.io/board.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232F5BFF'/%3E%3Cpath d='M16 5l9 6v10l-9 6-9-6V11z' fill='none' stroke='%23FFC63A' stroke-width='2.6'/%3E%3Ccircle cx='16' cy='16' r='3.4' fill='%23FFC63A'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700&family=Rubik:wght@700;900&display=swap">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<a class="skip" href="#main" data-en="Skip to content">본문으로 건너뛰기</a>
+
+<header class="header header--solid" id="header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="민공방 게임즈 홈" data-en-label="MinGongbang Games home">
+      <svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#2F5BFF"/><path d="M20 6l11 7.5v13L20 34 9 26.5v-13z" fill="none" stroke="#FFC63A" stroke-width="3.2" stroke-linejoin="round"/><circle cx="20" cy="20" r="4.4" fill="#FFC63A"/></svg>
+      <span><span data-en="MinGongbang Games">민공방 게임즈</span><small data-en="ONE-PERSON GAME WORKSHOP">MINGONGBANG GAMES</small></span>
+    </a>
+    <nav class="nav" aria-label="주요 메뉴" data-en-label="Main menu">
+      <a href="index.html#deepfold">Deepfold</a>
+      <a href="index.html#soulsaver">Soul Saver</a>
+      <a href="index.html#news" data-en="News">소식</a>
+      <a href="board.html" aria-current="page" data-en="Board">게시판</a>
+      <a href="index.html#studio" data-en="Studio">공방</a>
+      <a href="index.html#contact" data-en="Contact">연락</a>
+    </nav>
+    <div class="lang" role="group" aria-label="언어" data-en-label="Language">
+      <button type="button" data-lang="ko" aria-pressed="true" lang="ko">KO</button>
+      <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
+    </div>
+    <div class="auth" id="auth"></div>
+    <button class="menu-btn" type="button" id="menuBtn" aria-label="메뉴 열기" data-en-label="Open menu" aria-haspopup="dialog" aria-controls="menu"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+
+<dialog class="menu" id="menu" aria-label="메뉴" data-en-label="Menu">
+  <div class="menu-in">
+    <div class="menu-top">
+      <span class="brand"><svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#fff"/><path d="M20 6l11 7.5v13L20 34 9 26.5v-13z" fill="none" stroke="#2F5BFF" stroke-width="3.2" stroke-linejoin="round"/><circle cx="20" cy="20" r="4.4" fill="#2F5BFF"/></svg><span><span data-en="MinGongbang Games">민공방 게임즈</span><small>MINGONGBANG GAMES</small></span></span>
+      <button class="menu-close" type="button" id="menuClose" aria-label="메뉴 닫기" data-en-label="Close menu"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <ul class="menu-links">
+      <li><a href="index.html"><span data-en="Home">홈</span></a></li>
+      <li><a href="index.html#deepfold">Deepfold <small data-en="Coming 2027">2027 출시 예정</small></a></li>
+      <li><a href="index.html#soulsaver">Soul Saver <small data-en="Out on Steam">Steam 판매 중</small></a></li>
+      <li><a href="board.html"><span data-en="Board">게시판</span></a></li>
+      <li><a href="profile.html"><span data-en="My profile">내 프로필</span></a></li>
+      <li><a href="index.html#contact"><span data-en="Contact">연락</span></a></li>
+    </ul>
+    <div class="lang" role="group" aria-label="언어" data-en-label="Language">
+      <button type="button" data-lang="ko" aria-pressed="true" lang="ko">KO</button>
+      <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
+    </div>
+  </div>
+</dialog>
+
+<main id="main" class="page">
+  <div class="wrap">
+    <div class="page-head">
+      <span class="kicker kicker--brand"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.3A8 8 0 1 1 21 12z"/></svg><span data-en="Community">커뮤니티</span></span>
+      <h1 data-en="Board">게시판</h1>
+      <p class="lead" data-en="Notices, free talk, and bug reports or ideas for Soul Saver and Deepfold. Anyone can read; log in to write.">공지와 자유 이야기, Soul Saver·Deepfold 버그 제보와 건의를 나누는 곳입니다. 읽기는 누구나, 글쓰기는 로그인 뒤에.</p>
+    </div>
+    <div id="view"></div>
+    <noscript><p class="empty">게시판을 보려면 자바스크립트를 켜 주세요. / Please enable JavaScript to use the board.</p></noscript>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <span class="brand"><svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#2F5BFF"/><path d="M20 6l11 7.5v13L20 34 9 26.5v-13z" fill="none" stroke="#FFC63A" stroke-width="3.2" stroke-linejoin="round"/><circle cx="20" cy="20" r="4.4" fill="#FFC63A"/></svg><span><span data-en="MinGongbang Games">민공방 게임즈</span><small>MINGONGBANG GAMES</small></span></span>
+        <p data-en="A small one-person game workshop. Soul Saver · Deepfold: One Day Deep">혼자 게임을 만드는 작은 공방. Soul Saver · Deepfold: One Day Deep</p>
+      </div>
+      <div class="foot-col">
+        <h4>GAMES</h4>
+        <ul>
+          <li><a href="index.html#deepfold">Deepfold: One Day Deep</a></li>
+          <li><a href="index.html#soulsaver">Soul Saver</a></li>
+          <li><a href="index.html#news" data-en="News">소식</a></li>
+          <li><a href="board.html" data-en="Board">게시판</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>LINKS</h4>
+        <ul>
+          <li><a href="https://store.steampowered.com/app/5328770/" target="_blank" rel="noopener">Steam — Soul Saver <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg></a></li>
+          <li><a href="https://github.com/suritola" target="_blank" rel="noopener">GitHub <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg></a></li>
+          <li><a href="mailto:mingeunb0@gmail.com">mingeunb0@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 MinGongbang Games. All rights reserved.</span>
+      <span class="foot-legal"><a href="privacy.html" data-en="Privacy Policy">개인정보처리방침</a><a href="terms.html" data-en="Terms of Service">이용약관</a></span>
+      <span data-en="Steam and the Steam logo are trademarks of Valve Corporation.">Steam 및 Steam 로고는 Valve Corporation의 상표입니다.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/site.js" defer></script>
+<script src="js/board.js" defer></script>
+</body>
+</html>
