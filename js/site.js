@@ -88,6 +88,7 @@
   }
   function errMsg(e){
     var m = (e && e.message) || String(e || '');
+    if (/^rate_limit:/.test(m) || /닉네임에 쓸 수 없습니다/.test(m)) return m; // server messages written for the player
     if (/Invalid login credentials/i.test(m)) return t('이메일 또는 비밀번호가 맞지 않습니다.', 'Wrong email or password.');
     if (/already registered|already been registered/i.test(m)) return t('이미 가입된 이메일입니다.', 'This email is already registered.');
     if (/Email not confirmed/i.test(m)) return t('메일함에서 인증 링크를 먼저 눌러 주세요.', 'Please confirm your email first.');
@@ -96,7 +97,8 @@
     if (/Password should be/i.test(m)) return t('비밀번호가 너무 짧거나 단순합니다.', 'Password is too short or too simple.');
     if (/row-level security|permission denied|not allowed/i.test(m)) return t('권한이 없습니다. 로그인 상태를 확인해 주세요.', 'Not allowed. Check that you are logged in.');
     if (/Failed to fetch|NetworkError/i.test(m)) return t('서버에 연결할 수 없습니다.', 'Could not reach the server.');
-    return m || t('알 수 없는 오류가 났습니다.', 'Something went wrong.');
+    if (m) console.warn('[auth]', m);
+    return t('알 수 없는 오류가 났습니다. 잠시 후 다시 시도해 주세요.', 'Something went wrong. Please try again.');
   }
 
   /* ---------- auth state ---------- */
@@ -115,7 +117,7 @@
 
   renderAuth(); // login button at once; the real state replaces it when the session is known
   if (configured()) {
-    var s = document.createElement('script'); s.src = SB_CDN;
+    var s = document.createElement('script'); s.src = SB_CDN; s.integrity = 'sha384-2zrRDgDHSYB/GN3nFW3fsZXoxEhKIr3N2h63Tc6DEOB9JJdFIu8xMJT2Cph/gBil'; s.crossOrigin = 'anonymous';
     s.onload = function(){
       sb = window.supabase.createClient(CFG.SUPABASE_URL, CFG.SUPABASE_ANON_KEY);
       MG.sb = sb;
