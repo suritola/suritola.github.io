@@ -169,7 +169,7 @@
     dlg = h('dialog', {class:'dlg', id:'authDlg', 'aria-labelledby':'authTitle', html:
       '<div class="dlg-in">' +
       '<button class="dlg-close" type="button" aria-label="닫기" data-en-label="Close"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>' +
-      '<div class="dlg-head"><svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#2F5BFF"/><path d="M20 6l11 7.5v13L20 34 9 26.5v-13z" fill="none" stroke="#FFC63A" stroke-width="3.2" stroke-linejoin="round"/><circle cx="20" cy="20" r="4.4" fill="#FFC63A"/></svg>' +
+      '<div class="dlg-head"><img class="mark" src="img/logo-mark.svg" width="36" height="36" alt="">' +
       '<h2 id="authTitle" data-en="MinGongbang Games account">민공방 게임즈 계정</h2></div>' +
       '<p class="notice" id="authNotice" hidden><b data-en="Member features are coming soon.">회원 기능 준비 중입니다.</b> <span data-en="Sign-up and login will open soon.">가입과 로그인은 곧 열립니다.</span></p>' +
       '<div class="seg" role="tablist" aria-label="로그인 또는 가입" data-en-label="Log in or sign up">' +
