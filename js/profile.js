@@ -15,8 +15,8 @@
 
   function render(session, profile){
     view.textContent = '';
-    if (!MG.configured()) return view.appendChild(h('div', {class:'card'}, h('p', {class:'notice'}, [h('b', {}, t('회원 기능 준비 중입니다.', 'Members area is being prepared.')), ' ', t('가입·로그인이 열리면 여기서 프로필과 배지를 볼 수 있어요.', 'Once sign-up opens, your profile and badges will live here.')])));
-    if (!session) return view.appendChild(h('div', {class:'card row row--between'}, [h('p', {class:'lead'}, t('로그인하면 프로필과 배지를 볼 수 있어요.', 'Log in to see your profile and badges.')), h('button', {class:'btn', type:'button', onclick:function(){ MG.openAuth('login'); }}, t('로그인 / 가입', 'Log in / Sign up'))]));
+    if (!MG.configured()) return view.appendChild(h('div', {class:'card'}, h('p', {class:'notice'}, [h('b', {}, t('회원 기능 준비 중입니다.', 'Member features are coming soon.')), ' ', t('가입과 로그인이 열리면 여기서 프로필과 배지를 볼 수 있습니다.', 'Your profile and badges will appear here once sign-up opens.')])));
+    if (!session) return view.appendChild(h('div', {class:'card row row--between'}, [h('p', {class:'lead'}, t('프로필과 배지를 보려면 로그인해 주세요.', 'Log in to see your profile and badges.')), h('button', {class:'btn', type:'button', onclick:function(){ MG.openAuth('login'); }}, t('로그인 / 가입', 'Log in / Sign up'))]));
     var uid = session.user.id, p = profile || {}, name = p.nickname || (session.user.email || '').split('@')[0];
     var left = h('div', {class:'stack'}), right = h('div', {class:'stack'});
     view.appendChild(h('div', {class:'profile-grid'}, [left, right]));
@@ -49,11 +49,11 @@
         say(nl.checked ? t('소식 메일을 받습니다.', 'You will receive news emails.') : t('소식 메일을 받지 않습니다.', 'You will not receive news emails.')); MG.refreshProfile();
       });
     });
-    me.appendChild(h('label', {class:'toggle', for:'news'}, [h('span', {}, [h('b', {}, t('소식 메일 받기', 'News emails')), h('small', {}, t('출시·체험판·공지 소식을 메일로 보내 드려요. 언제든 끌 수 있어요.', 'Launch, demo and notice emails. Switch off any time.'))]), nl]));
+    me.appendChild(h('label', {class:'toggle', for:'news'}, [h('span', {}, [h('b', {}, t('소식 메일 받기', 'News emails')), h('small', {}, t('출시, 체험판, 공지 소식을 메일로 보내 드립니다. 언제든 해제할 수 있습니다.', 'Launch, demo and announcement emails. Unsubscribe any time.'))]), nl]));
     left.appendChild(me);
 
     /* badges */
-    var bc = h('section', {class:'card', 'aria-labelledby':'badgeTitle'}, [h('h2', {id:'badgeTitle'}, t('보상 · 배지', 'Rewards · Badges')), h('p', {class:'hint', style:'margin-bottom:14px'}, t('공방에서 한 일에 따라 자동으로 붙습니다.', 'Awarded automatically for things you do in the workshop.'))]);
+    var bc = h('section', {class:'card', 'aria-labelledby':'badgeTitle'}, [h('h2', {id:'badgeTitle'}, t('배지', 'Badges')), h('p', {class:'hint', style:'margin-bottom:14px'}, t('사이트 활동에 따라 자동으로 지급됩니다.', 'Awarded automatically for activity on the site.'))]);
     var list = h('p', {class:'muted'}, t('불러오는 중…', 'Loading…')); bc.appendChild(list); right.appendChild(bc);
     Promise.all([MG.sb.from('badges').select('*').order('sort'), MG.sb.from('user_badges').select('badge_code,awarded_at').eq('user_id', uid)]).then(function(rs){
       if (rs[0].error) { list.textContent = MG.errMsg(rs[0].error); return; }
@@ -92,7 +92,7 @@
         yes.disabled = true;
         MG.sb.rpc('delete_my_account').then(function(r){
           if (r.error) { yes.disabled = false; return MG.setErr(f.delNick, MG.errMsg(r.error)); }
-          say(t('탈퇴했습니다. 그동안 고마웠어요.', 'Your account is deleted. Thank you for visiting.'));
+          say(t('탈퇴가 완료되었습니다. 이용해 주셔서 감사합니다.', 'Your account has been deleted. Thanks for being here.'));
           MG.sb.auth.signOut({scope:'local'}).then(function(){ setTimeout(function(){ location.href = 'index.html'; }, 1200); }, function(){ location.href = 'index.html'; });
         });
       });

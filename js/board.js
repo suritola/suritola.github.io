@@ -4,7 +4,7 @@
   var t = MG.t, h = MG.h, say = MG.say, view = document.getElementById('view');
   if (window.top !== window.self) { view.hidden = true; try { window.top.location.href = location.href; } catch(e){} return; } // no framing (clickjacking on delete buttons)
   var SIZE = 15;
-  var CATS = {notice:['공지','Notice'], free:['자유','Free talk'], bug:['버그·건의','Bugs & ideas']};
+  var CATS = {notice:['공지','Notice'], free:['자유','General'], bug:['버그·건의','Bugs & feedback']};
   var GAMES = {soulsaver:'Soul Saver', deepfold:'Deepfold'};
   var I = {
     pen:'<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>',
@@ -90,7 +90,7 @@
     if (DEMO) return renderDemo(p);
     if (!MG.configured()) {
       view.appendChild(tabs('all'));
-      view.appendChild(h('div', {class:'card', style:'margin-top:18px'}, h('p', {class:'notice'}, [h('b', {}, t('게시판 준비 중입니다.', 'The board is being prepared.')), ' ', t('회원 기능 설정이 끝나면 글을 읽고 쓸 수 있어요.', 'Reading and posting open as soon as the member service is set up.')])));
+      view.appendChild(h('div', {class:'card', style:'margin-top:18px'}, h('p', {class:'notice'}, [h('b', {}, t('게시판 준비 중입니다.', 'The board is coming soon.')), ' ', t('회원 기능이 열리면 글을 읽고 쓸 수 있습니다.', 'It opens together with member accounts.')])));
       return;
     }
     if (p.has('admin')) return renderAdmin();
@@ -120,7 +120,7 @@
       var rows = r.data || [], total = r.count || 0;
       authors(rows.map(function(x){ return x.author_id; })).then(function(map){
         box.textContent = '';
-        if (!rows.length) return box.appendChild(h('p', {class:'empty'}, t('아직 글이 없습니다. 첫 글을 남겨 보세요.', 'No posts yet. Be the first to write one.')));
+        if (!rows.length) return box.appendChild(h('p', {class:'empty'}, t('아직 글이 없습니다.', 'No posts yet.')));
         var ul = h('ul', {class:'post-list'});
         rows.forEach(function(x){
           ul.appendChild(h('li', {}, h('a', {class:'post-row', href:'#post=' + x.id}, [
@@ -182,11 +182,11 @@
             ul.appendChild(li);
           });
           sec.appendChild(ul);
-        } else sec.appendChild(h('p', {class:'muted'}, t('첫 댓글을 남겨 보세요.', 'Be the first to comment.')));
+        } else sec.appendChild(h('p', {class:'muted'}, t('아직 댓글이 없습니다.', 'No comments yet.')));
         if (uid()) {
           var f = h('form', {class:'cmt-form', novalidate:true});
-          f.appendChild(h('div', {class:'field'}, [h('label', {for:'cBody', class:'sr'}, t('댓글', 'Comment')), h('textarea', {class:'input', id:'cBody', name:'body', required:true, maxlength:1000, placeholder:t('댓글을 남겨 주세요 (1,000자까지)', 'Write a comment (up to 1,000 characters)')}), h('p', {class:'err', id:'cBody-err', 'aria-live':'polite'})]));
-          f.appendChild(h('div', {class:'row row--between'}, [h('span', {class:'hint'}, t('1분에 10개까지 쓸 수 있어요.', 'Up to 10 comments a minute.')), h('button', {class:'btn btn--sm', type:'submit'}, t('댓글 쓰기', 'Post comment'))]));
+          f.appendChild(h('div', {class:'field'}, [h('label', {for:'cBody', class:'sr'}, t('댓글', 'Comment')), h('textarea', {class:'input', id:'cBody', name:'body', required:true, maxlength:1000, placeholder:t('댓글 (최대 1,000자)', 'Comment (up to 1,000 characters)')}), h('p', {class:'err', id:'cBody-err', 'aria-live':'polite'})]));
+          f.appendChild(h('div', {class:'row row--between'}, [h('span', {class:'hint'}, t('댓글은 1분에 10개까지 쓸 수 있습니다.', 'Up to 10 comments a minute.')), h('button', {class:'btn btn--sm', type:'submit'}, t('댓글 쓰기', 'Post comment'))]));
           f.addEventListener('submit', function(e){
             e.preventDefault(); if (!MG.validate(f)) return;
             var b = f.querySelector('[type=submit]'); b.disabled = true;
@@ -198,7 +198,7 @@
           });
           sec.appendChild(f);
         } else {
-          sec.appendChild(h('div', {class:'row', style:'margin-top:14px'}, [h('span', {class:'hint'}, t('로그인하면 댓글을 쓸 수 있어요.', 'Log in to join the conversation.')), h('button', {class:'btn btn--sm btn--light', type:'button', onclick:function(){ MG.openAuth('login'); }}, t('로그인', 'Log in'))]));
+          sec.appendChild(h('div', {class:'row', style:'margin-top:14px'}, [h('span', {class:'hint'}, t('댓글을 쓰려면 로그인해 주세요.', 'Log in to comment.')), h('button', {class:'btn btn--sm btn--light', type:'button', onclick:function(){ MG.openAuth('login'); }}, t('로그인', 'Log in'))]));
         }
         box.appendChild(sec);
       });
@@ -217,14 +217,14 @@
   function reportForm(host, target){
     var old = host.querySelector('.report-form'); if (old) return old.querySelector('textarea').focus();
     var f = h('form', {class:'report-form', novalidate:true}), id = 'rep' + (target.comment_id || 'p' + target.post_id);
-    f.appendChild(h('div', {class:'field'}, [h('label', {for:id}, t('신고 사유', 'Why are you reporting this?')), h('textarea', {class:'input', id:id, name:'reason', required:true, maxlength:500, placeholder:t('운영자만 볼 수 있어요 (500자까지)', 'Only staff can see this (up to 500 characters)')}), h('p', {class:'err', id:id + '-err', 'aria-live':'polite'})]));
+    f.appendChild(h('div', {class:'field'}, [h('label', {for:id}, t('신고 사유', 'Why are you reporting this?')), h('textarea', {class:'input', id:id, name:'reason', required:true, maxlength:500, placeholder:t('운영자만 볼 수 있습니다 (최대 500자)', 'Only staff can see this (up to 500 characters)')}), h('p', {class:'err', id:id + '-err', 'aria-live':'polite'})]));
     f.appendChild(h('div', {class:'row'}, [h('button', {class:'btn btn--sm', type:'submit'}, t('신고 보내기', 'Send report')), h('button', {class:'btn btn--sm btn--light', type:'button', onclick:function(){ f.remove(); }}, t('취소', 'Cancel'))]));
     f.addEventListener('submit', function(e){
       e.preventDefault(); if (!MG.validate(f)) return;
       var row = {reporter_id:uid(), post_id:target.post_id, comment_id:target.comment_id || null, reason:f.reason.value.trim()};
       MG.sb.from('reports').insert(row).then(function(r){
         if (r.error) return MG.setErr(f.reason, MG.errMsg(r.error));
-        f.remove(); say(t('신고를 접수했습니다. 확인 뒤 처리할게요.', 'Report received. Staff will take a look.'));
+        f.remove(); say(t('신고가 접수되었습니다. 확인 후 조치하겠습니다.', 'Report received. We\'ll review it.'));
       });
     });
     host.appendChild(f); f.querySelector('textarea').focus();
@@ -248,7 +248,7 @@
       ]));
       f.appendChild(h('div', {class:'field'}, [h('label', {for:'eTitle'}, t('제목', 'Title')), h('input', {class:'input', id:'eTitle', name:'title', type:'text', required:true, maxlength:100, value: post ? post.title : ''}), h('p', {class:'err', id:'eTitle-err', 'aria-live':'polite'})]));
       var limit = MG.isAdmin() ? 60000 : 20000, rte = richEditor(post);
-      f.appendChild(h('div', {class:'field'}, [h('span', {class:'label', id:'eBodyLbl'}, t('내용', 'Body')), rte.el, h('p', {class:'err', id:'eBody-err', 'aria-live':'polite'}), h('span', {class:'hint'}, t('사진은 png·jpg·webp, 긴 변 1920px로 줄여 올라가요(하루 30장). 링크는 3개까지.', 'Photos (png/jpg/webp) are resized to 1920px on the long side, 30 a day. Up to 3 links.'))]));
+      f.appendChild(h('div', {class:'field'}, [h('span', {class:'label', id:'eBodyLbl'}, t('내용', 'Body')), rte.el, h('p', {class:'err', id:'eBody-err', 'aria-live':'polite'}), h('span', {class:'hint'}, t('사진은 png·jpg·webp만 올릴 수 있으며 긴 변 1920px로 줄여서 올라갑니다(하루 30장). 링크는 3개까지 넣을 수 있습니다.', 'Images (png, jpg, webp) are resized to 1920px on the long side. 30 images a day, up to 3 links per post.'))]));
       f.appendChild(h('div', {class:'row row--between'}, [
         h('a', {class:'btn btn--sm btn--light', href: post ? '#post=' + post.id : '#'}, t('취소', 'Cancel')),
         h('button', {class:'btn btn--sm', type:'submit'}, post ? t('저장', 'Save') : t('올리기', 'Publish'))
@@ -321,7 +321,7 @@
     file.addEventListener('change', function(){ if (file.files[0]) upload(file.files[0]); file.value = ''; });
     function upload(f){
       if (DEMO || !uid()) return say(t('데모에서는 사진을 올리지 않습니다.', 'Uploads are off in the demo.'));
-      if (!/^image\/(png|jpeg|webp)$/.test(f.type)) return say(t('png·jpg·webp 사진만 올릴 수 있어요.', 'Only png, jpg or webp images.'));
+      if (!/^image\/(png|jpeg|webp)$/.test(f.type)) return say(t('png·jpg·webp 사진만 올릴 수 있습니다.', 'Only png, jpg or webp images.'));
       if (f.size > 25e6) return say(t('사진이 너무 큽니다(25MB까지).', 'Image too large (25MB max).'));
       say(t('사진을 올리는 중…', 'Uploading…'));
       // canvas 로 다시 인코딩: EXIF(위치 등)를 버리고 긴 변 1920px 로 줄인다
@@ -348,7 +348,7 @@
         var m = (e && e.message) || '';
         say(m === 'size' ? t('사진을 2MB 아래로 줄이지 못했습니다.', 'Could not get the image under 2MB.')
           : m === 'encode' ? t('이 사진은 읽을 수 없습니다.', 'This image could not be read.')
-          : /row-level|policy/i.test(m) ? t('사진은 하루 30장까지 올릴 수 있어요.', 'Up to 30 images a day.') : MG.errMsg(e));
+          : /row-level|policy/i.test(m) ? t('사진은 하루 30장까지 올릴 수 있습니다.', 'Up to 30 images a day.') : MG.errMsg(e));
       });
     }
     function link(){
@@ -356,7 +356,7 @@
       var u = prompt(t('링크 주소 (https://로 시작)', 'Link URL (starting with https://)'), 'https://');
       if (u === null) return;
       u = u.trim();
-      if (!/^https:\/\/[^\s"<>]+$/i.test(u)) return say(t('https:// 로 시작하는 주소만 넣을 수 있어요.', 'Only https:// links are allowed.'));
+      if (!/^https:\/\/[^\s"<>]+$/i.test(u)) return say(t('https://로 시작하는 주소만 넣을 수 있습니다.', 'Only https:// links are allowed.'));
       if (had) return cmd('createLink', u);
       restore(); // 선택이 없으면 주소 글자를 넣고 그것을 링크로
       var a = h('a', {href:u}, u), s = getSelection(), rg = s.rangeCount ? s.getRangeAt(0) : null;
@@ -466,13 +466,13 @@
         box.appendChild(ul);
       });
     });
-    var nl = h('section', {class:'card stack'}, [h('h2', {}, t('소식 메일 동의자', 'Newsletter subscribers')), h('p', {class:'hint'}, t('발송 기능은 아직 없어요. 아래 목록(이메일, 닉네임, 동의 일시)을 복사해 메일 도구에 붙여 넣으세요. 동의를 철회한 분에게는 보내면 안 됩니다.', 'There is no mailer yet. Copy the list below (email, nickname, consent date) into your mail tool. Never email people who have withdrawn consent.'))]);
+    var nl = h('section', {class:'card stack'}, [h('h2', {}, t('소식 메일 동의자', 'Newsletter subscribers')), h('p', {class:'hint'}, t('발송 기능은 아직 없습니다. 아래 목록(이메일, 닉네임, 동의 일시)을 복사해 메일 도구에 붙여 넣으세요. 동의를 철회한 분에게는 보내면 안 됩니다.', 'There is no mailer yet. Copy the list below (email, nickname, consent date) into your mail tool. Never email people who have withdrawn consent.'))]);
     var pre = h('pre', {class:'pre'}, t('불러오는 중…', 'Loading…')); nl.appendChild(pre); view.appendChild(nl);
     MG.sb.rpc('newsletter_list').then(function(r){
       if (r.error) { pre.textContent = MG.errMsg(r.error); return; }
       var rows = r.data || [];
       pre.textContent = rows.length ? 'email,nickname,agreed_at\n' + rows.map(function(x){ return [csv(x.email), csv(x.nickname), csv(x.agreed_at)].join(','); }).join('\n') : t('아직 동의한 분이 없습니다.', 'No subscribers yet.');
-      if (rows.length) nl.appendChild(h('div', {class:'row'}, [h('span', {class:'hint'}, rows.length + t('명', ' people')), h('button', {class:'btn btn--sm btn--light', type:'button', onclick:function(){ navigator.clipboard && navigator.clipboard.writeText(pre.textContent).then(function(){ say(t('복사했습니다.', 'Copied.')); }, function(){ say(t('복사 실패 — 직접 선택해 주세요.', 'Copy failed — select the text instead.')); }); }, html:I.copy + '<span>' + t('CSV 복사', 'Copy CSV') + '</span>'})]));
+      if (rows.length) nl.appendChild(h('div', {class:'row'}, [h('span', {class:'hint'}, rows.length + t('명', ' people')), h('button', {class:'btn btn--sm btn--light', type:'button', onclick:function(){ navigator.clipboard && navigator.clipboard.writeText(pre.textContent).then(function(){ say(t('복사했습니다.', 'Copied.')); }, function(){ say(t('복사하지 못했습니다. 직접 선택해 주세요.', 'Copy failed. Select the text instead.')); }); }, html:I.copy + '<span>' + t('CSV 복사', 'Copy CSV') + '</span>'})]));
     });
   }
 

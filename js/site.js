@@ -130,7 +130,7 @@
         }, 0);
       });
     };
-    s.onerror = function(){ emit(); say(t('회원 서버 스크립트를 불러오지 못했습니다.', 'Could not load the member service script.')); };
+    s.onerror = function(){ emit(); say(t('회원 서비스를 불러오지 못했습니다.', 'Could not load the member service.')); };
     document.head.appendChild(s);
   } else {
     emit();
@@ -170,8 +170,8 @@
       '<div class="dlg-in">' +
       '<button class="dlg-close" type="button" aria-label="닫기" data-en-label="Close"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>' +
       '<div class="dlg-head"><svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#2F5BFF"/><path d="M20 6l11 7.5v13L20 34 9 26.5v-13z" fill="none" stroke="#FFC63A" stroke-width="3.2" stroke-linejoin="round"/><circle cx="20" cy="20" r="4.4" fill="#FFC63A"/></svg>' +
-      '<h2 id="authTitle" data-en="Welcome to the workshop">공방에 어서 오세요</h2></div>' +
-      '<p class="notice" id="authNotice" hidden><b data-en="Members area is being prepared.">회원 기능 준비 중입니다.</b> <span data-en="Sign-up and login will open soon. Everything else on the site works as usual.">가입·로그인은 곧 열립니다. 사이트의 다른 부분은 그대로 쓸 수 있어요.</span></p>' +
+      '<h2 id="authTitle" data-en="MinGongbang Games account">민공방 게임즈 계정</h2></div>' +
+      '<p class="notice" id="authNotice" hidden><b data-en="Member features are coming soon.">회원 기능 준비 중입니다.</b> <span data-en="Sign-up and login will open soon.">가입과 로그인은 곧 열립니다.</span></p>' +
       '<div class="seg" role="tablist" aria-label="로그인 또는 가입" data-en-label="Log in or sign up">' +
       '<button type="button" role="tab" id="tabLogin" aria-controls="fLogin" aria-selected="true" data-view="login" data-en="Log in">로그인</button>' +
       '<button type="button" role="tab" id="tabSignup" aria-controls="fSignup" aria-selected="false" data-view="signup" data-en="Sign up">가입</button></div>' +
@@ -191,7 +191,7 @@
       '<div class="checks">' +
       '<label class="check"><input type="checkbox" id="sAge" required><span data-en="I am 14 or older. (required)">만 14세 이상입니다. <b>(필수)</b></span></label><p class="err" id="sAge-err" aria-live="polite"></p>' +
       '<label class="check"><input type="checkbox" id="sTerms" required><span><span data-en="I agree to the ">다음에 동의합니다: </span>'+legal+' <b data-en="(required)">(필수)</b></span></label><p class="err" id="sTerms-err" aria-live="polite"></p>' +
-      '<label class="check"><input type="checkbox" id="sNews"><span data-en="Email me workshop news and launch notices. (optional)">공방 소식·출시 알림 메일을 받겠습니다. <b>(선택)</b></span></label>' +
+      '<label class="check"><input type="checkbox" id="sNews"><span data-en="Email me news and launch announcements. (optional)">소식·출시 알림 메일을 받겠습니다. <b>(선택)</b></span></label>' +
       '</div>' +
       '<p class="err form-err" aria-live="polite"></p>' +
       '<button class="btn btn--block" type="submit"><span data-en="Create account">가입하기</span></button>' +
@@ -253,7 +253,7 @@
     sb.auth.signInWithPassword({email: f.lEmail.value.trim(), password: f.lPass.value}).then(function(r){
       busy(f, false);
       if (r.error) return formErr(f, errMsg(r.error));
-      dlg.close(); f.reset(); say(t('환영합니다!', 'Welcome back!'));
+      dlg.close(); f.reset(); say(t('로그인했습니다.', 'Logged in.'));
     });
   }
   function submitSignup(e){
@@ -264,7 +264,7 @@
     }}).then(function(r){
       busy(f, false);
       if (r.error) return formErr(f, errMsg(r.error));
-      if (r.data.session) { dlg.close(); f.reset(); say(t('가입을 축하합니다! 「공방 첫 손님」 배지를 드렸어요.', 'Welcome! You earned the “First Guest” badge.')); return; }
+      if (r.data.session) { dlg.close(); f.reset(); say(t('가입이 완료되었습니다. 「공방 첫 손님」 배지를 받았습니다.', 'You\'re signed up. You earned the “First Guest” badge.')); return; }
       // email confirmation is on: Supabase also answers this way for an already-registered address (no account enumeration)
       f.querySelectorAll('.field,.checks,[type=submit]').forEach(function(x){ x.hidden = true; });
       f.querySelector('.form-err').className = 'ok-msg';
