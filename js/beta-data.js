@@ -12,14 +12,14 @@ window.MG_DOWNLOADS = [
     "img": "img/mr_wide-720.webp",
     "imgAlt": "달에 밧줄을 건 바퀴와 물이 빠진 갯벌",
     "imgAltEn": "A winch roped to the moon above the drained mudflat",
-    "version": "2026-11-17 (6b64651)",
+    "version": "2026-11-17 (a09947c)",
     "size": "66 MB",
     "platform": "Windows 64-bit",
     "lock": {
       "iter": 250000,
-      "salt": "4Zu2iIOfYpE+IPgW62Eg1Q==",
-      "iv": "amqIpGx8pbQn30VG",
-      "ct": "V4/0vCU3pde0cugUrJSbJySQCXGLY44FWR0skKgH9q6mr50M6lRHuPtLIXGoNn+viAp35y0hZXj6KhRM2BDqCYNbdth7uCmpZdQ/8gSDrQO3YvKBwfFktveCwsvBsgR0atCBCAEdhOjAQI9ehr44AYH5uX3D92RTWiJVaeNmzIDPhw=="
+      "salt": "IzkaGg4RlqPBRux4EN/gSw==",
+      "iv": "hjzln6hI98Hiot11",
+      "ct": "7LE2GsD29c4GM3XV9aa3sWCMS07CoV1nK3+CCbPXKqTtyjZ8v6SntQPbnq4FAt7yslcW5T1tLDrRLnW3EQuSMxQOlwir/qaVcv+jO6zw/qj/lq8HqdFS9VmFnAk0ko29gq/GqKaUxIYYwi4e4mrYkE7UmhAFhJFgy8ttfj3tOq5BNQ=="
     }
   },
   {
