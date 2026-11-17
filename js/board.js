@@ -442,7 +442,7 @@
     });
   }
 
-  /* ---------- admin: reports + newsletter list ---------- */
+  /* ---------- admin: reports + newsletter (send + list) ---------- */
   function renderAdmin(){
     if (!MG.isAdmin()) return view.appendChild(h('p', {class:'empty'}, t('운영자만 볼 수 있는 화면입니다.', 'Staff only.')));
     view.appendChild(h('div', {}, h('a', {class:'btn--ghost', href:'#', html:I.back + '<span>' + t('게시판으로', 'Back to board') + '</span>'})));
@@ -466,11 +466,65 @@
         box.appendChild(ul);
       });
     });
-    var nl = h('section', {class:'card stack'}, [h('h2', {}, t('소식 메일 동의자', 'Newsletter subscribers')), h('p', {class:'hint'}, t('발송 기능은 아직 없습니다. 아래 목록(이메일, 닉네임, 동의 일시)을 복사해 메일 도구에 붙여 넣으세요. 동의를 철회한 분에게는 보내면 안 됩니다.', 'There is no mailer yet. Copy the list below (email, nickname, consent date) into your mail tool. Never email people who have withdrawn consent.'))]);
+    // 소식 메일 보내기: Edge Function "newsletter"(SETUP.md 7절)가 동의자에게 100명씩 나눠 보낸다. 수신 거부 링크는 함수가 붙인다
+    var CFG = window.MG_CONFIG || {}, total = 0, armed = false, busy = false;
+    var mail = h('section', {class:'card stack'}, [
+      h('h2', {}, t('소식 메일 보내기', 'Send a newsletter')),
+      h('p', {class:'hint'}, t('소식 메일 받기에 동의하고 메일 인증을 마친 회원 모두에게 보냅니다. 메일 끝에 수신 거부 링크가 저절로 붙습니다. 먼저 나에게 시험 발송으로 확인한 뒤 보내세요.', 'Sends to every member who opted in and confirmed their email. An unsubscribe link is added automatically. Send a test to yourself first.'))
+    ]);
+    var subj = h('input', {class:'input', id:'mailSubj', type:'text', maxlength:'120', autocomplete:'off'});
+    var body = h('textarea', {class:'input', id:'mailBody', rows:'10', maxlength:'20000'});
+    var ad = h('input', {type:'checkbox', id:'mailAd', checked:true});
+    var testBtn = h('button', {class:'btn btn--sm btn--light', type:'button'}, t('나에게 시험 발송', 'Send a test to me'));
+    var allBtn = h('button', {class:'btn btn--sm', type:'button', disabled:true}, t('동의한 회원에게 보내기', 'Send to subscribers'));
+    var status = h('p', {class:'hint', role:'status', 'aria-live':'polite'});
+    mail.appendChild(h('div', {class:'field'}, [h('label', {for:'mailSubj'}, t('제목', 'Subject')), subj]));
+    mail.appendChild(h('div', {class:'field'}, [h('label', {for:'mailBody'}, t('본문 (빈 줄로 문단을 나눕니다)', 'Body (a blank line starts a new paragraph)')), body]));
+    mail.appendChild(h('label', {class:'check', for:'mailAd'}, [ad, h('span', {}, t('광고성 소식이면 제목 앞에 (광고)를 붙입니다(게임 출시·할인 홍보 등. 정보통신망법)', 'Prefix (광고) for promotional news (required by Korean law)'))]));
+    mail.appendChild(h('div', {class:'row'}, [testBtn, allBtn]));
+    mail.appendChild(status);
+    view.appendChild(mail);
+    function allLabel(){ return t('동의한 ' + total + '명에게 보내기', 'Send to ' + total + ' subscribers'); }
+    function lock(on){ busy = on; testBtn.disabled = on; allBtn.disabled = on || !total; }
+    function ready(){ if (subj.value.trim() && body.value.trim()) return true; status.textContent = t('제목과 본문을 써 주세요.', 'Write a subject and a body.'); return false; }
+    function post(extra){
+      var p = {subject: subj.value, body: body.value, ad: ad.checked}, sess = MG.session;
+      Object.keys(extra).forEach(function(k){ p[k] = extra[k]; });
+      return fetch(String(CFG.SUPABASE_URL || '').replace(/\/$/, '') + '/functions/v1/newsletter', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', apikey: CFG.SUPABASE_ANON_KEY || '', Authorization: 'Bearer ' + (sess ? sess.access_token : '')},
+        body: JSON.stringify(p)
+      }).then(function(r){
+        if (r.status === 404) throw new Error(t('발송 기능이 아직 켜지지 않았습니다. SETUP.md 7절대로 함수를 배포해 주세요.', 'The mailer is not deployed yet (see SETUP.md section 7).'));
+        return r.json().catch(function(){ return {}; }).then(function(d){ if (!r.ok) throw new Error(d.error || ('HTTP ' + r.status)); return d; });
+      }, function(){ throw new Error(t('발송 서버에 닿지 못했습니다. 함수가 배포됐는지 확인해 주세요.', 'Could not reach the mailer. Check that the function is deployed.')); });
+    }
+    testBtn.addEventListener('click', function(){
+      if (busy || !ready()) return;
+      lock(true); status.textContent = t('시험 메일을 보내는 중...', 'Sending a test...');
+      post({test: true}).then(function(){ status.textContent = t('내 메일함으로 시험 메일을 보냈습니다. 모양과 수신 거부 링크를 확인하세요.', 'Test sent to your inbox. Check the layout and the unsubscribe link.'); }, function(e){ status.textContent = e.message; }).then(function(){ lock(false); });
+    });
+    allBtn.addEventListener('click', function(){
+      if (busy || !ready()) return;
+      // 되돌릴 수 없는 일이라 한 번 더 눌러야 보낸다(5초 안에)
+      if (!armed) { armed = true; allBtn.textContent = t('한 번 더 누르면 ' + total + '명에게 보냅니다', 'Click again to send to ' + total); setTimeout(function(){ if (armed) { armed = false; allBtn.textContent = allLabel(); } }, 5000); return; }
+      armed = false; lock(true);
+      var sent = 0;
+      (function next(offset){
+        status.textContent = t('보내는 중 ' + sent + ' / ' + total, 'Sending ' + sent + ' / ' + total);
+        post({offset: offset}).then(function(d){
+          sent += d.sent || 0; if (d.total) total = d.total;
+          if (d.next !== null && d.next !== undefined) return next(d.next);
+          status.textContent = t(sent + '명에게 보냈습니다.', 'Sent to ' + sent + '.'); allBtn.textContent = allLabel(); lock(false);
+        }, function(e){ status.textContent = e.message + t(' (' + sent + '명까지 보냄)', ' (' + sent + ' sent)'); allBtn.textContent = allLabel(); lock(false); });
+      })(0);
+    });
+    var nl = h('section', {class:'card stack'}, [h('h2', {}, t('소식 메일 동의자', 'Newsletter subscribers')), h('p', {class:'hint'}, t('지금 동의한 분들입니다(이메일, 닉네임, 동의 일시). 보낼 때는 위의 \'소식 메일 보내기\'를 쓰고, 다른 메일 도구로 보낼 때도 동의를 철회한 분에게는 보내면 안 됩니다.', 'Current subscribers (email, nickname, consent date). Use \'Send a newsletter\' above; never email people who have withdrawn consent.'))]);
     var pre = h('pre', {class:'pre'}, t('불러오는 중…', 'Loading…')); nl.appendChild(pre); view.appendChild(nl);
     MG.sb.rpc('newsletter_list').then(function(r){
       if (r.error) { pre.textContent = MG.errMsg(r.error); return; }
       var rows = r.data || [];
+      total = rows.length; allBtn.textContent = allLabel(); allBtn.disabled = busy || !total;
       pre.textContent = rows.length ? 'email,nickname,agreed_at\n' + rows.map(function(x){ return [csv(x.email), csv(x.nickname), csv(x.agreed_at)].join(','); }).join('\n') : t('아직 동의한 분이 없습니다.', 'No subscribers yet.');
       if (rows.length) nl.appendChild(h('div', {class:'row'}, [h('span', {class:'hint'}, rows.length + t('명', ' people')), h('button', {class:'btn btn--sm btn--light', type:'button', onclick:function(){ navigator.clipboard && navigator.clipboard.writeText(pre.textContent).then(function(){ say(t('복사했습니다.', 'Copied.')); }, function(){ say(t('복사하지 못했습니다. 직접 선택해 주세요.', 'Copy failed. Select the text instead.')); }); }, html:I.copy + '<span>' + t('CSV 복사', 'Copy CSV') + '</span>'})]));
     });

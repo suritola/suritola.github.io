@@ -241,3 +241,6 @@ body main > .hero > .wrap { height: auto; }
   #games .poster { flex: 0 0 84%; scroll-snap-align: start; }
   .games__dl { align-self: start; }
 }
+
+/* 소식 꼬리표: 문로프 */
+.news__tag--mr { background: color-mix(in oklab, #E2552B 14%, transparent); color: #c2410c; }

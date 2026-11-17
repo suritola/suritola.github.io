@@ -497,7 +497,7 @@ create trigger posts_award_first_voice
   for each row execute function public.award_badge('first_voice');
 
 -- ---------- 8. RPC --------------------------------------------------------------------
--- 소식 메일 동의자 목록 (관리자만, 그 외에는 빈 결과). 발송 기능은 아직 없어 관리자 화면에서 복사해 쓴다.
+-- 소식 메일 동의자 목록 (관리자만, 그 외에는 빈 결과). 보내기는 Edge Function "newsletter"(아래 9절, SETUP.md 7절).
 create or replace function public.newsletter_list()
 returns table (email text, nickname text, agreed_at timestamptz)
 language sql
@@ -545,3 +545,50 @@ revoke truncate, references, trigger on all tables in schema public from anon, a
 -- drop table if exists public.user_badges, public.badges, public.reports, public.comments, public.posts, public.profiles;
 -- drop function if exists public.posts_body_limit(), public.board_uploads_today();
 -- drop function if exists public.is_admin();
+
+-- ---------- 9. 소식 메일 보내기 ----------------------------------------------------
+
+-- 발송 기록: 관리자만 읽는다. 쓰기는 Edge Function(service_role)만.
+create table if not exists public.newsletter_sends (
+  id          bigint generated always as identity primary key,
+  subject     text not null,
+  sent_by     uuid references auth.users (id) on delete set null,
+  recipients  integer not null,
+  test        boolean not null default false,
+  created_at  timestamptz not null default now()
+);
+alter table public.newsletter_sends enable row level security;
+drop policy if exists newsletter_sends_admin_select on public.newsletter_sends;
+create policy newsletter_sends_admin_select on public.newsletter_sends
+  for select to authenticated using (public.is_admin());
+
+-- 발송 대상: 소식 메일에 동의했고 메일 인증을 마친 회원. service_role(Edge Function)만 부른다.
+create or replace function public.newsletter_recipients()
+returns table (id uuid, email text, nickname text)
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select p.id, u.email::text, p.nickname
+  from public.profiles p
+  join auth.users u on u.id = p.id
+  where p.newsletter_opt_in
+    and u.email is not null
+    and u.email_confirmed_at is not null
+  order by p.created_at, p.id;
+$$;
+revoke execute on function public.newsletter_recipients() from public, anon, authenticated;
+grant execute on function public.newsletter_recipients() to service_role;
+
+-- 수신 거부: 메일의 링크를 누르면 Edge Function 이 서명을 확인한 뒤 부른다. service_role 만.
+create or replace function public.newsletter_unsubscribe(p_id uuid)
+returns void
+language sql
+security definer
+set search_path = public
+as $$
+  update public.profiles set newsletter_opt_in = false where id = p_id;
+$$;
+revoke execute on function public.newsletter_unsubscribe(uuid) from public, anon, authenticated;
+grant execute on function public.newsletter_unsubscribe(uuid) to service_role;
