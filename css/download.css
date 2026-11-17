@@ -1,0 +1,20 @@
+/* 다운로드 탭(download.html): 게임 카드 목록, 베타 코드 입력 카드 */
+.dl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:24px}
+.dl-card{display:flex;flex-direction:column;background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:0 2px 0 rgba(31,26,51,.06),0 14px 34px rgba(31,26,51,.1)}
+.dl-card img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+.dl-body{display:flex;flex-direction:column;gap:10px;flex:1;padding:20px 22px 22px}
+.dl-body h2{margin:0;font-size:1.35rem}
+.dl-body p{margin:0}
+.dl-meta{color:var(--ink-2);font-size:.9rem}
+.dl-actions{margin-top:auto;padding-top:8px}
+.dl-actions .btn{width:100%}
+.dl-note{margin-top:24px}
+.tag--beta{background:var(--df-brick)}
+.dl-back{display:inline-block;margin-bottom:14px}
+.dl-key{max-width:560px}
+.dl-key h2{margin-bottom:6px}
+.dl-key form{margin-top:18px}
+.dl-key .input{font-family:ui-monospace,Consolas,"D2Coding",monospace;font-size:1.15rem;letter-spacing:.12em;text-transform:uppercase}
+.dl-key .input::placeholder{letter-spacing:.12em;color:var(--ink-2);opacity:.6}
+.dl-steps{margin:14px 0 0;padding-left:1.3em;line-height:1.7;color:var(--ink-2)}
+.dl-key .tag{margin-bottom:8px}

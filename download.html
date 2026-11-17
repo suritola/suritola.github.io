@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: https://*.googleusercontent.com https://fiteqlskauepyiscjepl.supabase.co https://clan.akamai.steamstatic.com https://shared.akamai.steamstatic.com; connect-src 'self' https://fiteqlskauepyiscjepl.supabase.co wss://fiteqlskauepyiscjepl.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>다운로드 · 민공방 게임즈</title>
+<meta name="description" content="민공방 게임즈 다운로드. 출시된 게임과 베타 테스트 게임.">
+<meta name="theme-color" content="#f6f5f2">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://suritola.github.io/download.html">
+<link rel="icon" href="img/logo-mark.svg" type="image/svg+xml">
+<link rel="icon" href="img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400..700&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="css/site.css?v=6">
+<link rel="stylesheet" href="css/auth.css?v=1">
+<link rel="stylesheet" href="css/download.css?v=1">
+</head>
+<body>
+<a class="skip" href="#main" data-en="Skip to content">본문으로 건너뛰기</a>
+
+<header class="header header--solid" id="header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="민공방 게임즈 홈" data-en-label="MinGongbang Games home">
+      <img class="mark" src="img/logo-mark.svg" width="28" height="28" alt="">
+      <span><span data-en="MinGongbang Games">민공방 게임즈</span><small data-en="INDIE GAME STUDIO">MINGONGBANG GAMES</small></span>
+    </a>
+    <nav class="nav" aria-label="주요 메뉴" data-en-label="Main menu">
+      <a href="index.html#deepfold">Deepfold</a>
+      <a href="index.html#soulsaver">Soul Saver</a>
+      <a href="index.html#moonrope" data-en="Moonrope">문로프</a>
+      <a href="index.html#news" data-en="News">소식</a>
+      <a href="board.html" data-en="Board">게시판</a>
+      <a href="download.html" aria-current="page" data-en="Download">다운로드</a>
+      <a href="index.html#studio" data-en="Studio">스튜디오</a>
+      <a href="index.html#contact" data-en="Contact">문의</a>
+    </nav>
+    <div class="lang" role="group" aria-label="언어" data-en-label="Language">
+      <button type="button" data-lang="ko" aria-pressed="true" lang="ko">KO</button>
+      <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
+    </div>
+    <div class="auth" id="auth"></div>
+    <button class="menu-btn" type="button" id="menuBtn" aria-label="메뉴 열기" data-en-label="Open menu" aria-haspopup="dialog" aria-controls="menu"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+
+<dialog class="menu" id="menu" aria-label="메뉴" data-en-label="Menu">
+  <div class="menu-in">
+    <div class="menu-top">
+      <span class="brand"><img class="mark" src="img/logo-mark.svg" width="28" height="28" alt=""><span><span data-en="MinGongbang Games">민공방 게임즈</span><small>MINGONGBANG GAMES</small></span></span>
+      <button class="menu-close" type="button" id="menuClose" aria-label="메뉴 닫기" data-en-label="Close menu"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <ul class="menu-links">
+      <li><a href="index.html"><span data-en="Home">홈</span></a></li>
+      <li><a href="index.html#deepfold">Deepfold <small data-en="Coming 2027">2027 출시 예정</small></a></li>
+      <li><a href="index.html#soulsaver">Soul Saver <small data-en="Out on Steam">Steam 판매 중</small></a></li>
+      <li><a href="index.html#moonrope"><span data-en="Moonrope">문로프</span> <small data-en="Beta test">베타 테스트</small></a></li>
+      <li><a href="board.html"><span data-en="Board">게시판</span></a></li>
+      <li><a href="download.html"><span data-en="Download">다운로드</span></a></li>
+      <li><a href="profile.html"><span data-en="My profile">내 프로필</span></a></li>
+      <li><a href="index.html#contact"><span data-en="Contact">문의</span></a></li>
+    </ul>
+    <div class="lang" role="group" aria-label="언어" data-en-label="Language">
+      <button type="button" data-lang="ko" aria-pressed="true" lang="ko">KO</button>
+      <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
+    </div>
+  </div>
+</dialog>
+
+<main id="main" class="page">
+  <div class="wrap">
+    <div class="page-head">
+      <span class="kicker kicker--brand"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span data-en="Downloads">다운로드</span></span>
+      <h1 data-en="Download">다운로드</h1>
+      <p class="lead" data-en="Get our released games and the games in beta testing. Beta builds need a beta code.">출시된 게임과 베타 테스트 중인 게임을 받을 수 있습니다. 베타 테스트 게임은 베타 코드가 있어야 받을 수 있습니다.</p>
+    </div>
+    <div id="dl"></div>
+    <noscript><p class="empty">다운로드를 보려면 자바스크립트를 켜 주세요. / Please enable JavaScript to see the downloads.</p></noscript>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <span class="brand"><img class="mark" src="img/logo-mark.svg" width="28" height="28" alt=""><span><span data-en="MinGongbang Games">민공방 게임즈</span><small>MINGONGBANG GAMES</small></span></span>
+        <p data-en="Indie game studio. Soul Saver · Deepfold: One Day Deep · Moonrope">인디 게임 스튜디오. Soul Saver · Deepfold: One Day Deep · 문로프</p>
+      </div>
+      <div class="foot-col">
+        <h4>GAMES</h4>
+        <ul>
+          <li><a href="index.html#deepfold">Deepfold: One Day Deep</a></li>
+          <li><a href="index.html#soulsaver">Soul Saver</a></li>
+          <li><a href="index.html#moonrope" data-en="Moonrope">문로프</a></li>
+          <li><a href="index.html#news" data-en="News">소식</a></li>
+          <li><a href="board.html" data-en="Board">게시판</a></li>
+          <li><a href="download.html" data-en="Download">다운로드</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>LINKS</h4>
+        <ul>
+          <li><a href="https://store.steampowered.com/app/5328770/" target="_blank" rel="noopener">Soul Saver · Steam <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg></a></li>
+          <li><a href="https://github.com/suritola" target="_blank" rel="noopener">GitHub <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg></a></li>
+          <li><a href="mailto:mingeunb0@gmail.com">mingeunb0@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 MinGongbang Games. All rights reserved.</span>
+      <span class="foot-legal"><a href="privacy.html" data-en="Privacy Policy">개인정보처리방침</a><a href="terms.html" data-en="Terms of Service">이용약관</a></span>
+      <span data-en="Steam and the Steam logo are trademarks of Valve Corporation.">Steam 및 Steam 로고는 Valve Corporation의 상표입니다.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/config.js?v=2"></script>
+<script src="js/site.js?v=6" defer></script>
+<script src="js/beta-crypto.js?v=1" defer></script>
+<script src="js/beta-data.js?v=1" defer></script>
+<script src="js/download.js?v=1" defer></script>
+</body>
+</html>
