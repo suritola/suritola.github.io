@@ -4,6 +4,7 @@
 //
 // 쓰는 법(코드는 저장소에 남기지 않는다. 환경 변수나 인자로만 넘긴다):
 //   MG_BETA_CODE=BETA-XXXX-XXXX node tools/beta_add.mjs set moonrope --url <받기 링크> [--version 2026-11-17] [--size "66 MB"]
+//   (100MB 가 넘는 빌드: --parts <조각1 링크>,<조각2 링크>,... --file <저장할 zip 이름> --bytes <전체 바이트 수>. 다운로드 페이지가 조각을 받아 하나로 합친다)
 //   node tools/beta_add.mjs rekey --old BETA-AAAA-AAAA --new BETA-BBBB-BBBB   (모든 게임을 새 코드로 다시 잠근다)
 //   node tools/beta_add.mjs check --code BETA-XXXX-XXXX                       (코드로 무엇이 열리는지 본다)
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -43,12 +44,15 @@ if (cmd === 'set') {
   const id = a._[1];
   const code = a.code || process.env.MG_BETA_CODE;
   const game = d.list.find((g) => g.id === id);
-  if (!game || !a.url || !code) {
+  if (!game || !(a.url || a.parts) || !code) {
     console.error('쓰는 법: MG_BETA_CODE=... node tools/beta_add.mjs set <게임 id> --url <받기 링크>');
     console.error('게임 id: ' + d.list.map((g) => g.id).join(', '));
     process.exit(1);
   }
-  game.lock = await beta.seal({ url: a.url }, code);
+  const inside = a.parts
+    ? { parts: a.parts.split(',').map((s) => s.trim()).filter(Boolean), file: a.file, bytes: Number(a.bytes) || 0 }
+    : { url: a.url };
+  game.lock = await beta.seal(inside, code);
   if (a.version) game.version = a.version;
   if (a.size) game.size = a.size;
   delete game.href;
@@ -75,7 +79,7 @@ if (cmd === 'set') {
   for (const g of d.list) {
     if (!g.lock) continue;
     const inside = await beta.open(g.lock, code);
-    console.log(g.id + ': ' + (inside ? '열림 ' + inside.url : '열리지 않음'));
+    console.log(g.id + ': ' + (inside ? '열림 ' + (inside.url || inside.parts.length + '조각 ' + inside.file) : '열리지 않음'));
   }
 } else {
   console.error('명령: set | rekey | check (파일 맨 위의 쓰는 법 참고)');

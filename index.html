@@ -54,7 +54,7 @@
 }
 </style>
 <link rel="stylesheet" href="css/auth.css?v=1">
-<link rel="stylesheet" href="css/home.css?v=3">
+<link rel="stylesheet" href="css/home.css?v=4">
 <!-- the hero's entrance mark (motion.md): the CSP allows no inline script, so js/enter.js holds the kit line -->
 <script src="js/enter.js?v=2"></script>
 <script src="assets/backgrounds/backgrounds.js"></script>
@@ -82,32 +82,41 @@
         <a class="nav__link" href="#games"><span data-en="Games">게임</span> <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         <div class="nav__menu">
           <div class="wrap grid">
-            <div class="menu-col span-2">
-              <p class="t-label">Deepfold: One Day Deep</p>
-              <a href="#deepfold"><span data-en="About the game">게임 소개</span><span data-en="Papercraft mining game, coming 2027">종이로 만든 채굴 게임, 2027년 출시 예정</span></a>
-              <a href="#how"><span data-en="How it plays">플레이 방식</span><span data-en="Planting ore and digging it up">광맥 심기와 채굴</span></a>
-              <a href="#letters"><span data-en="The letters">편지</span><span data-en="Twelve letters from Grandma">할머니의 편지 열두 통</span></a>
+            <div class="menu-game span-4">
+              <a class="menu-card" href="#deepfold">
+                <div class="panel"><img class="frame__img" src="img/keyart_1280.webp" srcset="img/keyart_1280-480.webp 480w, img/keyart_1280-720.webp 720w, img/keyart_1280.webp 1280w" sizes="(max-width: 1023px) 0px, 30vw" alt="노을 진 폐광촌 노을재와 권양탑" data-en-alt="The old mining town of Noeuljae at sunset, with its headframe" loading="lazy" width="1280" height="720"></div>
+                <span class="t-card">Deepfold: One Day Deep</span>
+                <span class="t-small muted" data-en="Coming to Steam in 2027">2027년 Steam 출시 예정</span>
+              </a>
+              <div class="menu-col">
+                <a href="#deepfold" data-en="About the game">게임 소개</a>
+                <a href="#how" data-en="How it plays">플레이 방식</a>
+                <a href="download.html#get/deepfold" data-en="Beta download">베타 다운로드</a>
+              </div>
             </div>
-            <div class="menu-col span-2">
-              <p class="t-label">Soul Saver</p>
-              <a href="#soulsaver"><span data-en="About the game">게임 소개</span><span data-en="Pixel-art roguelite shooter">도트 로그라이트 슈터</span></a>
-              <a href="https://store.steampowered.com/app/5328770/" target="_blank" rel="noopener"><span data-en="Steam store page">Steam 상점 페이지</span><span data-en="₩1,700 · Free demo">₩1,700 · 무료 체험판</span></a>
+            <div class="menu-game span-4">
+              <a class="menu-card" href="#soulsaver">
+                <div class="panel"><img class="frame__img" src="img/ss_wide.webp" srcset="img/ss_wide-480.webp 480w, img/ss_wide-720.webp 720w, img/ss_wide-1280.webp 1280w, img/ss_wide.webp 2000w" sizes="(max-width: 1023px) 0px, 30vw" alt="Soul Saver의 열네 캐릭터가 해골과 슬라임 무리에 맞선다" data-en-alt="Soul Saver's fourteen characters face a horde of skeletons and slimes" loading="lazy" width="2000" height="646"></div>
+                <span class="t-card">Soul Saver</span>
+                <span class="t-small muted" data-en="Out now on Steam · ₩1,700">Steam 판매 중 · ₩1,700</span>
+              </a>
+              <div class="menu-col">
+                <a href="#soulsaver" data-en="About the game">게임 소개</a>
+                <a href="https://store.steampowered.com/app/5328770/" target="_blank" rel="noopener" data-en="Download on Steam">Steam에서 다운로드</a>
+                <a href="https://store.steampowered.com/app/5369030/" target="_blank" rel="noopener" data-en="Free demo">무료 체험판</a>
+              </div>
             </div>
-            <div class="menu-col span-2">
-              <p class="t-label" data-en="Moonrope">문로프</p>
-              <a href="#moonrope"><span data-en="About the game">게임 소개</span><span data-en="Pull the moon, dig the mudflat">달을 당겨 갯벌을 캐는 게임</span></a>
-              <a href="download.html#get/moonrope"><span data-en="Beta download">베타 다운로드</span><span data-en="Needs a beta code">베타 코드가 필요합니다</span></a>
+            <div class="menu-game span-4">
+              <a class="menu-card" href="#moonrope">
+                <div class="panel"><img class="frame__img" src="img/mr_wide-1280.webp" srcset="img/mr_wide-480.webp 480w, img/mr_wide-720.webp 720w, img/mr_wide-1280.webp 1280w" sizes="(max-width: 1023px) 0px, 30vw" alt="달에 밧줄을 건 바퀴와 물이 빠진 갯벌" data-en-alt="A winch roped to the moon above the drained mudflat" loading="lazy" width="1280" height="720"></div>
+                <span class="t-card" data-en="Moonrope">문로프</span>
+                <span class="t-small muted" data-en="In beta testing">베타 테스트 중</span>
+              </a>
+              <div class="menu-col">
+                <a href="#moonrope" data-en="About the game">게임 소개</a>
+                <a href="download.html#get/moonrope" data-en="Beta download">베타 다운로드</a>
+              </div>
             </div>
-            <a class="menu-card span-3" href="#deepfold">
-              <div class="panel"><img class="frame__img" src="img/keyart_1280.webp" srcset="img/keyart_1280-480.webp 480w, img/keyart_1280-720.webp 720w, img/keyart_1280.webp 1280w" sizes="(max-width: 1023px) 0px, 25vw" alt="노을 진 폐광촌 노을재와 권양탑" data-en-alt="The old mining town of Noeuljae at sunset, with its headframe" loading="lazy" width="1280" height="720"></div>
-              <span class="t-card">Deepfold: One Day Deep</span>
-              <span class="t-small muted" data-en="Coming to Steam in 2027">2027년 Steam 출시 예정</span>
-            </a>
-            <a class="menu-card span-3" href="#soulsaver">
-              <div class="panel"><img class="frame__img" src="img/ss_wide.webp" srcset="img/ss_wide-480.webp 480w, img/ss_wide-720.webp 720w, img/ss_wide-1280.webp 1280w, img/ss_wide.webp 2000w" sizes="(max-width: 1023px) 0px, 25vw" alt="Soul Saver의 열네 캐릭터가 해골과 슬라임 무리에 맞선다" data-en-alt="Soul Saver's fourteen characters face a horde of skeletons and slimes" loading="lazy" width="2000" height="646"></div>
-              <span class="t-card">Soul Saver</span>
-              <span class="t-small muted" data-en="Out now on Steam · ₩1,700">Steam 판매 중 · ₩1,700</span>
-            </a>
           </div>
         </div>
       </div>
@@ -158,11 +167,15 @@
     <a class="hero__scroll" href="#games" aria-label="아래로" data-en-label="Scroll down"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 10l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   </section>
 
-  <!-- GAMES: two tall poster cards; hover grows the art and slides the line up -->
+  <!-- GAMES: three tall poster cards (phones: swipe sideways); hover grows the art and slides the line up -->
   <section class="section" id="games" aria-labelledby="games-h">
     <div class="wrap">
       <div class="section-head section-head--split">
-        <div><h2 id="games-h" data-en="Games">게임</h2></div>
+        <div class="stack-2">
+          <h2 id="games-h" data-en="Games">게임</h2>
+          <p class="games__lead" data-en="From released games to the ones still in the making. Beta builds are on the Download tab.">출시한 게임부터 만들고 있는 게임까지. 베타 빌드는 다운로드 탭에서 받을 수 있습니다.</p>
+        </div>
+        <a class="link games__dl" href="download.html" data-en="Go to downloads">다운로드 탭 가기</a>
       </div>
       <div class="grid">
         <a class="poster span-4" href="#deepfold">
@@ -188,11 +201,11 @@
         <a class="poster span-4" href="#moonrope">
           <img class="poster__img" src="img/mr_tall.webp" srcset="img/mr_tall-480.webp 480w, img/mr_tall-720.webp 720w, img/mr_tall.webp 902w" sizes="(max-width: 639px) 100vw, 33vw" width="902" height="1080" alt="문로프: 밧줄로 달을 당기는 바퀴" data-en-alt="Moonrope: a winch pulling the moon on a rope" loading="lazy">
           <div class="poster__body">
-            <p class="poster__tag" data-en="In beta testing">베타 테스트 중</p>
+            <p class="poster__tag poster__tag--beta" data-en="In beta testing">베타 테스트 중</p>
             <h3 data-en="Moonrope">문로프</h3>
             <p class="poster__sub" data-en="Papercraft mudflat tycoon">종이로 만든 갯벌 타이쿤</p>
             <div class="poster__more"><p data-en="Pull the moon on a rope to drain the sea, then dig up the mudflat.">밧줄로 달을 당겨 바닷물을 빼고, 드러난 갯벌을 캡니다.</p></div>
-            <p class="poster__plat"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 20h8M12 16v4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>PC</span></p>
+            <p class="poster__plat"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 20h8M12 16v4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span data-en="PC · Beta download">PC · 베타 다운로드</span></p>
           </div>
         </a>
       </div>
