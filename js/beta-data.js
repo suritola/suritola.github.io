@@ -33,14 +33,14 @@ window.MG_DOWNLOADS = [
     "img": "img/keyart_1280-720.webp",
     "imgAlt": "노을 진 폐광촌 노을재와 권양탑",
     "imgAltEn": "The old mining town of Noeuljae at sunset, with its headframe",
-    "version": "2026-11-20e",
-    "size": "673 MB",
+    "version": "2026-11-21",
+    "size": "672 MB",
     "platform": "Windows 64-bit",
     "lock": {
       "iter": 250000,
-      "salt": "lZZ135leuL37N2aksvR6Gw==",
-      "iv": "ze+s7r2bvaB9LGXp",
-      "ct": "OVuIeX/oF8pHO4AEOqRTmhIwcvP6TwsgzAgNdosQkF4Iptxv+ehDkhUfRIksPCVGrRgCCnQFYDtUC1rg1161WUy6i3C9vxAOZDsPhno2Jf6cpWweDcVK0Pg6/n7aeE8wxD75pVnB51oqW7y8kkWQIqRMf6s5j57cf1LsixLoB7MftOjkLj6BaIi+wCAgtu3T8X1EmTSxv28LOyMwvoDdVOgmyL4cospn2JN/JxzIYAbIzlkhu1u2sTGEisOiMlkAJwb0XuVQY46wU69B00FuaBc3cBi3thLmX4ThDXdsTYgOkh5nNY44QYf96u/8B5XWqKsmk3V2fDl3jwo4KC9kSPxPgpwsBcG9x0UQZ15ADFSdGQNlpI2vWWCP895uy5gI497rqIcFp4x2E+qXNgUe7oj4a4O59aFQh28LaaAEwUEbg1cHed6ij7J8ZHnkakvFM/9gGx1VnppO/WUxJLXPt2PlGxmPdWpwF7DyMoTn6bIDtR1I33znBHWpUcu8KyJn9nR+FdT4GoISzVVYHVIa3cbn5EL+F6YuHaPpmRhNuqf1gUdlmi1ABWXSnO13EJyxYCqEVT2CMf3EROaLnrzcYS87HB2qxoN2hUfuqXgitwrvmTbUmj4AVeVYwc9cATBAf6vtBIB8n9JDA/Z7UCyHo0nCBGUuW3KdHfL1xY3kMBE131Ga+PNs6/sDAnX+TF9Y58SVsKAo/202Mgi3bPbcymImxzYG3wkc1TkOtdvKuYEv4uArajAalCcOGKNw4NlXdref1KPE0/XWCsIFn7U0bFTpO9PCP6TM3K50oT7M1kEOvzPhfSBBfvp+ppjJjlUzPu1CL5PFsjfqcrZV/5LM8TuUIym3DiyLAS/Y2vF7+8VMSu2udEPgEhw3ncHeABvvEC8xt5G4D6SL3/qve7nA7lAVqQpjvA5zuvm8HNiY7g6rSZYwasZaEdTCgGiEAKH78J4woeyOtRfuHNElQb27E5YZR3zjGaCZmxtQhZbxMCBIYiLOdDrZCjCCUA9HzM0pPlx3FGalrRISrT6WszticWY2ACwS4VYxj5IWbkC+cu5yFhMIaw6zpWett6o+v5Rb9+15uULvRZjL7KDsnOnKBYBniFQVS2MwJsSzdX6D+YTRoUVM9gvA5B/4wArWOnW/pmuv7akqm9HmxvxRzLqvp9gdcVOIJ4exY5XCt43QWwWPji69LQOqArOizK946d0XvBjizgWqIPJASLabxHSCiUUjRmtntYI7ggW97h0yE7x+dazZFyJO7mxHxP8TwUY/TGA8116Y6JFdYfd9N1NLU2T6B5KJan5plz3X9w=="
+      "salt": "MFuC13yKqig7kvg3g7GySg==",
+      "iv": "/mgwXT71LckQEtrl",
+      "ct": "yboYwDk/oyr3iUKDuRktSkdf68DmwLuoUdPwfpOFuxZxu0lam7+GebRXryZMMG05a6kDlAD77Q+C7vHNKTwruBPjBfBiJqgsz5a9f12sMMl9WDHvmmWf1ULPc0hskksGhe59ebZpS7QOHxMyDnck/6RojzRONgpymx2VRYTmAaJ2DNx7PDoViZvk3LFSWXqwzeMOWwvjj91ITZsAr6mEiqf4+NtowcfbLcYffcFgJ9GzJ4t0ENinLS4SkoOuZu5aFUb4rnsBt+8+R9dRE3WuvDjHw/tj8eO+2qy7lE99CO6A3QefY3jrNVeBFn/lo2Byx7fHNCPn2BPSiwPLCPN3yXjbRSmGik5kE3OX6BHK69TWGTgBGvDVpkjJ+oC5gKtKzmolKd7/AqF0LRHbrPfknqORfCALOYRBc1jilMhXhffwVEMpPUMakVEhkSJ67J+LsM0JiXyB9IYy5G7Zwd88jD4zMH7H99th+6St9vQ6wZ4Fl9HUmrDYPyqpC5Rm7Wc6fOdznBJgUYyzzKu1MObiUCn4MdcHGdLVToSfkd8LSD4w/dAUnNwNOsp9Q41WGDRGAeswTJQV2ZpN6SGdE3QilZCu3bnyciQ5iEoOCgvSyi0Rkr9z3VMGAp6ROeARhURBV08v7mNgbnmqEveyW+3PlOhEnQZcRNZ25AX0DxtprIGPu00YcxMg8qUmFIe9S3MWHq5fcJMQPDHRO/+te4ekY0kGszUraL8IerKybmvPUxyVjgQEmd9i3rWhL3QNgrvkGk6dGozF2Y//hNdohJVWj9yvLHDZtB0fd+qJwb8k1NlhSTov8wzgexT/udOJ+hvFQPjSvZqVWnMyAC38i2Q36oHWZxKnBNHlRGeB7JfPklZ7zC9KoqjATXR5hrEHD/bnPPgOx+fwadQndB/7vMWcSSaihBmfVEQFWINISurc5vWPj+XqI3OzhdJc8dgr5DTVAsokdVnHi0cIo5Pesr2kohqt3PYOZCdlgUW/Dfwjhnp7BXS/ZaDX5LxT2LvO+TJIeqEsy+jlWSXAGNB7i1B5lIkUOCnv9pCrPaELYm4uGtdLdOhXBRTj0ptA/OTO4kq774FX+KB0IEk39Xd5IDUpbcH1DZQ3re9C8BYN4tfoon6X3LS6cu9nclXQIZ/xwda8toWxb/P1fuVLpJltsbDf0T/N7hDsDnGdME/rv5W2jZppy7WuJXfJLguF29RMe2EVw8EtdVptx+btLkk0ahHLLkoEnlTF/hLov33by/Zen7hxpJrD4mkkgVTdlmk+PcbyDyH/Xnz8pFGVq0Npin+wPDpvQ6U="
     }
   },
   {
