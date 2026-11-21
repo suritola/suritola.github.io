@@ -244,3 +244,9 @@ body main > .hero > .wrap { height: auto; }
 
 /* 소식 꼬리표: 문로프 */
 .news__tag--mr { background: color-mix(in oklab, #E2552B 14%, transparent); color: #c2410c; }
+
+/* Deepfold 위시리스트(11-21): 큰 주 단추, 스크린샷 16:9 격자 */
+.btn--wish { min-height: 56px; padding-inline: 28px; font-size: 1.0625rem; }
+.shots { row-gap: var(--s-5); }
+.shots > .frame { --ratio: 56.25%; }
+@media (min-width: 640px) and (max-width: 1023px) { .grid.shots > .frame.span-4 { grid-column: auto / span 6; } }

@@ -28,7 +28,8 @@
   }
   document.querySelectorAll('.lang button').forEach(function(b){ b.addEventListener('click', function(){ setLang(b.dataset.lang); }); });
   var saved = null; try { saved = localStorage.getItem('mg-lang'); } catch(e){}
-  if ((q.get('lang') || saved || 'ko') === 'en') setLang('en');
+  var nav = (navigator.language || 'ko').toLowerCase().indexOf('ko') === 0 ? 'ko' : 'en'; // no saved choice: follow the browser
+  if ((q.get('lang') || saved || nav) === 'en') setLang('en');
 
   /* ---------- header + mobile menu ---------- */
   var header = document.getElementById('header');
