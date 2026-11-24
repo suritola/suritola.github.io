@@ -1,0 +1,13 @@
+/* 소식 글(영상) 페이지 */
+.news-post { max-width: 960px; margin: 0 auto; }
+.news-video { margin: 32px 0; }
+.news-video h2 { margin-bottom: 12px; }
+.news-video video { display: block; width: 100%; height: auto; border-radius: 12px; background: #1d1a17; }
+.shorts-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.shorts-row figure { margin: 0; }
+.shorts-row figcaption { margin-top: 8px; text-align: center; }
+.news-cta { margin: 32px 0; text-align: center; }
+.dl-list { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 8px; }
+.dl-list li { justify-content: space-between; }
+@media (max-width: 720px) { .shorts-row { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; } }
+.news-post .news__meta { display: flex; gap: 10px; align-items: center; }
