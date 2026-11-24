@@ -34,7 +34,7 @@
       });
     }
     next().then(function () {
-      var blob = new Blob(blobs, { type: 'video/mp4' });
+      var blob = new Blob(blobs, { type: /\.jpe?g$/.test(f.name) ? 'image/jpeg' : 'video/mp4' });
       if (blob.size !== f.size) throw new Error(t('크기가 맞지 않습니다', 'Size mismatch'));
       save(blob, f.name);
       btn.textContent = t('다시 받기', 'Download again');
