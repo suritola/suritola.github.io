@@ -17,6 +17,7 @@
   document.addEventListener('mg:lang', swap);
 
   var box = document.getElementById('adminDl');
+  if (!box) return;   // 원본 받기는 다운로드 탭에만 있다(11-25)
   function save(blob, name) {
     var a = h('a', { href: URL.createObjectURL(blob), download: name });
     document.body.appendChild(a); a.click(); a.remove();
@@ -47,7 +48,7 @@
     if (!MG.isAdmin()) { box.hidden = true; return; }
     box.hidden = false;
     box.appendChild(h('h2', {}, t('관리자: 고화질 원본 받기', 'Admin: download the originals')));
-    box.appendChild(h('p', { class: 'hint' }, t('관리자에게만 보입니다. 편집 전 원본 그대로(1080p 60fps)입니다.', 'Only admins see this. Untouched masters (1080p 60fps).')));
+    box.appendChild(h('p', { class: 'hint' }, t('관리자에게만 보입니다. 트레일러·숏폼·릴스의 편집 전 원본 그대로(1080p 60fps)입니다.', 'Only admins see this. Untouched masters of the trailers, shorts and reels (1080p 60fps).')));
     var ul = h('ul', { class: 'dl-list' });
     FILES.forEach(function (f) {
       var btn = h('button', { class: 'btn btn--sm', type: 'button' }, t('받기', 'Download'));
