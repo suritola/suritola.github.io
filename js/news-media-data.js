@@ -11,4 +11,5 @@ window.NEWS_MEDIA = [
   {name: "reel_vc01_thumb.jpg", label: "릴스 1편 · 썸네일", size: 217098, parts: ["reel_vc01_thumb.jpg"]},
   {name: "reel_vc07_ko.mp4", label: "릴스 · 똑같이 물었는데 왜 답이 매번 다를까?", size: 35118253, parts: ["reel_vc07_ko.mp4"]},
   {name: "reel_vc07_thumb.jpg", label: "릴스 · 똑같이 물었는데 왜 답이 매번 다를까? 썸네일", size: 218045, parts: ["reel_vc07_thumb.jpg"]},
+  {name: "reel_vc08_ko.mp4", label: "릴스 · AI한테 \"고마워\"라고 하면 돈이 든다?", size: 29136300, parts: ["reel_vc08_ko.mp4"]},
 ];
