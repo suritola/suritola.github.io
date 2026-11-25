@@ -9,10 +9,4 @@ window.NEWS_MEDIA = [
   {name: "deepfold_shortC_en.mp4", label: "숏폼 C · en", size: 40263304, parts: ["deepfold_shortC_en.mp4.part00"]},
   {name: "reel_vc01_ko.mp4", label: "릴스 1편 · AI가 시킨 걸 자꾸 까먹는 이유", size: 35688180, parts: ["reel_vc01_ko_v2.mp4"]},
   {name: "reel_vc01_thumb.jpg", label: "릴스 1편 · 썸네일", size: 217098, parts: ["reel_vc01_thumb.jpg"]},
-  {name: "reel_vc02_ko.mp4", label: "릴스 2편 · \"한 단계씩 생각해 봐\" 한 줄 넣었더니", size: 40251886, parts: ["reel_vc02_ko.mp4"]},
-  {name: "reel_vc02_thumb.jpg", label: "릴스 2편 · 썸네일", size: 194562, parts: ["reel_vc02_thumb.jpg"]},
-  {name: "reel_vc03_ko.mp4", label: "릴스 3편 · AI 둘을 서로 대화시켰더니", size: 41946370, parts: ["reel_vc03_ko.mp4"]},
-  {name: "reel_vc03_thumb.jpg", label: "릴스 3편 · 썸네일", size: 185197, parts: ["reel_vc03_thumb.jpg"]},
-  {name: "reel_vc04_ko.mp4", label: "릴스 4편 · AI는 시험받는 걸 눈치챌까?", size: 61191455, parts: ["reel_vc04_ko.mp4.part00","reel_vc04_ko.mp4.part01"]},
-  {name: "reel_vc04_thumb.jpg", label: "릴스 4편 · 썸네일", size: 212534, parts: ["reel_vc04_thumb.jpg"]},
 ];
