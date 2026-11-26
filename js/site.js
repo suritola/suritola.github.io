@@ -122,6 +122,9 @@
     s.onload = function(){
       sb = window.supabase.createClient(CFG.SUPABASE_URL, CFG.SUPABASE_ANON_KEY);
       MG.sb = sb;
+      // 방문자 수: 브라우저마다 무작위 ID 하나, 서버가 하루 한 번만 센다 (supabase/migrations/2026-11-26_visit_counter.sql)
+      var vid; try { vid = localStorage.getItem('mg_vid'); if (!vid) { vid = crypto.randomUUID(); localStorage.setItem('mg_vid', vid); } } catch(e) { vid = null; }
+      if (vid) sb.rpc('log_visit', {p_vid: vid}).then(function(){}, function(){});
       sb.auth.onAuthStateChange(function(ev, sess){
         session = sess;
         // supabase-js holds an auth lock inside this callback: do DB work on the next tick (docs recommendation)

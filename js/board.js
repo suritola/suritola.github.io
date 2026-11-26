@@ -446,6 +446,12 @@
   function renderAdmin(){
     if (!MG.isAdmin()) return view.appendChild(h('p', {class:'empty'}, t('운영자만 볼 수 있는 화면입니다.', 'Staff only.')));
     view.appendChild(h('div', {}, h('a', {class:'btn--ghost', href:'#', html:I.back + '<span>' + t('게시판으로', 'Back to board') + '</span>'})));
+    var visits = h('p', {class:'muted'}, t('불러오는 중…', 'Loading…'));
+    view.appendChild(h('section', {class:'card'}, [h('h2', {}, t('방문자', 'Visitors')), visits]));
+    MG.sb.rpc('visit_stats').then(function(r){
+      visits.textContent = r.error ? MG.errMsg(r.error)
+        : t('오늘 ' + r.data.today.toLocaleString() + '명 · 전체 ' + r.data.total.toLocaleString() + '명', 'Today ' + r.data.today.toLocaleString() + ' · Total ' + r.data.total.toLocaleString());
+    });
     var rep = h('section', {class:'card'}, h('h2', {}, t('신고 목록', 'Reports'))), box = h('div'); rep.appendChild(box); box.appendChild(loading()); view.appendChild(rep);
     MG.sb.from('reports').select('*').is('resolved_at', null).order('created_at', {ascending:false}).then(function(r){
       if (r.error) return fail(box, r.error);
