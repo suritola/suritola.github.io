@@ -169,7 +169,6 @@
     return '<div class="field"><label for="'+id+'">'+label+'</label><input class="input" id="'+id+'" name="'+id+'" type="'+type+'" '+(extra||'')+'><p class="err" id="'+id+'-err" aria-live="polite"></p></div>';
   }
   function buildDialog(){
-    var legal = '<a href="terms.html" target="_blank" rel="noopener" data-en="Terms">이용약관</a>·<a href="privacy.html" target="_blank" rel="noopener" data-en="Privacy Policy">개인정보처리방침</a>';
     dlg = h('dialog', {class:'dlg', id:'authDlg', 'aria-labelledby':'authTitle', html:
       '<div class="dlg-in">' +
       '<button class="dlg-close" type="button" aria-label="닫기" data-en-label="Close"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>' +
@@ -193,9 +192,18 @@
       field('sEmail', '<span data-en="Email">이메일</span>', 'email', 'autocomplete="email" required') +
       field('sPass', '<span data-en="Password (8+ characters)">비밀번호 (8자 이상)</span>', 'password', 'autocomplete="new-password" required minlength="8"') +
       '<div class="checks">' +
+      '<label class="check check--all"><input type="checkbox" id="sAll"><span data-en="Agree to all (including optional)">모두 동의합니다 (선택 포함)</span></label>' +
       '<label class="check"><input type="checkbox" id="sAge" required><span data-en="I am 14 or older. (required)">만 14세 이상입니다. <b>(필수)</b></span></label><p class="err" id="sAge-err" aria-live="polite"></p>' +
-      '<label class="check"><input type="checkbox" id="sTerms" required><span><span data-en="I agree to the ">다음에 동의합니다: </span>'+legal+' <b data-en="(required)">(필수)</b></span></label><p class="err" id="sTerms-err" aria-live="polite"></p>' +
-      '<label class="check"><input type="checkbox" id="sNews"><span data-en="Email me news and launch announcements. (optional)">소식·출시 알림 메일을 받겠습니다. <b>(선택)</b></span></label>' +
+      '<label class="check"><input type="checkbox" id="sTerms" required><span><span data-en="I agree to the ">다음에 동의합니다: </span><a href="terms.html" target="_blank" rel="noopener" data-en="Terms of Service">이용약관</a> <b data-en="(required)">(필수)</b></span></label><p class="err" id="sTerms-err" aria-live="polite"></p>' +
+      '<label class="check"><input type="checkbox" id="sPriv" required><span data-en="I agree to the collection and use of personal information below. (required)">아래 개인정보 수집·이용에 동의합니다. <b>(필수)</b></span></label><p class="err" id="sPriv-err" aria-live="polite"></p>' +
+      '<details class="consent"><summary data-en="What is collected">수집 내용 보기</summary><dl>' +
+        '<dt data-en="Purpose">목적</dt><dd data-en="Member sign-in, running the board (author display, reports, abuse prevention), profile and badges">회원 식별·로그인, 게시판 운영(작성자 표시·신고 처리·부정 이용 방지), 프로필·배지 제공</dd>' +
+        '<dt data-en="Items">항목</dt><dd data-en="Email, password (stored hashed), nickname, age and consent records">이메일, 비밀번호(암호화 저장), 닉네임, 만 14세 확인·동의 기록</dd>' +
+        '<dt data-en="Kept until">보유 기간</dt><dd data-en="Deleted immediately when you delete your account (longer only where a law requires it)">회원 탈퇴 시 즉시 삭제 (법령이 보존을 요구하면 그 기간까지)</dd>' +
+        '<dt data-en="Your choice">거부 권리</dt><dd data-en="You may refuse. You can still browse the site, but not sign up or post.">동의하지 않을 수 있으며, 이 경우 사이트는 볼 수 있지만 가입과 글쓰기는 할 수 없습니다.</dd>' +
+      '</dl><p data-en="Stored with a processor based abroad (Supabase, US). Details:">해외 수탁자(Supabase, 미국)에 저장됩니다. 자세한 내용:</p><a href="privacy.html" target="_blank" rel="noopener" data-en="Privacy Policy">개인정보처리방침</a></details>' +
+      '<label class="check"><input type="checkbox" id="sNews"><span data-en="I agree to receive promotional email (news and launch announcements). (optional)">광고성 정보(소식·출시 알림) 메일 수신에 동의합니다. <b>(선택)</b></span></label>' +
+      '<p class="hint" data-en="You can turn this off anytime in your profile or via the link in any email.">프로필 화면이나 메일 속 수신 거부 링크로 언제든 끌 수 있습니다.</p>' +
       '</div>' +
       '<p class="err form-err" aria-live="polite"></p>' +
       '<button class="btn btn--block" type="submit"><span data-en="Create account">가입하기</span></button>' +
@@ -218,7 +226,7 @@
       // oauth
       '<div class="oauth" id="oauth" hidden><span class="or" data-en="or">또는</span>' +
       '<button class="btn btn--light btn--block" type="button" id="googleBtn"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="fill:currentColor;stroke:none"><path d="M21.6 12.2c0-.7-.1-1.3-.2-1.9H12v3.7h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.3z"/><path d="M12 22c2.7 0 5-.9 6.6-2.4l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22z"/><path d="M6.4 13.9A6 6 0 0 1 6.1 12c0-.7.1-1.3.3-1.9V7.5H3.1A10 10 0 0 0 2 12c0 1.6.4 3.1 1.1 4.5l3.3-2.6z"/><path d="M12 5.9c1.5 0 2.8.5 3.8 1.5l2.9-2.9A10 10 0 0 0 3.1 7.5l3.3 2.6C7.2 7.7 9.4 5.9 12 5.9z"/></svg><span data-en="Continue with Google">Google로 계속</span></button>' +
-      '<p class="hint" data-en="By continuing you confirm you are 14 or older and agree to the Terms and Privacy Policy.">계속하면 만 14세 이상임을 확인하고 이용약관·개인정보처리방침에 동의하는 것으로 봅니다.</p></div>' +
+      '<p class="hint" data-en="Signing up with Google for the first time confirms you are 14 or older and agree to the Terms and to the collection of personal information.">Google로 처음 가입하면 만 14세 이상임을 확인하고 이용약관과 개인정보 수집·이용에 동의하는 것으로 봅니다.</p></div>' +
       '</div>'});
     document.body.appendChild(dlg);
     dlg.querySelector('.dlg-close').addEventListener('click', function(){ dlg.close(); });
@@ -228,8 +236,14 @@
     dlg.querySelector('#fSignup').addEventListener('submit', submitSignup);
     dlg.querySelector('#fReset').addEventListener('submit', submitReset);
     dlg.querySelector('#fNewpass').addEventListener('submit', submitNewpass);
+    var sAll = dlg.querySelector('#sAll'), sBoxes = dlg.querySelectorAll('#fSignup .check:not(.check--all) input');
+    sAll.addEventListener('change', function(){ sBoxes.forEach(function(b){ b.checked = sAll.checked; }); });
+    sBoxes.forEach(function(b){ b.addEventListener('change', function(){ sAll.checked = Array.prototype.every.call(sBoxes, function(x){ return x.checked; }); }); });
     dlg.querySelector('#googleBtn').addEventListener('click', function(){
-      if (!needSb(dlg.querySelector('form:not([hidden])'))) return;
+      var form = dlg.querySelector('form:not([hidden])');
+      if (!needSb(form)) return;
+      // signing up with Google needs the same required consents as the email form
+      if (form.id === 'fSignup' && !['sAge','sTerms','sPriv'].every(function(id){ return form[id].checked; })) { validate(form); return formErr(form, t('필수 항목에 동의한 뒤 Google로 가입할 수 있습니다.', 'Tick the required boxes first to sign up with Google.')); }
       sb.auth.signInWithOAuth({provider:'google', options:{redirectTo: location.origin + location.pathname}}).then(function(r){ if (r.error) formErr(dlg.querySelector('form:not([hidden])'), errMsg(r.error)); });
     });
   }
@@ -264,7 +278,7 @@
     e.preventDefault(); var f = e.target; if (!needSb(f) || !validate(f)) return; busy(f, true); formErr(f, '');
     sb.auth.signUp({email: f.sEmail.value.trim(), password: f.sPass.value, options:{
       emailRedirectTo: SITE + '/profile.html',
-      data: {nickname: f.sNick.value.trim(), newsletter_opt_in: f.sNews.checked, age_14_plus: true, agreed_terms: true}
+      data: {nickname: f.sNick.value.trim(), newsletter_opt_in: f.sNews.checked, age_14_plus: true, agreed_terms: true, agreed_privacy: true}
     }}).then(function(r){
       busy(f, false);
       if (r.error) return formErr(f, errMsg(r.error));

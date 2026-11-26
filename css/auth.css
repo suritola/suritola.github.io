@@ -82,3 +82,11 @@
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;z-index:300;background:var(--mg-ink);color:var(--mg-bg);padding:12px 20px;border-radius:4px;font:500 15px/1.4 var(--mg-font);max-width:calc(100vw - 32px);text-align:center;transition:transform 260ms,opacity 260ms;pointer-events:none}
 .toast.show{transform:translate(-50%,0);opacity:1}
 @media(prefers-reduced-motion:reduce){.toast,.dlg .btn,.lang button,.auth-btn{transition:none}.dlg .btn.busy::after{animation-duration:1.5s}}
+.dlg .check--all{font-weight:600;padding-bottom:8px;border-bottom:1px solid var(--mg-line)}
+.dlg .consent{margin:-2px 0 2px 30px;font-size:14px;color:var(--mg-muted)}
+.dlg .consent summary{cursor:pointer;color:var(--mg-action-deep);font-weight:500;min-height:24px}
+.dlg .consent dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:8px 0}
+.dlg .consent dt{font-weight:600;color:var(--mg-ink)}
+.dlg .consent dd{margin:0;line-height:1.5}
+.dlg .consent p{display:inline;margin:0 4px 0 0}
+.dlg .consent a{color:var(--mg-action-deep);font-weight:500}
